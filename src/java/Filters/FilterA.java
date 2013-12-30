@@ -24,28 +24,18 @@ public class FilterA implements Filter{
       try{
          HttpSession session = ((HttpServletRequest) request).getSession();
         //HttpSession session = request.getSession();           
-        int id;
-        synchronized(session){id = (Integer) session.getAttribute("idUser");}
-        
+               
         HttpServletResponse res = (HttpServletResponse) response;
         
-        if(session == null)
+        if(session != null && !session.isNew()) {
+            chain.doFilter(request, response);
+        } else {
             res.sendRedirect("index.html");
-        else{
-            try
-            {
-                chain.doFilter(request, response);
-            }
-            catch(Exception ex)
-            {
-                ex.printStackTrace();
-            }
         }
         
       }catch (Exception e){
           
-      }
-      
+      }   
       
       
       
