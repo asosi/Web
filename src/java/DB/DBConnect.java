@@ -24,10 +24,7 @@ public class DBConnect {
      
      public DBConnect(PrintWriter out){
         conn = null;
-        //String url = "jdbc:mysql://87.15.32.193:3306/";//dolce
-        String url = "jdbc:mysql://80.116.139.211:3306/";//unitn
-        //String url = "jdbc:mysql://192.168.1.133:3306/";//sosi
-        //String url = "jdbc:mysql://localhost:3306/";//dolce
+        String url = "jdbc:mysql://82.56.40.103:3306/";
         String dbName = "new_schema";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "user";
