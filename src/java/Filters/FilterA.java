@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class FilterA implements Filter{
@@ -25,21 +26,29 @@ public class FilterA implements Filter{
         //HttpSession session = request.getSession();           
         int id;
         synchronized(session){id = (Integer) session.getAttribute("idUser");}
+        
+        HttpServletResponse res = (HttpServletResponse) response;
+        
+        if(session == null)
+            res.sendRedirect("index.html");
+        else{
+            try
+            {
+                chain.doFilter(request, response);
+            }
+            catch(Exception ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+        
       }catch (Exception e){
           
       }
       
-      //se c'è sessione lascio vedere la pagina, sennò reindirizzo al login
       
       
-      try
-      {
-        chain.doFilter(request, response);
-      }
-      catch(Exception ex)
-      {
-       ex.printStackTrace();
-      }
+      
       
   }
   
