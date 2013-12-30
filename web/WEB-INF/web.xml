@@ -80,6 +80,10 @@
             <param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>FilterA</servlet-name>
+        <servlet-class>Filters.FilterA</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -148,10 +152,19 @@
         <servlet-name>UploadFile</servlet-name>
         <url-pattern>/UploadFile</url-pattern>
     </servlet-mapping>
+    
+    <filter>
+        <filter-name>FilterA</filter-name>
+        <filter-class>Filters.FilterA</filter-class>
+    </filter>
+     <filter-mapping>
+        <filter-name>FilterA</filter-name>
+        <url-pattern>/Home</url-pattern>
+    </filter-mapping>
+   
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
 </web-app>
