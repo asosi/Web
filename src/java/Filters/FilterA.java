@@ -8,6 +8,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class FilterA implements Filter{
@@ -20,8 +21,8 @@ public class FilterA implements Filter{
       //faccio qualcosa prima di chiamare la servlet Home 
       //tipo posso controllare che l'utente sia loggato e controllo la sessione
       try{
-          
-        HttpSession session = request.getSession();           
+         HttpSession session = ((HttpServletRequest) request).getSession();
+        //HttpSession session = request.getSession();           
         int id;
         synchronized(session){id = (Integer) session.getAttribute("idUser");}
       }catch (Exception e){
