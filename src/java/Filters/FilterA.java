@@ -27,7 +27,7 @@ public class FilterA implements Filter{
                
         HttpServletResponse res = (HttpServletResponse) response;
         
-        if(session != null && !session.isNew()) {
+        if(session != null && !session.isNew()){
             chain.doFilter(request, response);
         } else {
             res.sendRedirect("index.html");
