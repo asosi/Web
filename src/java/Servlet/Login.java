@@ -7,13 +7,18 @@
 package Servlet;
 
 import DB.DBConnect;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +30,9 @@ import javax.servlet.http.HttpSession;
  * @author Amedeo
  */
 public class Login extends HttpServlet {
-
+    
     int id;
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,6 +49,9 @@ public class Login extends HttpServlet {
         try {
             String user = request.getParameter("username");
             String pass = request.getParameter("password");
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
+            db.DBClose();
             if(Validate(user,pass,out)==true){
                 
                 HttpSession session = request.getSession(true);                
@@ -64,14 +73,12 @@ public class Login extends HttpServlet {
                             }
                         }
                 }
-                
                 response.sendRedirect("Home");
             }
             else{
                 response.sendRedirect("loginError.html");
             }
             out.close();
-            
             
         } catch(Exception e) {
         }
@@ -82,7 +89,7 @@ public class Login extends HttpServlet {
         boolean st = false;
         try{
             
-            DBConnect db = new DBConnect(out);
+            DBConnect db = new DBConnect(out,ip);
             PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where username = ? and password = ?");
             ps.setString(1, user);
             ps.setString(2, pass);
@@ -91,6 +98,7 @@ public class Login extends HttpServlet {
             
             st = rs.next();
             id= rs.getInt("id");
+            
             rs.close();
             db.DBClose();
         }catch(Exception e){

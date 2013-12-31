@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  */
 public class AddGroup extends HttpServlet {
 
-    
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,7 +43,8 @@ public class AddGroup extends HttpServlet {
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             PrintWriter out = response.getWriter();
-            DBConnect db = new DBConnect(out);
+            request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             String name = request.getParameter("group_name");
             String avatar = request.getParameter("group_avatar");
@@ -75,7 +76,7 @@ public class AddGroup extends HttpServlet {
     }    
     
     private void AddGroup(String nome, String image, int id, PrintWriter out){
-         DBConnect db = new DBConnect(out);
+         DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert into groups (name,id_owner, avatar) values "
@@ -91,7 +92,7 @@ public class AddGroup extends HttpServlet {
     }
     
     private int returnID(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         int idG = -1;
         
         try{
@@ -110,7 +111,7 @@ public class AddGroup extends HttpServlet {
     }
 
     private void AddMembers(int idG,String [] membri, PrintWriter out){
-         DBConnect db = new DBConnect(out);
+         DBConnect db = new DBConnect(out,ip);
                
             for(int i = 0; i < membri.length; i++){
                 AddInvito(idG, membri[i], out);
@@ -121,7 +122,7 @@ public class AddGroup extends HttpServlet {
     }
     
     private void AddInvito(int idG,String membro, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert into ask (id_groups, id_users) values (?,?)");
             ps.setInt(1, idG);
@@ -133,7 +134,7 @@ public class AddGroup extends HttpServlet {
     }
     
     private void AddNews(String membro, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         String news = "Hai nuovi inviti";
         String page = "Inviti";
         try{
@@ -152,7 +153,7 @@ public class AddGroup extends HttpServlet {
     
     private boolean ValidateNews(String idU, String page, PrintWriter out){
         
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         boolean st = false;
         
         try{

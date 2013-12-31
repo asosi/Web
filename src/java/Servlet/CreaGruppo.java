@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 public class CreaGruppo extends HttpServlet {
     
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,7 +43,8 @@ public class CreaGruppo extends HttpServlet {
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             PrintWriter out = response.getWriter();
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             request.getRequestDispatcher("webPages/CreaGruppo/CreaGruppo1.html").include(request, response);
             Name(id, out);
@@ -57,7 +59,7 @@ public class CreaGruppo extends HttpServlet {
     }
     
     private void Name(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name from users where id = ?");            
@@ -75,7 +77,7 @@ public class CreaGruppo extends HttpServlet {
     }
 
      private void Table(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT id,name,surname,avatar from users where id <> ? order by surname,name");            
@@ -111,7 +113,7 @@ public class CreaGruppo extends HttpServlet {
     }
     
     private void EditAvatar(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,surname,avatar from users where id = ?");

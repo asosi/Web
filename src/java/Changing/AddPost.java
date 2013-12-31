@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
 public class AddPost extends HttpServlet {
     
     private String dirName;
-    
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -61,7 +61,8 @@ public class AddPost extends HttpServlet {
             int id;
             synchronized(session){ id = (Integer) session.getAttribute("idUser");}
             PrintWriter out = response.getWriter();
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             String text = request.getParameter("testopost");
             //idG = request.getParameter("idG");
@@ -108,7 +109,7 @@ public class AddPost extends HttpServlet {
     }
         
     private String ReturnIDPost(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         String idP = "-1";
         
         try{
@@ -127,7 +128,7 @@ public class AddPost extends HttpServlet {
     }
     
     private void Add(String text, String idG, int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert into post (id_groups, id_users, text) values (?,?,?)");
@@ -144,7 +145,7 @@ public class AddPost extends HttpServlet {
     private List<String> SearchMembers(String idG, int id, PrintWriter out, String name){
         List<String> membri = new ArrayList<String>();
         
-        DBConnect db = new DBConnect(out);        
+        DBConnect db = new DBConnect(out,ip);        
         try{
             PreparedStatement ps = db.conn.prepareStatement("(select users_groups.ID_users, groups.name\n" +
                     " from users_groups, groups\n" +
@@ -173,7 +174,7 @@ public class AddPost extends HttpServlet {
     }
     
     private void AddNews(String membro, String idG, PrintWriter out, String name){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         String news = "Nuovi post nel gruppo "+name;
         String page = "GroupPage?numero="+idG;
         try{
@@ -192,7 +193,7 @@ public class AddPost extends HttpServlet {
     
     private boolean ValidateNews(String idU, String page, PrintWriter out){
         boolean st = false;
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM news where id_users = ? and page = ? and see = 0");
@@ -211,7 +212,7 @@ public class AddPost extends HttpServlet {
     }
     
     private void AddFile(String nome, String idG, String idP, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert post_file (id_post,post_file) values (?,?)");
             ps.setString(1, idP );

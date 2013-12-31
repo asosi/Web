@@ -7,7 +7,13 @@
 package DB;
 
 import java.io.PrintWriter;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  *
@@ -22,9 +28,13 @@ public class DBConnect {
      */
      public static void main(String[] args) {}
      
-     public DBConnect(PrintWriter out){
+     public DBConnect(PrintWriter out, String IP){
         conn = null;
-        String url = "jdbc:mysql://82.56.40.103:3306/";
+        //String url = "jdbc:mysql://82.56.40.103:3306/";   //sosi 
+        //String url = "jdbc:mysql://192.168.0.7:3306/";   //for me
+        //inizializza ip
+        String url = "jdbc:mysql://"+IP+":3306/";
+        
         String dbName = "new_schema";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "user";

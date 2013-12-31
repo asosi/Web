@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class EditGroup extends HttpServlet {
 
     String idG;
-    
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,7 +47,8 @@ public class EditGroup extends HttpServlet {
             
             PrintWriter out = response.getWriter();
             
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             
             String name = request.getParameter("group_name");
@@ -80,7 +81,7 @@ public class EditGroup extends HttpServlet {
     }
     
     private void EditGroupName(String nome, PrintWriter out){
-         DBConnect db = new DBConnect(out);
+         DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("update groups set name = ? where id = ?");
@@ -94,7 +95,7 @@ public class EditGroup extends HttpServlet {
     }
 
    private void AddMembers(String [] membri, PrintWriter out){
-         DBConnect db = new DBConnect(out);
+         DBConnect db = new DBConnect(out,ip);
         
         try{
             for(int i = 0; i < membri.length; i++){                 
@@ -122,7 +123,7 @@ public class EditGroup extends HttpServlet {
     }
    
    private void EditMembers(String [] nomembri, PrintWriter out){
-         DBConnect db = new DBConnect(out);
+         DBConnect db = new DBConnect(out,ip);
         
         try{
             for(int i = 0; i < nomembri.length; i++){                 
@@ -140,7 +141,7 @@ public class EditGroup extends HttpServlet {
     
     private boolean ValidateMembers(String gruppo, String utente, PrintWriter out){
         boolean st = false;
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM users_groups where id_groups = ? and id_users = ? and active=1");
             ps.setString(1, gruppo);
@@ -159,7 +160,7 @@ public class EditGroup extends HttpServlet {
     
     private boolean ValidateAsk(String gruppo, String utente, PrintWriter out){
         boolean st = false;
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM ask where id_groups = ? and id_users = ? and state <> 0");
@@ -178,7 +179,7 @@ public class EditGroup extends HttpServlet {
     } 
 
     private void AddNews(String membro, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         String news = "Hai nuovi inviti";
         String page = "Inviti";
         try{
@@ -198,7 +199,7 @@ public class EditGroup extends HttpServlet {
     
     private boolean ValidateNews(String idU, String page, PrintWriter out){
         boolean st = false;
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         try{
             
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM news where id_users = ? and page = ? and see = 0");

@@ -152,16 +152,14 @@
         <servlet-name>UploadFile</servlet-name>
         <url-pattern>/UploadFile</url-pattern>
     </servlet-mapping>
-    
     <filter>
         <filter-name>FilterA</filter-name>
         <filter-class>Filters.FilterA</filter-class>
     </filter>
-     <filter-mapping>
+    <filter-mapping>
         <filter-name>FilterA</filter-name>
         <url-pattern>/Home</url-pattern>
     </filter-mapping>
-   
     <session-config>
         <session-timeout>
             30

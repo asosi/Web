@@ -23,11 +23,11 @@ import java.sql.SQLException;
 
 public class CreatePDF extends HttpServlet {
     
-                
+    String ip;            
                 
     //mi viene passato ID gruppo quando schiaccio il bottone
     String idGroup;
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
@@ -50,7 +50,8 @@ public class CreatePDF extends HttpServlet {
                 //nome e cognone / numero partecipanti al gruppo da prendere dal DB               
                 // SELECT COUNT(id) FROM test.users_group, test.users WHERE ID_groups = #idGroup# AND ID_users = ID
                  //connessione al DB
-                DBConnect db = new DBConnect(null);
+                ip = request.getLocalAddr();
+                DBConnect db = new DBConnect(null,ip);
                 PreparedStatement ps1 = db.conn.prepareStatement("SELECT COUNT(id) FROM users_groups, users WHERE ID_groups = ? AND ID_users = ID AND active = 1");
                 ps1.setString(1, idGroup);
                 ResultSet rs1 = db.Query(ps1,null);

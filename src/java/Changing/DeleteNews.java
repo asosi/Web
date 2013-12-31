@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DeleteNews extends HttpServlet {
 
-    
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,7 +37,8 @@ public class DeleteNews extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             String link = request.getParameter("val");  
             String idG = request.getParameter("id");  
@@ -51,7 +52,7 @@ public class DeleteNews extends HttpServlet {
     }
     
     private void Delete(String id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("update news set see = 1 where id = ?");

@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 public class GroupPage extends HttpServlet {
     
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,7 +46,8 @@ public class GroupPage extends HttpServlet {
             idG = request.getParameter("numero");
             session.setAttribute("idG", idG);
             PrintWriter out = response.getWriter();
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             request.getRequestDispatcher("webPages/GroupPage/GroupPage1.html").include(request, response);
             Name(id, out);
@@ -65,7 +67,7 @@ public class GroupPage extends HttpServlet {
     }
     
     private void Name(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name from users where id = ?");
@@ -83,7 +85,7 @@ public class GroupPage extends HttpServlet {
     }
     
     private void Post(String idG, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("select post.id,users.name,users.surname,users.avatar,\n" +
@@ -125,7 +127,7 @@ public class GroupPage extends HttpServlet {
     }
     
     private void GroupTitle(String idG, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,avatar from groups where id = ?");
             ps.setString(1, idG);
@@ -141,7 +143,7 @@ public class GroupPage extends HttpServlet {
     }
     
     private void SetGroupTextBox(int id, String idG, PrintWriter out){        
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name from users where id = ?");
@@ -158,7 +160,7 @@ public class GroupPage extends HttpServlet {
     }
     
     private void EditAvatar(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,surname,avatar from users where id = ?");

@@ -27,6 +27,7 @@ public class DownloadFile extends javax.servlet.http.HttpServlet implements
     int id;
     PrintWriter out;
     String idP;
+    String ip;
     
     public void init() {
         // the file data.xls is under web application folder
@@ -35,7 +36,7 @@ public class DownloadFile extends javax.servlet.http.HttpServlet implements
     
     private List<String> Files(){
         List<String> lista = new ArrayList<String>();        
-        DBConnect db = new DBConnect(out);        
+        DBConnect db = new DBConnect(out,ip);        
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT post_file from post_file where id_post = ?");
             ps.setString(1, idP);
@@ -56,6 +57,7 @@ public class DownloadFile extends javax.servlet.http.HttpServlet implements
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         
+            ip = request.getLocalAddr();
             List<String> lista = new ArrayList<String>();  
             idP = request.getParameter("idP");
                 HttpSession session = request.getSession();

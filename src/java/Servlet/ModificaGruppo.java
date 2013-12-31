@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class ModificaGruppo extends HttpServlet {
 
     int contatore;
-    
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,7 +47,8 @@ public class ModificaGruppo extends HttpServlet {
             String idG;
             idG = request.getParameter("numero");
             PrintWriter out = response.getWriter();
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             request.getRequestDispatcher("webPages/ModificaGruppo/ModificaGruppo1.html").include(request, response);
             Name(id,out);
@@ -68,7 +69,7 @@ public class ModificaGruppo extends HttpServlet {
     }
     
     private void Name(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name from users where id = ?");
@@ -86,7 +87,7 @@ public class ModificaGruppo extends HttpServlet {
     }
 
     private void EditAvatar(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,surname,avatar from users where id = ?");
@@ -105,7 +106,7 @@ public class ModificaGruppo extends HttpServlet {
     }
     
     private void Table(String idG, PrintWriter out){
-        DBConnect db = new DBConnect(out);        
+        DBConnect db = new DBConnect(out,ip);        
         try{
             PreparedStatement ps = db.conn.prepareStatement("select id, name, surname, avatar from users, users_groups where users.ID = users_groups.Id_users and users_groups.ID_groups =? and active = 1");
             ps.setString(1, idG);
@@ -134,7 +135,7 @@ public class ModificaGruppo extends HttpServlet {
     }
     
     private void Table1(int id, String idG, PrintWriter out){
-        DBConnect db = new DBConnect(out);        
+        DBConnect db = new DBConnect(out,ip);        
         try{
             PreparedStatement ps = db.conn.prepareStatement("select users.id, users.name, users.surname, users.avatar" +
                                                             " from users where users.id NOT IN " +
@@ -169,7 +170,7 @@ public class ModificaGruppo extends HttpServlet {
     }
     
     private void GroupTitle(String idG, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name from groups where id = ?");

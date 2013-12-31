@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 public class AcceptDeclineInvite extends HttpServlet {
     
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,7 +45,8 @@ public class AcceptDeclineInvite extends HttpServlet {
             String id;
             id = Integer.toString(idT);
             PrintWriter out = response.getWriter();
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             /* TODO output your page here. You may use following sample code. */
             String a = request.getParameter("accettati");
@@ -65,14 +67,14 @@ public class AcceptDeclineInvite extends HttpServlet {
     }
     
     private void Decline(String [] de, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out);                
+        DBConnect db = new DBConnect(out,ip);                
         for(int i = 0; i < de.length; i++){
             Update(2, de[i], id, out);
         }                    
     }
     
     private void Accept(String [] ac, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out);                
+        DBConnect db = new DBConnect(out,ip);                
         for(int i = 0; i < ac.length; i++){
             Update(1, ac[i], id, out);
             if(!ValidateMembers(ac[i], id, out))
@@ -83,7 +85,7 @@ public class AcceptDeclineInvite extends HttpServlet {
     }
     
     private void Update(int val, String idG, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("update ask set state = ? where id_groups = ? and id_users = ?");
@@ -97,7 +99,7 @@ public class AcceptDeclineInvite extends HttpServlet {
     }
     
     private void InsertMember(String idG, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert into users_groups (id_groups,id_users) values(?,?)");
@@ -110,7 +112,7 @@ public class AcceptDeclineInvite extends HttpServlet {
     }
     
     private void UpdateMember(String idG, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("update users_groups set active = 1 where id_users = ? and id_groups = ?");
@@ -124,11 +126,11 @@ public class AcceptDeclineInvite extends HttpServlet {
     }
     
     private boolean ValidateMembers(String gruppo, String utente, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         boolean st = false;
         
         try{
-            db = new DBConnect(out);
+            db = new DBConnect(out,ip);
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM users_groups where id_groups = ? and id_users = ? and active=0");
             ps.setString(1, gruppo);
             ps.setString(2, utente);

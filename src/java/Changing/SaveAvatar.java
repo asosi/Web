@@ -28,6 +28,7 @@ import java.sql.SQLException;
 public class SaveAvatar extends HttpServlet {
     
     private String dirName;
+    String ip;
     
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -45,7 +46,8 @@ public class SaveAvatar extends HttpServlet {
         synchronized(session){id = (Integer)session.getAttribute("idUser");}
         PrintWriter out = response.getWriter();
         try {
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             MultipartRequest multi;
             multi = new MultipartRequest(request, dirName, 10*1024*1024,"ISO-8859-1",
@@ -66,7 +68,7 @@ public class SaveAvatar extends HttpServlet {
     }
     
     private void AddImg(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("update users set avatar = ? where id = ?");
             ps.setString(1, "img/users/" +Integer.toString(id));

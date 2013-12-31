@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class Gruppi extends HttpServlet {
     
     int contatoreTabPrinc = 0;
-    
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,7 +44,8 @@ public class Gruppi extends HttpServlet {
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             PrintWriter out = response.getWriter();
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             request.getRequestDispatcher("webPages/Gruppi/gruppi1.html").include(request, response);
             Name(id, out);
@@ -63,7 +64,7 @@ public class Gruppi extends HttpServlet {
     }
     
     private void Name(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name from users where id = ?");
@@ -81,7 +82,7 @@ public class Gruppi extends HttpServlet {
     }
     
     private void Table(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id_owner = ?");
@@ -113,7 +114,7 @@ public class Gruppi extends HttpServlet {
     }
     
     private void Table1(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * from  groups join users_groups on(groups.id = users_groups.id_groups) where users_groups.id_users = ? and active = 1");
@@ -138,7 +139,7 @@ public class Gruppi extends HttpServlet {
     }
     
     private void EditGroup(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,avatar from users join users_group on (users.id = users_groups.id_users where users_groups.id_groups = ?");
             ps.setInt(1, id);
@@ -155,7 +156,7 @@ public class Gruppi extends HttpServlet {
     }
     
     private void EditAvatar(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,surname,avatar from users where id = ?");

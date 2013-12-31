@@ -27,7 +27,7 @@ import java.sql.SQLException;
 public class UploadFile extends HttpServlet {
     
     private String dirName;
-    
+    String ip;
     
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -44,6 +44,7 @@ public class UploadFile extends HttpServlet {
         int id;
         synchronized(session){id = (Integer) session.getAttribute("idUser");}
         PrintWriter out = response.getWriter();
+        ip = request.getLocalAddr();
         String idG;
         idG="28";
         String idP = "";
@@ -63,7 +64,7 @@ public class UploadFile extends HttpServlet {
     }
     
     private void AddFile(PrintWriter out, String idG, String idP){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert post_file (id_post,post_file) values (?,?)");
             ps.setString(1, idP );

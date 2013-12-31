@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
  */
 public class Home extends HttpServlet {
     
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,7 +45,8 @@ public class Home extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */            
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            DBConnect db = new DBConnect(out);
+            ip = request.getLocalAddr();
+            DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             request.getRequestDispatcher("webPages/Home/home1.html").include(request, response);
             Notifiche(id,out);
@@ -65,7 +67,7 @@ public class Home extends HttpServlet {
 
     private void Notifiche(int id, PrintWriter out){
         
-        DBConnect db = new DBConnect(out); 
+        DBConnect db = new DBConnect(out,ip); 
         try{           
             int numero = 0;
             
@@ -105,7 +107,7 @@ public class Home extends HttpServlet {
 
     private void User(int id, PrintWriter out){
         
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,surname,avatar from users where id = ?");
@@ -126,7 +128,7 @@ public class Home extends HttpServlet {
     }
     
     private void Name(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name from users where id = ?");
@@ -145,7 +147,7 @@ public class Home extends HttpServlet {
     }
     
     private void EditAvatar(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out);
+        DBConnect db = new DBConnect(out,ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,surname,avatar from users where id = ?");
