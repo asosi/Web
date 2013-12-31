@@ -12,9 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +50,6 @@ public class Login extends HttpServlet {
                 
                 HttpSession session = request.getSession(true);                
                 synchronized(session){ session.setAttribute("idUser", id);}
-                
                 if(request.getCookies() == null){                    
                     Cookie date = new Cookie("date"+id,"no");
                     response.addCookie(date);
@@ -143,3 +140,5 @@ public class Login extends HttpServlet {
     }// </editor-fold>
 
 }
+
+//da rivedere e testare
