@@ -120,12 +120,15 @@ public class GroupPage extends HttpServlet {
                  
                  out.println("<p>"+testo+"</p>");
                  //out.println("<div class=\"postLink\">\n");
+                 boolean canDownload = true;
+                 while(rs1.next()){
+                     if(canDownload)
                         out.println("<br><br><strong>Download:</strong><br>");
-                    while(rs1.next()){
-                        String[] n = rs1.getString("post_file").split("/");
-                        out.println("<a href='Download?idF="+rs1.getString("ID")+"'>"+n[2]+"</a> - ");
-                    }
-                    out.println("<br>");
+                     String[] n = rs1.getString("post_file").split("/");
+                     out.println("<a href='Download?idF="+rs1.getString("ID")+"'>"+n[2]+"</a> - ");
+                     canDownload = false;
+                 }
+                 out.println("<br>");
                  out.println(/*"</div>\n" +*/
 "                        </div>\n" +
 "                    </div>\n" +

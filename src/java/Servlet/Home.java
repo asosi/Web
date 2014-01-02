@@ -58,7 +58,7 @@ public class Home extends HttpServlet {
             request.getRequestDispatcher("webPages/Home/home4.html").include(request, response);
             EditAvatar(id,out);
             request.getRequestDispatcher("webPages/Home/home5.html").include(request, response);
-             out.close();        
+            out.close();        
         } catch(Exception e) {
            
         }
