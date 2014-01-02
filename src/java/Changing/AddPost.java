@@ -71,20 +71,14 @@ public class AddPost extends HttpServlet {
             
             Add(text, idG, id, out);            
             String name = ReturnGroupName(idG,out);
-            
-            out.println("Aggiunto post: groupName = "+name+"<br>");
-            
+             
             List<String> membri = SearchMembers(idG, id, out, name);
             for(int i = 0; i < membri.size(); i++)
                AddNews(membri.get(i), idG, out, name);
             
-            out.println("Mandato notifiche<br>");
-            
             //***************************************************   
             String idP;
             idP = ReturnIDPost(id, out);
-            
-            out.println("Preso idpost: "+idP+"<br>");
             
             try {
                 
@@ -116,9 +110,7 @@ public class AddPost extends HttpServlet {
                 //this.getServletContext().log(lEx, "Impossibile caricare il file");
             }
             
-            out.println("Ho finito");
-            
-            //response.sendRedirect("GroupPage?numero="+idG);
+            response.sendRedirect("GroupPage?numero="+idG);
             
             
             
@@ -259,7 +251,7 @@ public class AddPost extends HttpServlet {
             db.QueryInsert(ps,out);            
         }
         catch(SQLException e){
-            out.println("Sono crashato nella AddFile: "+e.getMessage()+"<br>");
+            out.println(e.getMessage());
         }
         db.DBClose();
     }
