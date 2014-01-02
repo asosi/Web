@@ -24,9 +24,7 @@ public class DownloadFile extends javax.servlet.http.HttpServlet implements
     static final long serialVersionUID = 1L;
     private static final int BUFSIZE = 4096;
     private String filePath;
-    int id;
-    PrintWriter out;
-    String idP;
+    String idF;
     String ip;
     
     public void init() {
@@ -34,70 +32,69 @@ public class DownloadFile extends javax.servlet.http.HttpServlet implements
         filePath = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/";
     }
     
-    private List<String> Files(){
-        List<String> lista = new ArrayList<String>();        
-        DBConnect db = new DBConnect(out,ip);        
+    private String File(){
+        String name = "";       
+        DBConnect db = new DBConnect(null,ip);        
         try{
-            PreparedStatement ps = db.conn.prepareStatement("SELECT post_file from post_file where id_post = ?");
-            ps.setString(1, idP);
+            PreparedStatement ps = db.conn.prepareStatement("SELECT post_file from post_file where id = ?");
+            ps.setString(1, idF);
 
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps,null);
             
              while(rs.next()){
-                 lista.add(rs.getString("post_file"));
+                 name = rs.getString("post_file");
               }
             rs.close();
         }
         catch(SQLException e){}
         
         db.DBClose();
-        return lista;
+        return name;
     }
     
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         
             ip = request.getLocalAddr();
-            List<String> lista = new ArrayList<String>();  
-            idP = request.getParameter("idP");
-                HttpSession session = request.getSession();
-                id = (Integer) session.getAttribute("idUser");
-            lista = Files();
+            idF = request.getParameter("idF");
+            
+            HttpSession session = request.getSession();
+            int id = (Integer) session.getAttribute("idUser");
+            
+            String name = File();
             ServletOutputStream outStream;
             DataInputStream in;
             
-            for(int i = 0; i < lista.size(); i++){
-                String path = filePath + lista.get(i);              
+            
+            String path = filePath + name;              
 
-                File file = new File(path);
-                int length   = 0;
-                outStream = response.getOutputStream();
-                ServletContext context  = getServletConfig().getServletContext();
-                String mimetype = context.getMimeType(path);
+            File file = new File(path);
+            int length   = 0;
+            outStream = response.getOutputStream();
+            ServletContext context  = getServletConfig().getServletContext();
+            String mimetype = context.getMimeType(path);
 
-                // sets response content type
-                if (mimetype == null) {
-                    mimetype = "text/plain";
-                }
-                response.setContentType(mimetype);
-                response.setContentLength((int)file.length());
-                String fileName = (new File(path)).getName();
-
-                // sets HTTP header
-                response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-
-                byte[] byteBuffer = new byte[BUFSIZE];
-                in = new DataInputStream(new FileInputStream(file));
-
-                // reads the file's bytes and writes them to the response stream
-                while ((in != null) && ((length = in.read(byteBuffer)) != -1))
-                {
-                    outStream.write(byteBuffer,0,length);
-                }
-
-                in.close();
-                outStream.close();
-
+            // sets response content type
+            if (mimetype == null) {
+                mimetype = "text/plain";
             }
+            response.setContentType(mimetype);
+            response.setContentLength((int)file.length());
+            String fileName = (new File(path)).getName();
+
+            // sets HTTP header
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+
+            byte[] byteBuffer = new byte[BUFSIZE];
+            in = new DataInputStream(new FileInputStream(file));
+
+            // reads the file's bytes and writes them to the response stream
+            while ((in != null) && ((length = in.read(byteBuffer)) != -1))
+            {
+                outStream.write(byteBuffer,0,length);
+            }
+
+            in.close();
+            outStream.close();
     }
 }

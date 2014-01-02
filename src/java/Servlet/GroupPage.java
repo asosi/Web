@@ -120,9 +120,9 @@ public class GroupPage extends HttpServlet {
                  
                  out.println("<p>"+testo+"</p>");
                  out.println("<div class=\"postLink\">\n");
-                         while(rs1.next()){
-                             out.println("<a href='Download?idP="+rs.getString("post.id")+"&idF="+rs1.getString("ID_post")+"'>"+rs1.getString("post_file")+"Download</a>");
-                         }
+                    while(rs1.next()){
+                        out.println("<a href='Download?idF="+rs1.getString("ID_post")+"'>"+rs1.getString("post_file")+" Download</a><br>");
+                    }
                  out.println("</div>\n" +
 "                        </div>\n" +
 "                    </div>\n" +
