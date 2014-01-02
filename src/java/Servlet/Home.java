@@ -53,7 +53,6 @@ public class Home extends HttpServlet {
             Name(id,out);
             request.getRequestDispatcher("webPages/Home/home2.html").include(request, response);
             StampaCookie(id, request, out);
-//request.getRequestDispatcher("webPages/Home/cookie.html").include(request, response);
             request.getRequestDispatcher("webPages/Home/home3.html").include(request, response);
             User(id,out);
             request.getRequestDispatcher("webPages/Home/home4.html").include(request, response);
