@@ -119,11 +119,14 @@ public class GroupPage extends HttpServlet {
                  String testo = ConvertiLink(rs.getString("text"));
                  
                  out.println("<p>"+testo+"</p>");
-                 out.println("<div class=\"postLink\">\n");
+                 //out.println("<div class=\"postLink\">\n");
+                        out.println("<br><br><strong>Download:</strong><br>");
                     while(rs1.next()){
-                        out.println("<a href='Download?idF="+rs1.getString("ID_post")+"'>"+rs1.getString("post_file")+" Download</a><br>");
+                        String[] n = rs1.getString("post_file").split("/");
+                        out.println("<a href='Download?idF="+rs1.getString("ID")+"'>"+n[2]+"</a> - ");
                     }
-                 out.println("</div>\n" +
+                    out.println("<br>");
+                 out.println(/*"</div>\n" +*/
 "                        </div>\n" +
 "                    </div>\n" +
 "                </td></tr>");
