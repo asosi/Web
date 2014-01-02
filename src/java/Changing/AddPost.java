@@ -86,7 +86,20 @@ public class AddPost extends HttpServlet {
             
             out.println("Preso idpost: "+idP+"<br>");
             
-            try {    
+            try {
+                
+                File theDir = new File(idG);
+
+                // if the directory does not exist, create it
+                if (!theDir.exists()) {
+                  System.out.println("creating directory: " + idG);
+                  boolean result = theDir.mkdir();  
+
+                   if(result) {    
+                     out.println("DIR created");  
+                   }
+                }
+                
                 MultipartRequest multi;
                 multi = new MultipartRequest(request, dirName+idG+"/", 1024*1024*1024,"ISO-8859-1",
                         new DefaultFileRenamePolicy());
@@ -101,7 +114,7 @@ public class AddPost extends HttpServlet {
                     AddFile(arrayFile[i], idG, idP, out);
                 }
             }
-            catch (IOException lEx) {
+            catch (Exception lEx) {
                 out.println("crasho nell'ultimo try: " +lEx.getMessage());                
                 //this.getServletContext().log(lEx, "Impossibile caricare il file");
             }
