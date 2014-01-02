@@ -59,6 +59,10 @@ public class SaveAvatar extends HttpServlet {
                     });
             AddImg(id, out);
             request.getAttribute("javax.servlet.forward.request_uri");
+            
+            String referer = request.getHeader("Referer"); 
+            response.sendRedirect(referer);
+            
         }
         
         catch (IOException lEx) {

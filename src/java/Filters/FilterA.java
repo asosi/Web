@@ -1,7 +1,6 @@
 package Filters;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -23,7 +22,6 @@ public class FilterA implements Filter{
       //tipo posso controllare che l'utente sia loggato e controllo la sessione
       try{
          HttpSession session = ((HttpServletRequest) request).getSession();
-        //HttpSession session = request.getSession();           
                
         HttpServletResponse res = (HttpServletResponse) response;
         
@@ -36,10 +34,6 @@ public class FilterA implements Filter{
       }catch (Exception e){
           
       }   
-      
-      
-      
-      
   }
   
   @Override

@@ -46,7 +46,7 @@ public class UploadFile extends HttpServlet {
         PrintWriter out = response.getWriter();
         ip = request.getLocalAddr();
         String idG;
-        idG="28";
+        idG="92";
         String idP = "";
         //idP = ReturnIDPost();
         

@@ -70,15 +70,21 @@ public class AddPost extends HttpServlet {
             idG = (String) session.getAttribute("idG");
             
             Add(text, idG, id, out);            
-            String name = "";
+            String name = ReturnGroupName(idG,out);
+            
+            out.println("Aggiunto post: groupName = "+name+"<br>");
+            
             List<String> membri = SearchMembers(idG, id, out, name);
             for(int i = 0; i < membri.size(); i++)
                AddNews(membri.get(i), idG, out, name);
+            
+            out.println("Mandato notifiche<br>");
             
             //***************************************************   
             String idP;
             idP = ReturnIDPost(id, out);
             
+            out.println("Preso idpost: "+idP+"<br>");
             
             try {    
                 MultipartRequest multi;
@@ -88,22 +94,25 @@ public class AddPost extends HttpServlet {
                 String nomeFile = request.getParameter("numeroElementi");
                 String arrayFile[] = nomeFile.split("_-_-_");
                 
+                out.println("arrayfile.lenght: "+arrayFile.length+"<br>");
+                
                 for(int i = 1; i < arrayFile.length; i++){
-                    //out.println(arrayFile[i]);                    
+                    out.println("File"+i+": "+arrayFile[i]+"<br>");                    
                     AddFile(arrayFile[i], idG, idP, out);
                 }
-
-                
             }
             catch (IOException lEx) {
-                out.println("crasho");
-                this.getServletContext().log(lEx, "Impossibile caricare il file");
+                out.println("crasho nell'ultimo try: " +lEx.getMessage());                
+                //this.getServletContext().log(lEx, "Impossibile caricare il file");
             }
             
-            //out.println("Ho finito");
+            out.println("Ho finito");
             
-            response.sendRedirect("GroupPage?numero="+idG);
-            out = response.getWriter();
+            //response.sendRedirect("GroupPage?numero="+idG);
+            
+            
+            
+            
         } catch(Exception e) {
         }
     }
@@ -191,6 +200,25 @@ public class AddPost extends HttpServlet {
         db.DBClose();
     }
     
+    private String ReturnGroupName(String idG, PrintWriter out){
+        DBConnect db = new DBConnect(out,ip);
+        String name = "";
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("select name from groups where id = ?");
+            ps.setString(1, idG);
+            
+            ResultSet rs = db.Query(ps,out);          
+                        
+            rs.next();
+            name = rs.getString("name)");
+        }
+        catch(SQLException e){out.println(e.getMessage());}
+        db.DBClose();
+        
+        return name;
+    }
+    
     private boolean ValidateNews(String idU, String page, PrintWriter out){
         boolean st = false;
         DBConnect db = new DBConnect(out,ip);
@@ -212,6 +240,7 @@ public class AddPost extends HttpServlet {
     }
     
     private void AddFile(String nome, String idG, String idP, PrintWriter out){
+        
         DBConnect db = new DBConnect(out,ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert post_file (id_post,post_file) values (?,?)");
@@ -219,7 +248,9 @@ public class AddPost extends HttpServlet {
             ps.setString(2, "files/" + idG+ "/" + nome);
             db.QueryInsert(ps,out);            
         }
-        catch(SQLException e){}
+        catch(SQLException e){
+            out.println("Sono crashato nella AddFile: "+e.getMessage()+"<br>");
+        }
         db.DBClose();
     }
 
