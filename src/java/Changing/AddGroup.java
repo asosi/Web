@@ -43,7 +43,7 @@ public class AddGroup extends HttpServlet {
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             PrintWriter out = response.getWriter();
-            request.getLocalAddr();
+            ip = request.getLocalAddr();
             DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             String name = request.getParameter("group_name");
