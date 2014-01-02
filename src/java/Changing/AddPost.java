@@ -88,13 +88,13 @@ public class AddPost extends HttpServlet {
             
             try {
                 
-                String path = System.getProperty("files/");
+                String path = "files/";
                 File dir=new File(path+idG);
                 if(dir.exists()){
-                    out.println("A folder with name '"+idG+"' is already exist in the path "+path);
+                    out.println("A folder with name '"+idG+"' is already exist in the path "+path+"<br>");
                 }else{
                     dir.mkdir();
-                    out.println("Cartella creata");
+                    out.println("Cartella creata<br>");
                 }
                 
                 MultipartRequest multi;
@@ -112,7 +112,7 @@ public class AddPost extends HttpServlet {
                 }
             }
             catch (Exception lEx) {
-                out.println("crasho nell'ultimo try: " +lEx.getMessage());                
+                out.println("crasho nell'ultimo try: " +lEx.getMessage()+"<br>");                
                 //this.getServletContext().log(lEx, "Impossibile caricare il file");
             }
             
