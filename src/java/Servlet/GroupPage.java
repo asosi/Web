@@ -102,7 +102,7 @@ public class GroupPage extends HttpServlet {
                  
                  PreparedStatement ps1 = db.conn.prepareStatement("select post_file, ID from post_file where ID_post = ?");
                  ps1.setString(1, rs.getString("post.id"));
-                 ResultSet rs1 = db.Query(ps,out);
+                 ResultSet rs1 = db.Query(ps1,out);
                  
                  
                  contatore++;
