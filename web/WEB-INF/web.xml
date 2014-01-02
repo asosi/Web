@@ -158,7 +158,12 @@
     </filter>
     <filter-mapping>
         <filter-name>FilterA</filter-name>
-        <url-pattern>/Home</url-pattern>
+        <url-pattern>/CreaGruppo</url-pattern>
+        <url-pattern>/GroupPage</url-pattern>
+        <url-pattern>/Gruppi</url-pattern>
+        <url-pattern>/Inviti</url-pattern>
+        <url-pattern>/Logout</url-pattern>
+        <url-pattern>/ModificaGruppo</url-pattern>
     </filter-mapping>
     <session-config>
         <session-timeout>
