@@ -92,7 +92,7 @@ public class AddPost extends HttpServlet {
 
                 // if the directory does not exist, create it
                 if (!theDir.exists()) {
-                  System.out.println("creating directory: " + idG);
+                  out.println("creating directory: " + idG);
                   boolean result = theDir.mkdir();  
 
                    if(result) {    
