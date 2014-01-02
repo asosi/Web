@@ -94,11 +94,17 @@ public class GroupPage extends HttpServlet {
                                                             " where post.id_groups = ? and users.ID = post.ID_users "+
                                                             " order by (post.date) desc");
             ps.setString(1, idG);
-
             ResultSet rs = db.Query(ps,out);
             
+            
             int contatore=0;
-             while(rs.next()){
+            while(rs.next()){
+                 
+                 PreparedStatement ps1 = db.conn.prepareStatement("select post_file, ID from post_file where ID_post = ?");
+                 ps1.setString(1, rs.getString("post.id"));
+                 ResultSet rs1 = db.Query(ps,out);
+                 
+                 
                  contatore++;
                  out.println("<tr id='post"+contatore+"'><td>\n" +
 "                    <div class='well'>\n" +
@@ -113,8 +119,10 @@ public class GroupPage extends HttpServlet {
                  String testo = ConvertiLink(rs.getString("text"));
                  
                  out.println("<p>"+testo+"</p>");
-                 out.println("<div class=\"postLink\">\n" +
-"                                <a href='Download?idP="+rs.getString("post.id")+"'>Download file</a>");
+                 out.println("<div class=\"postLink\">\n");
+                         while(rs1.next()){
+                             out.println("<a href='Download?idP="+rs.getString("post.id")+"&idF="+rs1.getString("ID_post")+"'>"+rs1.getString("post_file")+"Download</a>");
+                         }
                  out.println("</div>\n" +
 "                        </div>\n" +
 "                    </div>\n" +
