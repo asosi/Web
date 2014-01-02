@@ -158,6 +158,7 @@
     </filter>
     <filter-mapping>
         <filter-name>FilterA</filter-name>
+        <url-pattern>/Home</url-pattern>
         <url-pattern>/CreaGruppo</url-pattern>
         <url-pattern>/GroupPage</url-pattern>
         <url-pattern>/Gruppi</url-pattern>
