@@ -211,7 +211,7 @@ public class AddPost extends HttpServlet {
             ResultSet rs = db.Query(ps,out);          
                         
             rs.next();
-            name = rs.getString("name)");
+            name = rs.getString("name");
         }
         catch(SQLException e){out.println(e.getMessage());}
         db.DBClose();
