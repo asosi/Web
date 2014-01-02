@@ -25,7 +25,6 @@ import javax.servlet.http.HttpSession;
  */
 public class Login extends HttpServlet {
     
-    int id;
     String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,12 +40,14 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            
             String user = request.getParameter("username");
             String pass = request.getParameter("password");
             ip = request.getLocalAddr();
             DBConnect db = new DBConnect(out,ip);
             db.DBClose();
             if(Validate(user,pass,out)==true){
+                int id = RetrunID(user, pass, out);
                 
                 HttpSession session = request.getSession(true);                
                 synchronized(session){ session.setAttribute("idUser", id);}
@@ -90,7 +91,6 @@ public class Login extends HttpServlet {
             ResultSet rs = db.Query(ps,out);
             
             st = rs.next();
-            id= rs.getInt("id");
             
             rs.close();
             db.DBClose();
@@ -98,6 +98,28 @@ public class Login extends HttpServlet {
         }
         
         return st;
+    }
+    
+    int RetrunID(String user, String pass, PrintWriter out){
+        int  id = -1;
+        try{
+            
+            DBConnect db = new DBConnect(out,ip);
+            PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where username = ? and password = ?");
+            ps.setString(1, user);
+            ps.setString(2, pass);
+            
+            ResultSet rs = db.Query(ps,out);
+            
+            rs.next();
+            id= rs.getInt("id");
+            
+            rs.close();
+            db.DBClose();
+        }catch(Exception e){
+        }
+        
+        return id;
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
