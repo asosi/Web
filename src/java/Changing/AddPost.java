@@ -88,16 +88,13 @@ public class AddPost extends HttpServlet {
             
             try {
                 
-                File theDir = new File(idG);
-
-                // if the directory does not exist, create it
-                if (!theDir.exists()) {
-                  out.println("creating directory: " + idG);
-                  boolean result = theDir.mkdir();  
-
-                   if(result) {    
-                     out.println("DIR created");  
-                   }
+                String path = System.getProperty("files/");
+                File dir=new File(path+idG);
+                if(dir.exists()){
+                    out.println("A folder with name '"+idG+"' is already exist in the path "+path);
+                }else{
+                    dir.mkdir();
+                    out.println("Cartella creata");
                 }
                 
                 MultipartRequest multi;
