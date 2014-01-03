@@ -17,8 +17,8 @@
         <servlet-class>Changing.SaveAvatar</servlet-class>
         <init-param>
             <param-name>uploadDir</param-name>
-            <!--Campi--><param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/img/users/</param-value>
-            <!--Sosi--><!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/img/users/</param-value>-->
+            <!--Campi--><!--<param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/img/users/</param-value>-->
+            <!--Sosi--><param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/img/users/</param-value>
         </init-param>
     </servlet>
     <servlet>
@@ -66,8 +66,8 @@
         <servlet-class>Changing.AddPost</servlet-class>
         <init-param>
             <param-name>uploadDir</param-name>
-            <!--Campi--><param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/</param-value>
-            <!--Sosi--><!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/</param-value>-->
+            <!--Campi--><!--<param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/</param-value>-->
+            <!--Sosi--><param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/</param-value>
         </init-param>
     </servlet>
     <servlet>
@@ -79,8 +79,8 @@
         <servlet-class>Upload_Download.UploadFile</servlet-class>
         <init-param>
             <param-name>uploadDir</param-name>
-            <!--Campi--><param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/</param-value>
-            <!--Sosi--><!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/</param-value>-->
+            <!--Campi--><!--<param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/</param-value>-->
+            <!--Sosi--><param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
@@ -165,6 +165,7 @@
         <url-pattern>/Logout</url-pattern>
         <url-pattern>/ModificaGruppo</url-pattern>
         <url-pattern>/CreatePDF</url-pattern>
+        <url-pattern>/SaveAvatar</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>FilterGruppi</filter-name>
