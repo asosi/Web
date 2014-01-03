@@ -25,8 +25,6 @@ public class CreatePDF extends HttpServlet {
     
     String ip;            
                 
-    //mi viene passato ID gruppo quando schiaccio il bottone
-    String idGroup;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,7 +32,7 @@ public class CreatePDF extends HttpServlet {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition","inline; filename=\"file.pdf\"");
         
-        idGroup = request.getParameter("numero");
+        String idGroup = request.getParameter("numero");
         
         try {
             // step 1

@@ -34,16 +34,15 @@ public class FilterEditGroup implements Filter{
         
         if(session != null && session.getAttribute("idUser")!= null){
             
-            PrintWriter out = response.getWriter();
             ip = request.getLocalAddr();
-            DBConnect db = new DBConnect(out,ip);
+            DBConnect db = new DBConnect(null,ip);
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             
             // seleziono tutti i gruppi come table
             PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id_owner = ?");
             ps.setInt(1, id);
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps,null);
             
             while(rs.next()){
                 String idgruppo = rs.getString("id");
