@@ -50,13 +50,13 @@
         }
 
         function Salva() {
-            document.getElementById("modificaG").disabled = "disabled";
+            document.getElementById("editG").disabled = "disabled";
             var num = countRowsTable();
-            document.getElementById("group_name").value = document.getElementById("GroupName").innerText;	
+			document.getElementById("group_name").value = document.getElementById("GroupName").innerText;	
             Membri(num);
-            NoMembri(num);
+			NoMembri(num);
 			
-            document.Modifica.submit();	
+			document.Modifica.submit();	
 			
         }
 
@@ -113,7 +113,7 @@
             return Cells[0].innerText;
         }
 
-        //funzione che verifica se un bottono litato
+        //funzione che verifica se un bottono è disabilitato
         function GetButtonStatus(target) {
             if ($(document.getElementsByName(target)).is(':disabled')) {
                 return true;
@@ -181,7 +181,7 @@
                         <div class="navbar-collapse collapse">
                             <form class="navbar-form navbar-right">
                                 <div class="form-group">
-                                    <button class="btn btn-success" id="modificaG" type="button" onclick="Salva()">Save</button>
+                                    <button class="btn btn-success" id="editG" type="button" onclick="Salva()">Save</button>
                                 </div>
                             </form>
                         </div>
