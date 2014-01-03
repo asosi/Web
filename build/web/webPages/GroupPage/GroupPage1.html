@@ -93,7 +93,9 @@
         function PublicPost() {
            
             //Controllo textArea
-            var tes = document.getElementById("postTesto").value;
+            var test = document.getElementById("postTesto").value;
+			
+            var tes = test.replace(/<>/, "");
 
             if (tes == "") {
                 document.getElementById("postTestoDiv").className = "form-group has-error";
