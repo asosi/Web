@@ -64,7 +64,8 @@ public class AddGroup extends HttpServlet {
 
             AddMembers(idG, members, out);
             
-            File dir = new File("/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/"+idG);
+            //File dir = new File("/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/"+idG);//sosi
+            File dir = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/"+idG);//campi
             boolean a = dir.mkdirs();
             
             out.println(a);
