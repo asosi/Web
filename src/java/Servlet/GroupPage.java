@@ -245,6 +245,11 @@ public class GroupPage extends HttpServlet {
         
         return testofinale;
     }
+    
+    //lasciate che lo faccio io :-)
+    private boolean controlloLinkFile(String asd){
+        return true;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
