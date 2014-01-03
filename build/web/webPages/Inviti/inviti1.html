@@ -48,10 +48,11 @@
         }
 
         function Save() {
+            document.getElementById("invita").disabled = "disabled";
+            
             var num = countRowsTable();
             Membri(num);
-			
-			document.Salvataggio.submit();
+            document.Salvataggio.submit();
         }
 
         //Funzione che restituisce i nomi dei membri selezionati
@@ -84,37 +85,7 @@
             return Cells[0].innerText;
         }
 
-        //funzione che verifica se un bottono è disabilitato
-        function GetButtonStatus(target) {
-            //Controllo se il bottone con name=target è disabilitato
-            if ($(document.getElementsByName(target)).is(':disabled')) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-
-        //funzione che restituisce il numero di righe della tabella
-        function countRowsTable() {
-            var rows = document.getElementById('tabella').getElementsByTagName('tbody')[0].rows.length;
-            return rows;
-        }
-		
-		function SaveEditModal() {
-            var tes = document.getElementById('InputImage').value;
-            $('#EditModal').modal('hide');						
-			document.EditAvatar.submit();	
-        }
-
-
-        function CloseEditModal() {
-            document.getElementById('InputImage').value = "";
-
-            //richiamo funzione che resetta l'immagine in base a quella salvata nel DB
-        }
-		
-		//funzione che cambia l'immagine di anteprima nella modal: "Modifica Dati utente"
+        //funzione che verifica se un bottono  che cambia l'immagine di anteprima nella modal: "Modifica Dati utente"
         function readURL(input) {
 
             if (input.files && input.files[0]) {
@@ -149,7 +120,7 @@
                         <div class="navbar-collapse collapse">
                             <form class="navbar-form navbar-right">
                                 <div class="form-group">
-                                    <button class="btn btn-success " type="button" onclick="Save()">Save</button>
+                                    <button class="btn btn-success " id="invita" type="button" onclick="Save()">Save</button>
                                 </div>
                             </form>
                         </div>

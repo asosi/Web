@@ -40,10 +40,12 @@
         }
 
         function CreaGruppo() {
+            document.getElementById("creaG").disabled = "disabled";
 
             var name = document.getElementById("GroupName").value;
 
             if (name == "") {
+                document.getElementById("creaG").disabled = "";
                 document.getElementById("testo").className = "form-group has-error input-group-lg";
                 document.getElementById("testoLabel").innerText = "Name: Incorrect Field";
                 document.getElementById('GroupName').focus();
@@ -87,26 +89,7 @@
             return Cells[0].innerText;
         }
 
-        //funzione che verifica se un bottono è disabilitato
-        function GetButtonStatus(target) {
-            if ($(document.getElementsByName(target)).is(':disabled')) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-
-        //funzione che restituisce il numero di righe della tabella
-        function countRowsTable() {
-            var rows = document.getElementById('tabella').getElementsByTagName('tbody')[0].rows.length;
-            return rows;
-        }
-
-        function ChangeColorImage(id) {
-            document.getElementById(id).className = "table1";
-
-            for(i = 1; i < 8; i++){
+        //funzione che verifica se un bottono = 1; i < 8; i++){
                 var x = "EditImg0" + i;
                 if (x != id) {
                     if (document.getElementById(x).className == "table1") {
@@ -196,7 +179,7 @@
                         <div class="navbar-collapse collapse">
                             <form class="navbar-form navbar-right">
                                 <div class="form-group">
-                                    <button class="btn btn-success" type="button" onclick="CreaGruppo()">Create Group</button>
+                                    <button class="btn btn-success" id="creaG" type="button" onclick="CreaGruppo()">Create Group</button>
                                 </div>
                             </form>
                         </div>
