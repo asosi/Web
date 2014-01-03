@@ -48,7 +48,7 @@ public class FilterGruppi implements Filter{
             while(rs.next()){
                 String idgruppo = rs.getString("id");
                 
-                if(req.getRequestURL().toString().endsWith(idgruppo)){               
+                if(request.getParameter("numero").equals(idgruppo)){               
                     trovato = true;
                 }
             }
@@ -63,7 +63,7 @@ public class FilterGruppi implements Filter{
             while(rs2.next()){
                 String idgruppo = rs2.getString("id");
                 
-                if(req.getRequestURL().toString().endsWith(idgruppo)){               
+                if(request.getParameter("numero").equals(idgruppo)){               
                     trovato = true;
                 }
             }
@@ -75,7 +75,7 @@ public class FilterGruppi implements Filter{
             if(trovato == true){
                 chain.doFilter(request, response);
             }else{
-                res.sendRedirect("Home");
+                res.sendRedirect("Gruppi");
             }
             
         } else {
