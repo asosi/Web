@@ -164,6 +164,7 @@
         <url-pattern>/Inviti</url-pattern>
         <url-pattern>/Logout</url-pattern>
         <url-pattern>/ModificaGruppo</url-pattern>
+        <url-pattern>/CreatePDF</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>FilterGruppi</filter-name>
@@ -172,6 +173,22 @@
     <filter-mapping>
         <filter-name>FilterGruppi</filter-name>
         <url-pattern>/GroupPage</url-pattern> 
+    </filter-mapping>
+    <filter>
+        <filter-name>FilterPDF</filter-name>
+        <filter-class>Filters.FilterPDF</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterPDF</filter-name>
+        <url-pattern>/CreatePDF</url-pattern> 
+    </filter-mapping>
+    <filter>
+        <filter-name>FilterEditGroup</filter-name>
+        <filter-class>Filters.FilterEditGroup</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterEditGroup</filter-name>
+        <url-pattern>/ModificaGruppo</url-pattern> 
     </filter-mapping>
     <session-config>
         <session-timeout>
