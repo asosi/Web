@@ -94,8 +94,8 @@
            
             //Controllo textArea
             var test = document.getElementById("postTesto").value;
-			
             var tes = test.replace(/[|&;%@"<>()+,]/g,"");
+            
 
             if (tes == "") {
                 document.getElementById("postTestoDiv").className = "form-group has-error";
@@ -107,7 +107,6 @@
                 document.getElementById("postTestoLabel").innerText = "Text";
                 $('#PostModal').modal('hide');
 				
-				var x = document.getElementById("postTesto").value;
 				
 				var finale = "_-_-_";
 				
@@ -116,7 +115,7 @@
 					finale += files[i].name+"_-_-_";
 				
                 //CloseModalPost();
-				document.addpost.action = "AddPost?testopost="+x+"&numeroElementi="+finale;
+				document.addpost.action = "AddPost?testopost="+tes+"&numeroElementi="+finale;
 				document.addpost.submit();
             }
         }
