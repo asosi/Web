@@ -115,7 +115,7 @@ public class CreatePDF extends HttpServlet {
                 document.add( Chunk.NEWLINE );
                 
                 //String pathImg = "apache-tomcat-7.0.47/webapps/ciao/img/group/"+rs6.getString("avatar");//sosi
-                String pathImg = "Scaricati/apache-tomcat-7.0.47/webapps/boobs3/img/group/"+rs6.getString("avatar");//campi
+                String pathImg = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/img/group/"+rs6.getString("avatar");//campi
  
                 Image avatarGroup = Image.getInstance(pathImg);
                document.add(avatarGroup);
