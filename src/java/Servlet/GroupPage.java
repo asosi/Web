@@ -7,6 +7,7 @@
 package Servlet;
 
 import DB.DBConnect;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
@@ -116,7 +117,7 @@ public class GroupPage extends HttpServlet {
     "                            <p class='postDate'>"+rs.getString("date").substring(0,rs.getString("date").length()-2)+"</p>");
                  out.println("<h4>"+rs.getString("surname")+" "+rs.getString("name")+"</h4>");
                  
-                 String testo = ConvertiLink(rs.getString("text"));
+                 String testo = ConvertiLink(rs.getString("text"),idG);
                  
                  out.println("<p>"+testo+"</p>");
                  //out.println("<div class=\"postLink\">\n");
@@ -192,7 +193,7 @@ public class GroupPage extends HttpServlet {
         db.DBClose();
     }
     
-    private String ConvertiLink(String testo){
+    private String ConvertiLink(String testo, String idG){
         String testofinale="";
         boolean azione = false;
         boolean finito = false;
@@ -227,14 +228,35 @@ public class GroupPage extends HttpServlet {
                 System.out.println(testo.substring(inizio, fine));
                 if(inizio-2 >inizio1)
                     testofinale += testo.substring(inizio1,inizio-2);
-                testofinale += "<a  target='_blank' href='http://";
-                testofinale += testo.substring(inizio,fine);
-                testofinale += "'>";
-                testofinale += testo.substring(inizio,fine);
-                testofinale += "</a>";
-                inizio1 = fine+2;
-                inizio = fine+2;
-                azione = false;
+                if(controlloLinkFile(idG, testo.substring(inizio,fine))){
+                    DBConnect db= new DBConnect(null, ip);
+                    try{
+                        String name = "files/"+idG+"/";
+                        name += testo.substring(inizio, fine);
+                        PreparedStatement ps = db.conn.prepareStatement("SELECT ID from post_file where post_file = ?");
+                        ps.setString(1, name);
+                        ResultSet rs = db.Query(ps,null);
+                        rs.next();
+                        testofinale += "<a href='Download?idF="+rs.getString("ID")+"'>";
+                    }
+                    catch(SQLException e){}
+                    db.DBClose();
+                    testofinale += testo.substring(inizio,fine);
+                    testofinale += "</a>";
+                    inizio1 = fine+2;
+                    inizio = fine+2;
+                    azione = false;
+                }
+                else{
+                    testofinale += "<a  target='_blank' href='http://";
+                    testofinale += testo.substring(inizio,fine);
+                    testofinale += "'>";
+                    testofinale += testo.substring(inizio,fine);
+                    testofinale += "</a>";
+                    inizio1 = fine+2;
+                    inizio = fine+2;
+                    azione = false;
+                }
             }
             else{
                 inizio = inizio1;
@@ -247,8 +269,10 @@ public class GroupPage extends HttpServlet {
     }
     
     //lasciate che lo faccio io :-)
-    private boolean controlloLinkFile(String asd){
-        return true;
+    private boolean controlloLinkFile(String idG, String nomeFile){
+        File f = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/"+ idG +"/"+nomeFile);
+        boolean exist = f.exists();
+        return exist;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
