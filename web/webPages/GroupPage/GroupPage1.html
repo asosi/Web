@@ -95,7 +95,8 @@
             //Controllo textArea
             var test = document.getElementById("postTesto").value;
 			
-            var tes = test.replace(/[<>]/g, "");
+            var tes = test.replace("<", "");
+            var tes = tes.replace(">", "");
 
             if (tes == "") {
                 document.getElementById("postTestoDiv").className = "form-group has-error";
