@@ -83,10 +83,6 @@
             <!--Sosi--><!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/</param-value>-->
         </init-param>
     </servlet>
-    <servlet>
-        <servlet-name>FilterA</servlet-name>
-        <servlet-class>Filters.FilterA</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -168,6 +164,14 @@
         <url-pattern>/Inviti</url-pattern>
         <url-pattern>/Logout</url-pattern>
         <url-pattern>/ModificaGruppo</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>FilterGruppi</filter-name>
+        <filter-class>Filters.FilterGruppi</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterGruppi</filter-name>
+        <url-pattern>/GroupPage</url-pattern> 
     </filter-mapping>
     <session-config>
         <session-timeout>
