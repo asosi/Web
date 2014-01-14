@@ -1,0 +1,40 @@
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
+                            <li class="divider"></li>
+                            <li><a href="Logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+    <div class="container">
+        <br />
+        <br />
+        <!-- Jumbotron -->
+        <div class="jumbotron myjumbotron">
+            
+            <h1><img class="createGroup" id="imageGroup" src="img/group/icon.png" />Create Group / Discussion</h1>
+            <div class="divOrizzontale">
+                <div id="testo" class="form-group input-group-lg">                    
+                    <label style="text-align:left; width:100%"class="control-label" id="testoLabel" for="inputError">Name:</label>                    
+                    <input type="text" class="form-control createGroup" id="GroupName" required autofocus />
+                    <button class="btn btn-primary createGroup" type="button" id="btnImage" data-toggle="modal" data-target="#EditImageGroupModal"  >Change Image</button>
+                    
+                </div>
+                <br />
+                
+            </div>
+
+            <br />
+            <div class="bs-example">
+                <table class="table" style="text-align: left" id="tabella">
+                    <thead>
+                        <tr>
+							<th>#</th>
+                            <th>Name</th>
+                            <th>Invites</th>
+                        </tr>
+                    </thead>
+                    <tbody>
