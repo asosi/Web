@@ -1,7 +1,7 @@
 <%
     session = request.getSession();
     int id;
-    synchronized(session){id = (Integer) session.getAttribute("idUser");} 
+    synchronized(session){id = (Integer) session.getAttribute("idUser");}  
     
 %>
 
@@ -170,7 +170,7 @@
     
     <%
 		//Caricare pagina ModalEditAvatar
-	%>
+    %>
 
 
     <!-- Bootstrap core JavaScript
