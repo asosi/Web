@@ -1,3 +1,12 @@
+<%
+    session = request.getSession();
+    int id;
+    synchronized(session){id = (Integer) session.getAttribute("idUser");} 
+    
+%>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,15 +111,15 @@
             <div class="navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
 				
-				<%
-					//Notifiche
-				%>
+                        <%
+                                //Notifiche
+                        %>
+
+                        <%
+                                //Name
+                        %>
 				
-				<%
-					//Name
-				%>
-				
-				                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
                             <li class="divider"></li>
                             <li><a onclick="CallServlet('Logout')" href="Logout">Logout</a></li>
@@ -135,11 +144,11 @@
             <div class="col-lg-6">
                 <center>
 					
-				<%
-					//User
-				%>
-				
-				</center>
+                    <%
+                        //User
+                    %>
+
+                </center>
             </div>
             <div class="col-lg-6">
                 <br>
