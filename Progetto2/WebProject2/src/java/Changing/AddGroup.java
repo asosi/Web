@@ -68,7 +68,7 @@ public class AddGroup extends HttpServlet {
             boolean a = dir.mkdirs();
             
             
-            response.sendRedirect("GroupPage?numero="+idG);
+            response.sendRedirect("GroupPage.jsp?numero="+idG);
               
         } catch(Exception e) {}
     }    
@@ -134,7 +134,7 @@ public class AddGroup extends HttpServlet {
     private void AddNews(String membro){
         DBConnect db = new DBConnect(ip);
         String news = "Hai nuovi inviti";
-        String page = "Inviti";
+        String page = "Inviti.jsp";
         try{
             if(!ValidateNews(membro, page))
             {

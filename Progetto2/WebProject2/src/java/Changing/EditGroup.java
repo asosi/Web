@@ -169,7 +169,7 @@ public class EditGroup extends HttpServlet {
     private void AddNews(String membro){
         DBConnect db = new DBConnect(ip);
         String news = "Hai nuovi inviti";
-        String page = "Inviti";
+        String page = "Inviti.jsp";
         try{
             if(!ValidateNews(membro, page))
             {

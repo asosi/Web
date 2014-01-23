@@ -104,7 +104,7 @@ public class AddPost extends HttpServlet {
                 out.println(lEx.getMessage()+"<br>");                
             }
             
-            response.sendRedirect("GroupPage?numero="+idG);
+            response.sendRedirect("GroupPage.jsp?numero="+idG);
             
             
             
@@ -181,7 +181,7 @@ public class AddPost extends HttpServlet {
     private void AddNews(String membro, String idG, String name){
         DBConnect db = new DBConnect(ip);
         String news = "Nuovi post nel gruppo "+name;
-        String page = "GroupPage?numero="+idG;
+        String page = "GroupPage.jsp?numero="+idG;
         try{
             if(!ValidateNews(membro, page))
             {
