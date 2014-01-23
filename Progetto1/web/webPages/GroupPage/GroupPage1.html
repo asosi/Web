@@ -125,6 +125,7 @@
                 document.getElementById("postTestoLabel").innerText = "Text: Incorrect Field";
             }
             else{
+                t = 0;
                 document.getElementById("postTestoDiv").className = "form-group";
                 document.getElementById("postTestoLabel").innerText = "Text:";                
             }
@@ -134,6 +135,7 @@
                 document.getElementById("postFileDiv").className = "form-group has-error";
             }
             else{
+                t = 0;
                 document.getElementById("postFileDiv").className = "form-group";
             }
             
@@ -144,15 +146,15 @@
                 $('#PostModal').modal('hide');
 				
 				
-				var finale = "_-_-_";
-				
-				var files = document.getElementById("postFile").files;
-				for (var i = 0; i < files.length; i++)
-					finale += files[i].name+"_-_-_";
+                var finale = "_-_-_";
+
+                var files = document.getElementById("postFile").files;
+                for (var i = 0; i < files.length; i++)
+                        finale += files[i].name+"_-_-_";
 				
                 //CloseModalPost();
-				document.addpost.action = "AddPost?testopost="+tes+"&numeroElementi="+finale;
-				document.addpost.submit();
+                document.addpost.action = "AddPost?testopost="+tes+"&numeroElementi="+finale;
+                document.addpost.submit();
             }
         }
 
