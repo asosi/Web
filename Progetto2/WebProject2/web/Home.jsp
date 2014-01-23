@@ -1,12 +1,3 @@
-<%
-    session = request.getSession();
-    int id;
-    synchronized(session){id = (Integer) session.getAttribute("idUser");}  
-    
-%>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,8 +42,22 @@
 
         function SaveEditModal() {
             var tes = document.getElementById('InputImage').value;
-            $('#EditModal').modal('hide');						
-			document.EditAvatar.submit();	
+            var img = document.getElementById("InputImage").files[0];
+                
+                var x = 0;
+                
+                switch(img.type){
+                    case "image/jpeg":
+                    case "image/png": x = 1;
+                }
+            
+            
+            if(img.size > 10485760 || x == 0){                
+                document.getElementById("ImageEditFile").className = "form-group has-error";
+            }
+            else{
+                document.EditAvatar.submit();	
+            }
         }
 
         function CloseEditModal() {
@@ -63,18 +68,31 @@
 
         //funzione che cambia l'immagine di anteprima nella modal: "Modifica Dati utente"
         function readURL(input) {
+            
+                
+                var type = document.getElementById("InputImage").files[0].type;
+                
+                var x = 0;
+                
+                switch(type){
+                    case "image/jpeg":
+                    case "image/png": x = 1;
+                }
 
-            if (input.files && input.files[0]) {
+                if (input.files && input.files[0] && x == 1) {
 
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#avatar')
-                    .attr('src', e.target.result)
-                    .width(200)
-                    .height(200);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#avatar')
+                        .attr('src', e.target.result)
+                        .width(200)
+                        .height(200);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+
+                }
+                else
+                    document.getElementById("ImageEditFile").className = "form-group has-error";
         }
 		
 		function Inviti(){
@@ -106,19 +124,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand">Forum 80085</a>
+                <a class="navbar-brand">Forum</a>
             </div>
             <div class="navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
-				
-                        <%
-                                //Notifiche
-                        %>
-
-                        <%
-                                //Name
-                        %>
-				
+                    <%
+                        //Notifiche
+                    %>
+                    <%
+                        //Name
+                    %>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
                             <li class="divider"></li>
@@ -134,20 +149,16 @@
     <br /><br /><br />
     
     <div class="container">
-	
-		<%
-			//Ex cookie, stampa dal Db data e ora ultimo accesso
-		%>
-				
-				<br>
+        <%
+            //Ex cookie
+        %>
+                <br>
         <div class="row marketing">
             <div class="col-lg-6">
                 <center>
-					
                     <%
                         //User
                     %>
-
                 </center>
             </div>
             <div class="col-lg-6">
@@ -169,10 +180,10 @@
     </div>
     
     <%
-		//Caricare pagina ModalEditAvatar
+        //Edit Avatar
     %>
-
-
+    
+    
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -184,5 +195,3 @@
 	
 </body>
 </html>
-
-				

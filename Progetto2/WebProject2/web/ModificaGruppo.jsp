@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
-    <title>Inviti</title>
+    <title>Modifica gruppo</title>
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.css" rel="stylesheet">
@@ -30,51 +30,79 @@
     <![endif]-->
 
     <script type="text/javascript">
+        window.onload = function () {
+            document.onkeyup = key_event;
+        }
 
-        function Accept(id) {
-            document.getElementsByName("btnAccept" + id)[0].disabled = true;
-
-            if ($(document.getElementsByName("btnDecline" + id)).is(':disabled')) {
-                document.getElementsByName("btnDecline" + id)[0].disabled = false;
+        function key_event(e) {
+            if (e.keyCode == 27) {
+                CloseModal();
             }
         }
 
-        function Decline(id) {
-            document.getElementsByName("btnDecline" + id)[0].disabled = true;
-
-            if ($(document.getElementsByName("btnAccept" + id)).is(':disabled')) {
-                document.getElementsByName("btnAccept" + id)[0].disabled = false;
-            }
+        function Send(id) {
+            document.getElementsByName("btnCancel" + id)[0].disabled = false;
+            document.getElementsByName("btnSend" + id)[0].disabled = true;
+        }
+        function Cancel(id) {
+            document.getElementsByName("btnCancel" + id)[0].disabled = true;
+            document.getElementsByName("btnSend" + id)[0].disabled = false;
         }
 
-        function Save() {
-            document.getElementById("invita").disabled = "disabled";
+        function Salva() {
+            document.getElementById("editG").disabled = "disabled";
             var num = countRowsTable();
+			document.getElementById("group_name").value = document.getElementById("GroupName").innerText;	
             Membri(num);
+			NoMembri(num);
 			
-			document.Salvataggio.submit();
+			document.Modifica.submit();	
+			
+        }
+
+        function EditName() {
+            var tes = document.getElementById("postName").value;
+
+
+            if (tes == "") {
+                document.getElementById("postNameDiv").className = "form-group has-error";
+                document.getElementById("postNameLabel").innerText = "Text: Incorrect Field";
+                document.getElementById("postName").focus();
+            }
+            else {
+                document.getElementById("GroupName").innerText = tes;
+                $('#PostEditTitle').modal('hide');
+                CloseModal();
+            }            
+        }
+
+        function CloseModal() {
+            document.getElementById("postName").value = "";
         }
 
         //Funzione che restituisce i nomi dei membri selezionati
         function Membri(num) {
-            var ac = "";
-            var de = "";
-
+            var x = "";
             for (i = 1; i < num + 1; i++) {
-                var y = GetButtonStatus("btnAccept" + i);
+                var y = GetButtonStatus("btnSend" + i);
                 if (y) {
-                    ac += GetValue("tr" + i) + " ";
+                    x += GetValue("tr" + i) + " ";
                 }
-
-                var x = GetButtonStatus("btnDecline" + i);
-                if (x) {
-                    de += GetValue("tr" + i) + " ";
-                }
-
             }
-			document.getElementById("accettati").value = ac;
-			document.getElementById("declinati").value = de;
-			
+			//alert(x);
+            document.getElementById("group_member").value = x;
+        }
+		
+		function NoMembri(num) {
+            var x = "";
+            for (i = 1; i < num + 1; i++) {
+                var y = GetButtonStatus("btnCancel" + i);
+                if (y) {
+                    x += GetValue("tr" + i) + " ";
+                }
+            }
+			//alert(x);
+            document.getElementById("group_nomember").value = x;
         }
 
         //funzione che restituisce il valore della cella (riga,0) della tabella
@@ -87,13 +115,13 @@
 
         //funzione che verifica se un bottono è disabilitato
         function GetButtonStatus(target) {
-            //Controllo se il bottone con name=target è disabilitato
             if ($(document.getElementsByName(target)).is(':disabled')) {
                 return true;
             }
             else {
                 return false;
             }
+
         }
 
         //funzione che restituisce il numero di righe della tabella
@@ -128,8 +156,8 @@
 
             //richiamo funzione che resetta l'immagine in base a quella salvata nel DB
         }
-		
-		//funzione che cambia l'immagine di anteprima nella modal: "Modifica Dati utente"
+
+        //funzione che cambia l'immagine di anteprima nella modal: "Modifica Dati utente"
         function readURL(input) {
             
                 
@@ -157,7 +185,10 @@
                 else
                     document.getElementById("ImageEditFile").className = "form-group has-error";
         }
-
+		
+		function SetTextBox(){
+			document.getElementById('postName').value = document.getElementById("GroupName").innerText;
+		}
 
     </script>
 
@@ -172,12 +203,11 @@
             </div>
             <div class="navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
-
                     <li>
                         <div class="navbar-collapse collapse">
                             <form class="navbar-form navbar-right">
                                 <div class="form-group">
-                                    <button class="btn btn-success " id="invita" type="button" onclick="Save()">Save</button>
+                                    <button class="btn btn-success" id="editG" type="button" onclick="Salva()">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -185,10 +215,10 @@
                     <%
                         //Name
                     %>
-                       <ul class="dropdown-menu">
+                        <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
                             <li class="divider"></li>
-                            <li><a href="Logout">Logout</a></li>
+                            <li><a onclick="Logout" href="Logout">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -197,54 +227,93 @@
         </div>
     </div>
     <div class="container">
-
         <br />
         <br />
-
         <!-- Jumbotron -->
         <div class="jumbotron myjumbotron">
-            <h1>Invitations</h1>
-        </div>
-        <div class="bs-example">
-            <table class="table" id="tabella">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Group Name</th>
-                        <th>From</th>
-                        <th>Accept / Decline</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        //Table
-                    %>
-                    <!--ultima riga (vuota)-->
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <h1>Edit Group / Discussion</h1>
+                <%
+                    //GroupTitle
+                %>
+            <button class="btn btn-primary " data-toggle="modal" data-target="#PostEditTitle" type="button" onclick="SetTextBox()">Edit Name</button>
+
+            <br /><br />
+            <div class="bs-example">
+                <table class="table" style="text-align: left" id="tabella">
+                    <thead>
+                        <tr>
+							<th>#</td>
+                            <th>Name</th>
+                            <th>Invites</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            //Table
+                        %>
+                        <%
+                            //Table1
+                        %>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
+    <!-- Modal Name -->
+    <div class="modal fade" id="PostEditTitle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="CloseModal()">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel">Edit Name</h3>
+                </div>
+                <div class="modal-body">
+                    <div id="postNameDiv" class="form-group">
+                        <label class="control-label" id="postNameLabel" for="inputError">Text</label>
+                        <input type="text" id="postName" class="form-control" />
+                    </div>
+
+                    <!--<label>File</label>
+                    <input type="file" class="form-control" />
+                    -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="CloseModal()">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnEditName" onclick="EditName()">Edit</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+	
     <%
         //EditAvatar
     %>
     
     
-    <form name="Salvataggio" action="AcceptDeclineInvite">
-            <input type="text" id="accettati" name="accettati" hidden="hidden" />
-            <input type="text" id="declinati" name="declinati" hidden="hidden" />
-    </form>
+	<form name="Modifica" action="EditGroup">
+		<input type="text" name="group_member" id="group_member" hidden='hidden'/>
+		<input type="text" name="group_nomember" id="group_nomember" hidden='hidden'/>
+		<input type="text" name="group_name"  id="group_name" hidden='hidden'/>
+                
+		<%
+			//<input type='text' name='group_id'  id='group_id' value='"+idG+"' hidden='hidden'/>
+		%>
+        </form>
 	
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
+
