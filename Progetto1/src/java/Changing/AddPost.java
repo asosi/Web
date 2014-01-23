@@ -92,7 +92,7 @@ public class AddPost extends HttpServlet {
                 }*/
                 
                 MultipartRequest multi;
-                multi = new MultipartRequest(request, dirName+idG+"/", 100*1024,"ISO-8859-1",
+                multi = new MultipartRequest(request, dirName+idG+"/", 100*1024*1024,"ISO-8859-1",
                         new DefaultFileRenamePolicy());
                
                 String nomeFile = request.getParameter("numeroElementi");
