@@ -59,7 +59,7 @@
         function EditGroup(IDriga) {
             riga = IDriga;
 			
-			document.Scelta.action = "ModificaGruppo";
+			document.Scelta.action = "ModificaGruppo.jsp";
 			document.Scelta.target = "";
 			document.getElementById("txtScelta").value = GetValue(IDriga);
 			document.Scelta.submit();			

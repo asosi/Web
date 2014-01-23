@@ -58,7 +58,7 @@ public class AcceptDeclineInvite extends HttpServlet {
             Accept(ac, id);
             Decline(de, id);
             
-            response.sendRedirect("Home");
+            response.sendRedirect("Home.jsp");
             
         } catch(Exception e) {}
     }
