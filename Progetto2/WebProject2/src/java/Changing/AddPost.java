@@ -63,16 +63,17 @@ public class AddPost extends HttpServlet {
             DBConnect db = new DBConnect(ip);
             db.DBClose();
             String text = request.getParameter("testopost");
-            //idG = request.getParameter("idG");
+           
             String idG;
-            idG = (String) session.getAttribute("idG");
+            idG = request.getParameter("numero");            
+//idG = (String) session.getAttribute("idG");
+            
+            out.println(idG);
+            
             
             Add(text, idG, id);            
             String name = ReturnGroupName(idG);
                          
-            
-            
-            
             List<String> membri = SearchMembers(idG, id, name);
             for(int i = 0; i < membri.size(); i++)
                AddNews(membri.get(i), idG, name);

@@ -2,7 +2,7 @@
 <%
     session = request.getSession();
     int idUser = (Integer)session.getAttribute("idUser");
-    String idG = (String)session.getAttribute("idG");
+    String idG = request.getParameter("numero");
     
     GroupPage groupP = new GroupPage(request);
 %>
@@ -162,7 +162,7 @@
                         finale += files[i].name+"_-_-_";
 				
                 //CloseModalPost();
-                document.addpost.action = "AddPost?testopost="+tes+"&numeroElementi="+finale;
+                document.addpost.action = "AddPost?testopost="+tes+"&numero="+document.getElementById("idG").value+"&Elementi="+finale;
                 document.addpost.submit();
             }
         }
@@ -246,7 +246,7 @@
     <!-- POST -->
     <div class="container postContainer">
         <div>
-            <center
+            <center>
                 <%
                     groupP.Stampa(groupP.GroupTitle(idG), out);
                 %>
