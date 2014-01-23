@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 
 /*
@@ -68,4 +69,10 @@ public class Stamp {
         return result;
     }
     
+    public void Stampa(ArrayList<String> result, PrintWriter out){
+        Iterator iter = result.iterator();
+        while(iter.hasNext()){
+            out.println((String)iter.next());
+        }
+    }
 }
