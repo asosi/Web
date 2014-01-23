@@ -1,4 +1,11 @@
- <!-- Modal Edit Avatar -->
+<%@page import="Stamp.Stamp"%>
+<%
+    int idUser1 = (Integer)request.getSession().getAttribute("idUser");
+    
+    Stamp stamp = new Stamp(request);
+%> 
+
+<!-- Modal Edit Avatar -->
     <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -9,7 +16,7 @@
                 <div class="modal-body" style="text-align: center">
 				
 				<%
-					//Edit avatar
+					stamp.Stampa(stamp.EditAvatar(idUser1), out);
 				%>
 				
 					<br />
