@@ -1,3 +1,8 @@
+<%
+    session = request.getSession();
+    int idUser = (Integer)session.getAttribute("idUser");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

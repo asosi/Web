@@ -1,3 +1,9 @@
+<%
+    session = request.getSession();
+    int idUser = (Integer)session.getAttribute("idUser");
+%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,9 +185,7 @@
         </div>
     </div>
     
-    <%
-        //Edit Avatar
-    %>
+    <%@ include file="WebPages/ModalEditAvatar.jsp" %>
     
     
     <!-- Bootstrap core JavaScript
