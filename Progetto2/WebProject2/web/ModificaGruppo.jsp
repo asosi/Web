@@ -1,6 +1,10 @@
+<%@page import="Stamp.ModificaGruppo"%>
 <%
     session = request.getSession();
     int idUser = (Integer)session.getAttribute("idUser");
+    String idG = (String)session.getAttribute("idG");
+    
+    ModificaGruppo modificaG = new ModificaGruppo(request);
 %>
 
 <!DOCTYPE html>
@@ -204,7 +208,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                <a class="navbar-brand" href="Home">Back to Home</a>
+                <a class="navbar-brand" href="Home.jsp">Back to Home</a>
             </div>
             <div class="navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
@@ -218,7 +222,7 @@
                         </div>
                     </li>
                     <%
-                        //Name
+                        modificaG.Stampa(modificaG.Name(idUser), out);
                     %>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
@@ -238,7 +242,7 @@
         <div class="jumbotron myjumbotron">
             <h1>Edit Group / Discussion</h1>
                 <%
-                    //GroupTitle
+                    modificaG.Stampa(modificaG.GroupTitle(idG), out);
                 %>
             <button class="btn btn-primary " data-toggle="modal" data-target="#PostEditTitle" type="button" onclick="SetTextBox()">Edit Name</button>
 
@@ -247,17 +251,17 @@
                 <table class="table" style="text-align: left" id="tabella">
                     <thead>
                         <tr>
-							<th>#</td>
+                            <th>#</td>
                             <th>Name</th>
                             <th>Invites</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%
-                            //Table
+                            modificaG.Stampa(modificaG.Table(idG), out);
                         %>
                         <%
-                            //Table1
+                            modificaG.Stampa(modificaG.Table1(id, idG), out);
                         %>
                                     </div>
                                 </form>
@@ -307,7 +311,7 @@
 		<input type="text" name="group_name"  id="group_name" hidden='hidden'/>
                 
 		<%
-			//<input type='text' name='group_id'  id='group_id' value='"+idG+"' hidden='hidden'/>
+			out.println("<input type='text' name='group_id'  id='group_id' value='"+idG+"' hidden='hidden'/>");
 		%>
         </form>
 	

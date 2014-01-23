@@ -105,17 +105,17 @@
         }
 		
 		function Inviti(){
-			document.Scelta.action = "Inviti";
+			document.Scelta.action = "Inviti.jsp";
 			document.Scelta.submit();	
 		}
 		
 		function Gruppi(){
-			document.Scelta.action = "Gruppi";
+			document.Scelta.action = "Gruppi.jsp";
 			document.Scelta.submit();	
 		}
 		
 		function CreaGruppo(){
-			document.Scelta.action = "CreaGruppo";
+			document.Scelta.action = "CreaGruppo.jsp";
 			document.Scelta.submit();	
 		}
 
@@ -141,7 +141,7 @@
                         home.Stampa(home.Notifiche(idUser), out);
                     %>
                     <%
-                        home.Stampa(home.Name(idUser, null), out);
+                        home.Stampa(home.Name(idUser), out);
                     %>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
@@ -159,14 +159,14 @@
     
     <div class="container">
         <%
-            //Ex cookie
+            home.Stampa(home.StampaCookie(idUser, request), out);
         %>
                 <br>
         <div class="row marketing">
             <div class="col-lg-6">
                 <center>
                     <%
-                        //User
+                        home.Stampa(home.User(idUser), out);
                     %>
                 </center>
             </div>

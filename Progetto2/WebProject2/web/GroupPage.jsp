@@ -1,6 +1,10 @@
+<%@page import="Stamp.GroupPage"%>
 <%
     session = request.getSession();
     int idUser = (Integer)session.getAttribute("idUser");
+    String idG = (String)session.getAttribute("idG");
+    
+    GroupPage groupP = new GroupPage(request);
 %>
 
 <!DOCTYPE html>
@@ -208,7 +212,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                <a class="navbar-brand" href="Home">Back to Home</a>
+                <a class="navbar-brand" href="Home.jsp">Back to Home</a>
             </div>
             <div class="navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
@@ -222,7 +226,7 @@
                         </div>
                     </li>
                     <%
-                        //Name
+                        groupP.Stampa(groupP.Name(idUser), out);
                     %>
                     <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
@@ -244,7 +248,7 @@
         <div>
             <center
                 <%
-                    //GroupTitle
+                    groupP.Stampa(groupP.GroupTitle(idG), out);
                 %>
             </center>
         </div>
@@ -253,7 +257,7 @@
                 <table style="width:100%">
                     <!-- SINGLE POST -->
                     <%
-                        //Post
+                        groupP.Stampa(groupP.Post(idG), out);
                     %>
                 </table>
         </div>
@@ -281,6 +285,7 @@
                                     <input name="upload" type="file" class="form-control" id="postFile"  multiple="" />	
                                     <%
                                         //set Group Text Box
+                                        groupP.Stampa(groupP.SetGroupTextBox(idUser, idG), out);
                                     %>
 
                             </form>

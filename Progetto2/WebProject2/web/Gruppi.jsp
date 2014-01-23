@@ -1,6 +1,9 @@
+<%@page import="Stamp.Gruppi"%>
 <%
     session = request.getSession();
     int idUser = (Integer)session.getAttribute("idUser");
+    
+    Gruppi gruppi = new Gruppi(request);
 %>
 
 <!DOCTYPE html>
@@ -40,7 +43,7 @@
 
 		function GroupPage(IDriga){
 			
-			document.Scelta.action = "GroupPage";
+			document.Scelta.action = "GroupPage.jsp";
 			document.Scelta.target = "";
 			document.getElementById("txtScelta").value = GetValue(IDriga);
 			document.Scelta.submit();	
@@ -104,7 +107,7 @@
         function GetImageSrc(IDriga) {
             //Codice che restituisce il valore della cella [IDriga,0]
             var Row = document.getElementById(IDriga);
-            var content = Row.getElementsByTagName('img')
+            var content = Row.getElementsByTagName('img');
             var Cells = Row.getElementsByTagName("td");
             return (content[0]['src']);
         }
@@ -199,12 +202,12 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                <a class="navbar-brand" href="Home">Back to Home</a>
+                <a class="navbar-brand" href="Home.jsp">Back to Home</a>
             </div>
             <div class="navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
                     <%
-                        //Name
+                        gruppi.Stampa(gruppi.Name(idUser), out);
                     %>
                     <ul class="dropdown-menu">
                              <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
@@ -230,7 +233,7 @@
             <table class="table">
                 <thead>
                     <tr>
-						<th>#</th>
+			<th>#</th>
                         <th>Group Name</th>
                         <th>Date</th>
                         <th>Link Group</th>
@@ -239,10 +242,10 @@
                 </thead>
                 <tbody>
                     <%
-                        //table
+                        gruppi.Stampa(gruppi.Table(idUser), out);
                     %>
                     <%
-                        //table1
+                        gruppi.Stampa(gruppi.Table1(idUser), out);
                     %>
                     <!--ultima riga (vuota)-->
                     <tr>

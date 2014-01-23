@@ -59,7 +59,7 @@ public class Gruppi extends Stamp{
         return result;
     }
     
-    private ArrayList<String> Table1(int id){
+    public ArrayList<String> Table1(int id){
         ArrayList<String> result = new ArrayList<String>();
         DBConnect db = new DBConnect(ip);
         

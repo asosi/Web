@@ -24,7 +24,7 @@ public class Inviti extends Stamp{
         super(request);
     }
     
-    public ArrayList<String> Table(int id,PrintWriter out){
+    public ArrayList<String> Table(int id){
         ArrayList<String> result = new ArrayList<String>();
         DBConnect db = new DBConnect(ip);
                 
