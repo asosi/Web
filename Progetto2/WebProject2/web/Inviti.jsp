@@ -231,9 +231,7 @@
         </div>
     </div>
 
-    <%
-        //EditAvatar
-    %>
+    <%@ include file="WebPages/ModalEditAvatar.jsp" %>
     
     
     <form name="Salvataggio" action="AcceptDeclineInvite">

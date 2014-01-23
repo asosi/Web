@@ -318,9 +318,7 @@
     <!-- /.modal -->
 
 
-    <%
-        //EditAvatar
-    %>
+    <%@ include file="WebPages/ModalEditAvatar.jsp" %>
     
     
 	<form name="Scelta">

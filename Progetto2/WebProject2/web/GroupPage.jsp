@@ -294,9 +294,7 @@
     <!-- /.modal -->
 
     
-    <%
-        //Edit Avatar
-    %>
+    <%@ include file="WebPages/ModalEditAvatar.jsp" %>
     
     <!-- Bootstrap core JavaScript
     ================================================== -->

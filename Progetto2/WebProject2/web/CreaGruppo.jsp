@@ -325,9 +325,7 @@
     <!-- /.modal -->
 
 
-    <%
-        //Edit Avatar
-    %>
+    <%@ include file="WebPages/ModalEditAvatar.jsp" %>
     
     
     <form name="Crea" action="AddGroup">
