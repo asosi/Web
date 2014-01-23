@@ -29,7 +29,7 @@ public class DownloadFile extends javax.servlet.http.HttpServlet implements
     
     public void init() {
         // the file data.xls is under web application folder
-        filePath = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/";
+        filePath = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum/";
     }
     
     private String File(){

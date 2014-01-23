@@ -17,8 +17,10 @@
         <servlet-class>Changing.SaveAvatar</servlet-class>
         <init-param>
             <param-name>uploadDir</param-name>
-            <!--Campi--><param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/img/users/</param-value>
-            <!--Sosi--><!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/img/users/</param-value>-->
+            <!--Campi-->
+            <param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum/img/users/</param-value>
+            <!--Sosi-->
+            <!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/img/users/</param-value>-->
         </init-param>
     </servlet>
     <servlet>
@@ -66,22 +68,15 @@
         <servlet-class>Changing.AddPost</servlet-class>
         <init-param>
             <param-name>uploadDir</param-name>
-            <!--Campi--><param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/</param-value>
-            <!--Sosi--><!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/</param-value>-->
+            <!--Campi-->
+            <param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum/files/</param-value>
+            <!--Sosi-->
+            <!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/</param-value>-->
         </init-param>
     </servlet>
     <servlet>
         <servlet-name>CreatePDF</servlet-name>
         <servlet-class>Upload_Download.CreatePDF</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UploadFile</servlet-name>
-        <servlet-class>Upload_Download.UploadFile</servlet-class>
-        <init-param>
-            <param-name>uploadDir</param-name>
-            <!--Campi--><param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/</param-value>
-            <!--Sosi--><!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/</param-value>-->
-        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -147,10 +142,6 @@
         <servlet-name>CreatePDF</servlet-name>
         <url-pattern>/CreatePDF</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UploadFile</servlet-name>
-        <url-pattern>/UploadFile</url-pattern>
-    </servlet-mapping>
     <filter>
         <filter-name>FilterA</filter-name>
         <filter-class>Filters.FilterA</filter-class>
@@ -173,7 +164,7 @@
     </filter>
     <filter-mapping>
         <filter-name>FilterGruppi</filter-name>
-        <url-pattern>/GroupPage</url-pattern> 
+        <url-pattern>/GroupPage</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>FilterPDF</filter-name>
@@ -181,7 +172,7 @@
     </filter>
     <filter-mapping>
         <filter-name>FilterPDF</filter-name>
-        <url-pattern>/CreatePDF</url-pattern> 
+        <url-pattern>/CreatePDF</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>FilterEditGroup</filter-name>
@@ -189,7 +180,7 @@
     </filter>
     <filter-mapping>
         <filter-name>FilterEditGroup</filter-name>
-        <url-pattern>/ModificaGruppo</url-pattern> 
+        <url-pattern>/ModificaGruppo</url-pattern>
     </filter-mapping>
     <session-config>
         <session-timeout>

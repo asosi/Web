@@ -82,7 +82,7 @@ public class AddPost extends HttpServlet {
             
             try {
                 
-               /* String path = " /home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/";
+               /* String path = " /home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum/files/";
                 File dir=new File(path+idG);
                 if(dir.exists()){
                     out.println("A folder with name '"+idG+"' is already exist in the path "+path+"<br>");
@@ -92,7 +92,7 @@ public class AddPost extends HttpServlet {
                 }*/
                 
                 MultipartRequest multi;
-                multi = new MultipartRequest(request, dirName+idG+"/", 1024*1024*1024,"ISO-8859-1",
+                multi = new MultipartRequest(request, dirName+idG+"/", 100*1024,"ISO-8859-1",
                         new DefaultFileRenamePolicy());
                
                 String nomeFile = request.getParameter("numeroElementi");
