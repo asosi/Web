@@ -26,7 +26,7 @@ public class Inviti extends Stamp{
     
     public ArrayList<String> Table(int id,PrintWriter out){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
                 
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT groups.id, groups.avatar, groups.name, users.name, users.surname from"
@@ -34,7 +34,7 @@ public class Inviti extends Stamp{
                     + " ask.id_groups = groups.id ");
             ps.setInt(1, id);
 
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
             int contatore = 0;
              while(rs.next()){

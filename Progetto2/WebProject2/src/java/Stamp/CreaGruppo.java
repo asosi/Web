@@ -7,7 +7,6 @@
 package Stamp;
 
 import DB.DBConnect;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,15 +23,15 @@ public class CreaGruppo extends Stamp{
         super(request);
     }
     
-    public ArrayList<String> Table(int id, PrintWriter out){
+    public ArrayList<String> Table(int id){
          ArrayList<String> result = new ArrayList<String>();
-         DBConnect db = new DBConnect(out,ip);
+         DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT id,name,surname,avatar from users where id <> ? order by surname,name");            
             ps.setInt(1, id);
             
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
             int contatore = 0;
             

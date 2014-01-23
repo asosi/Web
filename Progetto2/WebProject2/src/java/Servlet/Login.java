@@ -7,9 +7,7 @@
 package Servlet;
 
 import DB.DBConnect;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
@@ -38,16 +36,15 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         try {
             
             String user = request.getParameter("username");
             String pass = request.getParameter("password");
             ip = request.getLocalAddr();
-            DBConnect db = new DBConnect(out,ip);
+            DBConnect db = new DBConnect(ip);
             db.DBClose();
-            if(Validate(user,pass,out)==true){
-                int id = RetrunID(user, pass, out);
+            if(Validate(user,pass)==true){
+                int id = RetrunID(user, pass);
                 
                 HttpSession session = request.getSession(true);                
                 synchronized(session){ session.setAttribute("idUser", id);}
@@ -72,23 +69,22 @@ public class Login extends HttpServlet {
             else{
                 response.sendRedirect("loginError.html");
             }
-            out.close();
             
         } catch(Exception e) {
         }
     }
     
-    boolean Validate(String user, String pass, PrintWriter out){
+    boolean Validate(String user, String pass){
         
         boolean st = false;
         try{
             
-            DBConnect db = new DBConnect(out,ip);
+            DBConnect db = new DBConnect(ip);
             PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where username = ? and password = ?");
             ps.setString(1, user);
             ps.setString(2, pass);
             
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
             st = rs.next();
             
@@ -100,16 +96,16 @@ public class Login extends HttpServlet {
         return st;
     }
     
-    int RetrunID(String user, String pass, PrintWriter out){
+    int RetrunID(String user, String pass){
         int  id = -1;
         try{
             
-            DBConnect db = new DBConnect(out,ip);
+            DBConnect db = new DBConnect(ip);
             PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where username = ? and password = ?");
             ps.setString(1, user);
             ps.setString(2, pass);
             
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
             rs.next();
             id= rs.getInt("id");

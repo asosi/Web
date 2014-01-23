@@ -2,9 +2,7 @@ package Stamp;
 
 
 import DB.DBConnect;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,15 +28,15 @@ public class Stamp {
         ip = request.getLocalAddr();
     }
     
-    public ArrayList<String> Name(int id, PrintWriter out){
+    public ArrayList<String> Name(int id){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name from users where id = ?");            
             ps.setInt(1, id);
             
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
              while(rs.next()){
                  result.add("<li class=\"dropdown\">");
@@ -50,15 +48,15 @@ public class Stamp {
         return result;
     }
     
-    public ArrayList<String> EditAvatar(int id, PrintWriter out){
+    public ArrayList<String> EditAvatar(int id){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,surname,avatar from users where id = ?");
             ps.setInt(1, id);
 
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
              while(rs.next()){
                  result.add("<h1>"+rs.getString("surname")+" "+rs.getString("name")+"</h1>");

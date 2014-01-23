@@ -7,7 +7,6 @@
 package Stamp;
 
 import DB.DBConnect;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,15 +25,15 @@ public class Gruppi extends Stamp{
         contatoreTabPrinc = 0;
     }
     
-    public ArrayList<String> Table(int id, PrintWriter out){
+    public ArrayList<String> Table(int id){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id_owner = ?");
             ps.setInt(1, id);
 
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
                        
             while(rs.next()){
                 contatoreTabPrinc++;
@@ -60,15 +59,15 @@ public class Gruppi extends Stamp{
         return result;
     }
     
-    private ArrayList<String> Table1(int id, PrintWriter out){
+    private ArrayList<String> Table1(int id){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * from  groups join users_groups on(groups.id = users_groups.id_groups) where users_groups.id_users = ? and active = 1");
             ps.setInt(1, id);
 
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
                         
             while(rs.next()){
                 contatoreTabPrinc++;

@@ -7,7 +7,6 @@
 package Stamp;
 
 import DB.DBConnect;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,14 +26,14 @@ public class Home extends Stamp{
     
     public ArrayList<String> Notifiche(int id){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(null,ip); 
+        DBConnect db = new DBConnect(ip); 
         
         try{           
             int numero = 0;
             
             PreparedStatement ps = db.conn.prepareStatement("select id,news,page from news where see = 0 and id_users = ?");
             ps.setInt(1, id);
-            ResultSet rs = db.Query(ps,null);
+            ResultSet rs = db.Query(ps);
             
             rs.last();
             numero = rs.getRow();
@@ -66,15 +65,15 @@ public class Home extends Stamp{
         return result;
     }
 
-    public ArrayList<String> User(int id, PrintWriter out){
+    public ArrayList<String> User(int id){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name,surname,avatar from users where id = ?");
             ps.setInt(1, id);
 
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
              while(rs.next()){
                  result.add("<h1>"+rs.getString("surname")+" "+rs.getString("name")+"</h1>");
@@ -89,7 +88,7 @@ public class Home extends Stamp{
         return result;
     }
     
-    public ArrayList<String> StampaCookie(int id, HttpServletRequest request, PrintWriter out) {
+    public ArrayList<String> StampaCookie(int id, HttpServletRequest request) {
         ArrayList<String> result = new ArrayList<String>();
         Cookie cookies [] = request.getCookies();
         for(int i= 0; i < cookies.length; i++){

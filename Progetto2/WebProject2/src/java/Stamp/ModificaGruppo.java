@@ -7,7 +7,6 @@
 package Stamp;
 
 import DB.DBConnect;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,15 +26,15 @@ public class ModificaGruppo extends Stamp{
         contatore = 0;
     }
     
-    public ArrayList<String> Table(String idG, PrintWriter out){
+    public ArrayList<String> Table(String idG){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip);        
+        DBConnect db = new DBConnect(ip);        
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("select id, name, surname, avatar from users, users_groups where users.ID = users_groups.Id_users and users_groups.ID_groups =? and active = 1");
             ps.setString(1, idG);
 
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
              while(rs.next()){
                  contatore++;
                  result.add("<tr id='tr"+contatore+"'>"
@@ -59,9 +58,9 @@ public class ModificaGruppo extends Stamp{
         return result;
     }
     
-    public ArrayList<String> Table1(int id, String idG, PrintWriter out){
+    public ArrayList<String> Table1(int id, String idG){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip);        
+        DBConnect db = new DBConnect(ip);        
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("select users.id, users.name, users.surname, users.avatar" +
@@ -74,7 +73,7 @@ public class ModificaGruppo extends Stamp{
             ps.setString(1, idG);
             ps.setInt(2, id);
 
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             while(rs.next()){
                  contatore++;
                  result.add("<tr id='tr"+contatore+"'><td>"+rs.getString("id")+"</td>");
@@ -97,15 +96,15 @@ public class ModificaGruppo extends Stamp{
         return result;
     }
     
-    public ArrayList<String> GroupTitle(String idG, PrintWriter out){
+    public ArrayList<String> GroupTitle(String idG){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT name from groups where id = ?");
             ps.setString(1, idG);
 
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
              while(rs.next()){
                  result.add("<h1 id='GroupName'>"+rs.getString("name")+"</h1>");
