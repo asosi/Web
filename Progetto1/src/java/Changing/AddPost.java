@@ -71,7 +71,10 @@ public class AddPost extends HttpServlet {
             
             Add(text, idG, id, out);            
             String name = ReturnGroupName(idG,out);
-             
+                         
+            
+            
+            
             List<String> membri = SearchMembers(idG, id, out, name);
             for(int i = 0; i < membri.size(); i++)
                AddNews(membri.get(i), idG, out, name);
@@ -80,17 +83,11 @@ public class AddPost extends HttpServlet {
             String idP;
             idP = ReturnIDPost(id, out);
             
+            
+            out.println("ok");
+            
+            
             try {
-                
-               /* String path = " /home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum/files/";
-                File dir=new File(path+idG);
-                if(dir.exists()){
-                    out.println("A folder with name '"+idG+"' is already exist in the path "+path+"<br>");
-                }else{
-                    dir.mkdirs();
-                    out.println("Cartella creata<br>");
-                }*/
-                
                 MultipartRequest multi;
                 multi = new MultipartRequest(request, dirName+idG+"/", 100*1024*1024,"ISO-8859-1",
                         new DefaultFileRenamePolicy());
@@ -105,7 +102,7 @@ public class AddPost extends HttpServlet {
                     AddFile(arrayFile[i], idG, idP, out);
                 }
             }
-            catch (IOException lEx) {
+            catch (Exception lEx) {
                 out.println(lEx.getMessage()+"<br>");                
             }
             

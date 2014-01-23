@@ -65,7 +65,7 @@ public class SaveAvatar extends HttpServlet {
             
         }
         
-        catch (IOException lEx) {
+        catch (Exception lEx) {
             response.sendRedirect("ErrorFile.html");
         }
         out.close();
