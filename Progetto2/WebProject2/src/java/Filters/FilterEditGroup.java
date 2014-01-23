@@ -2,7 +2,6 @@ package Filters;
 
 import DB.DBConnect;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.Filter;
@@ -35,14 +34,14 @@ public class FilterEditGroup implements Filter{
         if(session != null && session.getAttribute("idUser")!= null){
             
             ip = request.getLocalAddr();
-            DBConnect db = new DBConnect(null,ip);
+            DBConnect db = new DBConnect(ip);
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             
             // seleziono tutti i gruppi come table
             PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id_owner = ?");
             ps.setInt(1, id);
-            ResultSet rs = db.Query(ps,null);
+            ResultSet rs = db.Query(ps);
             
             while(rs.next()){
                 String idgruppo = rs.getString("id");

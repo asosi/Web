@@ -2,7 +2,6 @@ package Filters;
 
 import DB.DBConnect;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.Filter;
@@ -35,14 +34,14 @@ public class FilterGruppi implements Filter{
         if(session != null && session.getAttribute("idUser")!= null){
             
             ip = request.getLocalAddr();
-            DBConnect db = new DBConnect(null,ip);
+            DBConnect db = new DBConnect(ip);
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             
             // seleziono tutti i gruppi come table
             PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id_owner = ?");
             ps.setInt(1, id);
-            ResultSet rs = db.Query(ps,null);
+            ResultSet rs = db.Query(ps);
             
             while(rs.next()){
                 String idgruppo = rs.getString("id");
@@ -57,7 +56,7 @@ public class FilterGruppi implements Filter{
             // seleziono tutti i gruppi come table 1
             PreparedStatement ps2 = db.conn.prepareStatement("SELECT * from  groups join users_groups on(groups.id = users_groups.id_groups) where users_groups.id_users = ? and active = 1");
             ps2.setInt(1, id);
-            ResultSet rs2 = db.Query(ps2,null);
+            ResultSet rs2 = db.Query(ps2);
             
             while(rs2.next()){
                 String idgruppo = rs2.getString("id");

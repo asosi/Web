@@ -44,98 +44,94 @@ public class AcceptDeclineInvite extends HttpServlet {
             synchronized(session){idT = (Integer) session.getAttribute("idUser");} 
             String id;
             id = Integer.toString(idT);
-            PrintWriter out = response.getWriter();
             ip = request.getLocalAddr();
-            DBConnect db = new DBConnect(out,ip);
+            DBConnect db = new DBConnect(ip);
             db.DBClose();
             /* TODO output your page here. You may use following sample code. */
             String a = request.getParameter("accettati");
             String d = request.getParameter("declinati");
             
-            out.println(a+" "+d);
             
             String[] ac = a.split(" ");
             String[] de = d.split(" ");           
             
-            Accept(ac, id, out);
-            Decline(de, id, out);
+            Accept(ac, id);
+            Decline(de, id);
             
             response.sendRedirect("Home");
-            out.close();
             
         } catch(Exception e) {}
     }
     
-    private void Decline(String [] de, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);                
+    private void Decline(String [] de, String id){
+        DBConnect db = new DBConnect(ip);                
         for(int i = 0; i < de.length; i++){
-            Update(2, de[i], id, out);
+            Update(2, de[i], id);
         }                    
     }
     
-    private void Accept(String [] ac, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);                
+    private void Accept(String [] ac, String id){
+        DBConnect db = new DBConnect(ip);                
         for(int i = 0; i < ac.length; i++){
-            Update(1, ac[i], id, out);
-            if(!ValidateMembers(ac[i], id, out))
-                InsertMember(ac[i], id, out);
+            Update(1, ac[i], id);
+            if(!ValidateMembers(ac[i], id))
+                InsertMember(ac[i], id);
             else
-                UpdateMember(ac[i], id, out);
+                UpdateMember(ac[i], id);
         }                    
     }
     
-    private void Update(int val, String idG, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private void Update(int val, String idG, String id){
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("update ask set state = ? where id_groups = ? and id_users = ?");
             ps.setInt(1, val);
             ps.setString(2, idG);
             ps.setString(3, id);
-            db.QueryInsert(ps,out);   
+            db.QueryInsert(ps);   
         }
         catch(SQLException e){}
         db.DBClose();
     }
     
-    private void InsertMember(String idG, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private void InsertMember(String idG, String id){
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert into users_groups (id_groups,id_users) values(?,?)");
             ps.setString(1, idG);
             ps.setString(2, id);
-            db.QueryInsert(ps,out);   
+            db.QueryInsert(ps);   
         }
         catch(SQLException e){}
         db.DBClose();
     }
     
-    private void UpdateMember(String idG, String id, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private void UpdateMember(String idG, String id){
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("update users_groups set active = 1 where id_users = ? and id_groups = ?");
             ps.setString(1, id);
             ps.setString(2, idG);
-            db.QueryInsert(ps,out);   
-            out.println("ok");
+            db.QueryInsert(ps);   
         }
         catch(SQLException e){}
         db.DBClose();
     }
     
-    private boolean ValidateMembers(String gruppo, String utente, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private boolean ValidateMembers(String gruppo, String utente){
+        DBConnect db = new DBConnect(ip);
         boolean st = false;
         
         try{
-            db = new DBConnect(out,ip);
+            db = new DBConnect(ip);
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM users_groups where id_groups = ? and id_users = ? and active=0");
             ps.setString(1, gruppo);
             ps.setString(2, utente);
             
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
             st = rs.next();
         

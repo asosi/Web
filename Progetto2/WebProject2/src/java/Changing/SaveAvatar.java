@@ -17,7 +17,6 @@ import java.io.File;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpSession;
 import DB.DBConnect;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -44,10 +43,9 @@ public class SaveAvatar extends HttpServlet {
         HttpSession session = request.getSession();
         final int id;
         synchronized(session){id = (Integer)session.getAttribute("idUser");}
-        PrintWriter out = response.getWriter();
         try {
             ip = request.getLocalAddr();
-            DBConnect db = new DBConnect(out,ip);
+            DBConnect db = new DBConnect(ip);
             db.DBClose();
             MultipartRequest multi;
             multi = new MultipartRequest(request, dirName, 10*1024*1024,"ISO-8859-1",
@@ -57,7 +55,7 @@ public class SaveAvatar extends HttpServlet {
                                 return new File(file.getParentFile(),Integer.toString(id));
                             }
                     });
-            AddImg(id, out);
+            AddImg(id);
             request.getAttribute("javax.servlet.forward.request_uri");
             
             String referer = request.getHeader("Referer"); 
@@ -68,16 +66,15 @@ public class SaveAvatar extends HttpServlet {
         catch (Exception lEx) {
             response.sendRedirect("ErrorFile.html");
         }
-        out.close();
     }
     
-    private void AddImg(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private void AddImg(int id){
+        DBConnect db = new DBConnect(ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("update users set avatar = ? where id = ?");
             ps.setString(1, "img/users/" +Integer.toString(id));
             ps.setInt(2, id);
-            db.QueryInsert(ps,out);            
+            db.QueryInsert(ps);            
         }
         catch(SQLException e){}
         db.DBClose();

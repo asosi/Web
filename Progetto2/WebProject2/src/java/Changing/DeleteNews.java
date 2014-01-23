@@ -8,7 +8,6 @@ package Changing;
 
 import DB.DBConnect;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -35,30 +34,28 @@ public class DeleteNews extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         try {
             ip = request.getLocalAddr();
-            DBConnect db = new DBConnect(out,ip);
+            DBConnect db = new DBConnect(ip);
             db.DBClose();
             String link = request.getParameter("val");  
             String idG = request.getParameter("id");  
             
-            Delete(idG, out);
+            Delete(idG);
             response.sendRedirect(link);
             
         } catch(Exception e) {
         }
-        out.close();
     }
     
-    private void Delete(String id, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private void Delete(String id){
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("update news set see = 1 where id = ?");
             ps.setString(1, id);
 
-            db.QueryInsert(ps,out);            
+            db.QueryInsert(ps);            
         }
         catch(SQLException e){}
         db.DBClose();

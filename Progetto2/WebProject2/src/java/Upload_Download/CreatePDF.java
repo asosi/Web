@@ -3,7 +3,6 @@ package Upload_Download;
 import DB.DBConnect;
 import com.itextpdf.text.Chunk;
 import java.io.IOException;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,6 @@ import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.io.FileOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,10 +47,10 @@ public class CreatePDF extends HttpServlet {
                 // SELECT COUNT(id) FROM test.users_group, test.users WHERE ID_groups = #idGroup# AND ID_users = ID
                  //connessione al DB
                 ip = request.getLocalAddr();
-                DBConnect db = new DBConnect(null,ip);
+                DBConnect db = new DBConnect(ip);
                 PreparedStatement ps1 = db.conn.prepareStatement("SELECT COUNT(id) FROM users_groups, users WHERE ID_groups = ? AND ID_users = ID AND active = 1");
                 ps1.setString(1, idGroup);
-                ResultSet rs1 = db.Query(ps1,null);
+                ResultSet rs1 = db.Query(ps1);
                 rs1.next();
                 Integer numPar = rs1.getInt("COUNT(id)");
                 
@@ -62,7 +60,7 @@ public class CreatePDF extends HttpServlet {
                 
                 PreparedStatement ps3 = db.conn.prepareStatement("SELECT COUNT(id) FROM post WHERE ID_groups = ?");
                 ps3.setString(1, idGroup);
-                ResultSet rs3 = db.Query(ps3,null);
+                ResultSet rs3 = db.Query(ps3);
                 rs3.next();
                 Integer numPost = rs3.getInt("COUNT(id)");
 
@@ -72,7 +70,7 @@ public class CreatePDF extends HttpServlet {
                 
                 PreparedStatement ps4 = db.conn.prepareStatement("SELECT max(date) FROM post WHERE ID_groups = ?");
                 ps4.setString(1, idGroup);
-                ResultSet rs4 = db.Query(ps4,null);
+                ResultSet rs4 = db.Query(ps4);
                 rs4.next();
                 String dateLast = rs4.getString("max(date)");
                  
@@ -83,7 +81,7 @@ public class CreatePDF extends HttpServlet {
                 
                 PreparedStatement ps5 = db.conn.prepareStatement("SELECT users.name, users.surname, groups.name AS gname FROM users, groups WHERE groups.ID_owner = users.ID AND groups.ID = ?");
                 ps5.setString(1, idGroup);
-                ResultSet rs5 = db.Query(ps5,null);
+                ResultSet rs5 = db.Query(ps5);
                 rs5.next();
                 String nameAmm = rs5.getString("name");
                 String surnameAmm = rs5.getString("surname");
@@ -107,13 +105,13 @@ public class CreatePDF extends HttpServlet {
                 
                 PreparedStatement ps6 = db.conn.prepareStatement("SELECT avatar FROM groups WHERE ID = ?");
                 ps6.setString(1, idGroup);
-                ResultSet rs6 = db.Query(ps6,null);
+                ResultSet rs6 = db.Query(ps6);
                 rs6.next();
                 
                 document.add( Chunk.NEWLINE );
                 
                 //String pathImg = "apache-tomcat-7.0.47/webapps/ciao/img/group/"+rs6.getString("avatar");//sosi
-                String pathImg = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum/img/group/"+rs6.getString("avatar");//campi
+                String pathImg = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/img/group/"+rs6.getString("avatar");//campi
  
                 Image avatarGroup = Image.getInstance(pathImg);
                document.add(avatarGroup);
@@ -150,7 +148,7 @@ public class CreatePDF extends HttpServlet {
                 //ATTENZIONE DA SISTEMARE CREAZIONE LISTA USERS #######
                 PreparedStatement ps2 = db.conn.prepareStatement("SELECT name, surname FROM users_groups, users WHERE ID_groups = ? AND ID_users = ID");
                 ps2.setString(1, idGroup);
-                ResultSet rs2 = db.Query(ps2,null);
+                ResultSet rs2 = db.Query(ps2);
                 
                 //stampo tutti i partecipanti al gruppo
                 for(int i=0;i<numPar;i++){     

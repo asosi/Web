@@ -42,9 +42,8 @@ public class AddGroup extends HttpServlet {
             HttpSession session = request.getSession();
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
-            PrintWriter out = response.getWriter();
             ip = request.getLocalAddr();
-            DBConnect db = new DBConnect(out,ip);
+            DBConnect db = new DBConnect(ip);
             db.DBClose();
             String name = request.getParameter("group_name");
             String avatar = request.getParameter("group_avatar");
@@ -56,28 +55,26 @@ public class AddGroup extends HttpServlet {
             String image = images[images.length-1];
 
 
-            AddGroup(name,image,id,out);
-            int idG = returnID(id, out);
+            AddGroup(name,image,id);
+            int idG = returnID(id);
 
             while(idG==-1)
-                idG = returnID(id, out);
+                idG = returnID(id);
 
-            AddMembers(idG, members, out);
+            AddMembers(idG, members);
             
             //File dir = new File("/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/"+idG);//sosi
-            File dir = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum/files/"+idG);//campi
+            File dir = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+idG);//campi
             boolean a = dir.mkdirs();
             
-            out.println(a);
             
             response.sendRedirect("GroupPage?numero="+idG);
-            out.close();
               
         } catch(Exception e) {}
     }    
     
-    private void AddGroup(String nome, String image, int id, PrintWriter out){
-         DBConnect db = new DBConnect(out,ip);
+    private void AddGroup(String nome, String image, int id){
+         DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert into groups (name,id_owner, avatar) values "
@@ -86,75 +83,75 @@ public class AddGroup extends HttpServlet {
             ps.setInt(2, id);
             ps.setString(3, image);
 
-            db.QueryInsert(ps,out);            
+            db.QueryInsert(ps);            
         }
         catch(SQLException e){}
         db.DBClose();
     }
     
-    private int returnID(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private int returnID(int id){
+        DBConnect db = new DBConnect(ip);
         int idG = -1;
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("select max(id) from groups where id_owner = ?");
             ps.setInt(1, id);
             
-            ResultSet rs = db.Query(ps,out);          
+            ResultSet rs = db.Query(ps);          
                         
             rs.next();
             idG = rs.getInt("max(id)");
         }
-        catch(SQLException e){out.println(e.getMessage());}
+        catch(SQLException e){}
         db.DBClose();
         
         return idG;
     }
 
-    private void AddMembers(int idG,String [] membri, PrintWriter out){
-         DBConnect db = new DBConnect(out,ip);
+    private void AddMembers(int idG,String [] membri){
+         DBConnect db = new DBConnect(ip);
                
             for(int i = 0; i < membri.length; i++){
-                AddInvito(idG, membri[i], out);
-                AddNews(membri[i], out);
+                AddInvito(idG, membri[i]);
+                AddNews(membri[i]);
             }      
         db.DBClose();                
         
     }
     
-    private void AddInvito(int idG,String membro, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private void AddInvito(int idG,String membro){
+        DBConnect db = new DBConnect(ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert into ask (id_groups, id_users) values (?,?)");
             ps.setInt(1, idG);
             ps.setString(2, membro);
-            db.QueryInsert(ps,out); 
+            db.QueryInsert(ps); 
         }
         catch(SQLException e){}
         db.DBClose();
     }
     
-    private void AddNews(String membro, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private void AddNews(String membro){
+        DBConnect db = new DBConnect(ip);
         String news = "Hai nuovi inviti";
         String page = "Inviti";
         try{
-            if(!ValidateNews(membro, page, out))
+            if(!ValidateNews(membro, page))
             {
                 PreparedStatement ps = db.conn.prepareStatement("insert into news (id_users,news,page) values (?,?,?)");
                 ps.setString(1, membro);
                 ps.setString(2, news);            
                 ps.setString(3, page);
-                db.QueryInsert(ps,out);
+                db.QueryInsert(ps);
             }
         }
         catch(SQLException e){}
         db.DBClose();
     }
     
-    private boolean ValidateNews(String idU, String page, PrintWriter out){
+    private boolean ValidateNews(String idU, String page){
         
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         boolean st = false;
         
         try{
@@ -162,7 +159,7 @@ public class AddGroup extends HttpServlet {
             ps.setString(1, idU);
             ps.setString(2, page);
             
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
             st = rs.next();
         

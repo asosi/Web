@@ -8,7 +8,6 @@ package Changing;
 
 import DB.DBConnect;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,11 +43,9 @@ public class EditGroup extends HttpServlet {
             HttpSession session = request.getSession();
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
-            
-            PrintWriter out = response.getWriter();
-            
+                        
             ip = request.getLocalAddr();
-            DBConnect db = new DBConnect(out,ip);
+            DBConnect db = new DBConnect(ip);
             db.DBClose();
             
             String name = request.getParameter("group_name");
@@ -57,62 +54,53 @@ public class EditGroup extends HttpServlet {
             
             idG = request.getParameter("group_id");
             
-            String[] members = membri.split(" ");             
-            out.println(name);
-            out.println("<br>Membri: ");
-            for(int i = 0; i < members.length; i++)
-                out.println(members[i]);
-            
+            String[] members = membri.split(" ");                         
             
             String[] nomembers = nomembri.split(" ");             
-            out.println("<br>No Membri: ");
-            for(int i = 0; i < nomembers.length; i++)
-                out.println(nomembers[i]);
             
-            EditGroupName(name, out);
-            AddMembers(members,out);
-            EditMembers(nomembers,out);            
+            EditGroupName(name);
+            AddMembers(members);
+            EditMembers(nomembers);            
             
             response.sendRedirect("Gruppi");
-            out.close();
             
         } catch(Exception e) {
         }
     }
     
-    private void EditGroupName(String nome, PrintWriter out){
-         DBConnect db = new DBConnect(out,ip);
+    private void EditGroupName(String nome){
+         DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("update groups set name = ? where id = ?");
             ps.setString(1, nome);
             ps.setString(2, idG);
 
-            db.QueryInsert(ps,out);            
+            db.QueryInsert(ps);            
         }
         catch(SQLException e){}
         db.DBClose();
     }
 
-   private void AddMembers(String [] membri, PrintWriter out){
-         DBConnect db = new DBConnect(out,ip);
+   private void AddMembers(String [] membri){
+         DBConnect db = new DBConnect(ip);
         
         try{
             for(int i = 0; i < membri.length; i++){                 
-                if(!ValidateMembers(idG,membri[i],out)){
-                    if(!ValidateAsk(idG, membri[i],out)){                       
+                if(!ValidateMembers(idG,membri[i])){
+                    if(!ValidateAsk(idG, membri[i])){                       
                         PreparedStatement ps = db.conn.prepareStatement("insert into ask (id_groups, id_users) values (?,?)");
                         ps.setString(1, idG);
                         ps.setString(2, membri[i]);
-                        db.QueryInsert(ps,out); 
-                        AddNews(membri[i],out);
+                        db.QueryInsert(ps); 
+                        AddNews(membri[i]);
                     }
                     else{
                         PreparedStatement ps = db.conn.prepareStatement("update ask set state = 0 where id_groups = ? and id_users = ?");
                         ps.setString(1, idG);
                         ps.setString(2, membri[i]);
-                        db.QueryInsert(ps,out); 
-                        AddNews(membri[i], out);
+                        db.QueryInsert(ps); 
+                        AddNews(membri[i]);
                     }
                     
                 }        
@@ -122,16 +110,16 @@ public class EditGroup extends HttpServlet {
         db.DBClose();
     }
    
-   private void EditMembers(String [] nomembri, PrintWriter out){
-         DBConnect db = new DBConnect(out,ip);
+   private void EditMembers(String [] nomembri){
+         DBConnect db = new DBConnect(ip);
         
         try{
             for(int i = 0; i < nomembri.length; i++){                 
-                if(ValidateMembers(idG,nomembri[i], out)){
+                if(ValidateMembers(idG,nomembri[i])){
                     PreparedStatement ps = db.conn.prepareStatement("update users_groups set active = 0 where id_groups = ? and id_users = ?");
                     ps.setString(1, idG);
                     ps.setString(2, nomembri[i]);
-                    db.QueryInsert(ps,out);                     
+                    db.QueryInsert(ps);                     
                 }        
             }     
         }
@@ -139,15 +127,15 @@ public class EditGroup extends HttpServlet {
         db.DBClose();
     }
     
-    private boolean ValidateMembers(String gruppo, String utente, PrintWriter out){
+    private boolean ValidateMembers(String gruppo, String utente){
         boolean st = false;
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM users_groups where id_groups = ? and id_users = ? and active=1");
             ps.setString(1, gruppo);
             ps.setString(2, utente);
             
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
             st = rs.next();
         
@@ -158,16 +146,16 @@ public class EditGroup extends HttpServlet {
         return st;
     } 
     
-    private boolean ValidateAsk(String gruppo, String utente, PrintWriter out){
+    private boolean ValidateAsk(String gruppo, String utente){
         boolean st = false;
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM ask where id_groups = ? and id_users = ? and state <> 0");
             ps.setString(1, gruppo);
             ps.setString(2, utente);
             
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
             st = rs.next();
         
@@ -178,18 +166,18 @@ public class EditGroup extends HttpServlet {
         return st;
     } 
 
-    private void AddNews(String membro, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
+    private void AddNews(String membro){
+        DBConnect db = new DBConnect(ip);
         String news = "Hai nuovi inviti";
         String page = "Inviti";
         try{
-            if(!ValidateNews(membro, page, out))
+            if(!ValidateNews(membro, page))
             {
                 PreparedStatement ps = db.conn.prepareStatement("insert into news (id_users,news,page) values (?,?,?)");
                 ps.setString(1, membro);
                 ps.setString(2, news);            
                 ps.setString(3, page);
-                db.QueryInsert(ps,out);
+                db.QueryInsert(ps);
             }
             
         }
@@ -197,16 +185,16 @@ public class EditGroup extends HttpServlet {
         db.DBClose();
     }
     
-    private boolean ValidateNews(String idU, String page, PrintWriter out){
+    private boolean ValidateNews(String idU, String page){
         boolean st = false;
-        DBConnect db = new DBConnect(out,ip);
+        DBConnect db = new DBConnect(ip);
         try{
             
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM news where id_users = ? and page = ? and see = 0");
             ps.setString(1, idU);
             ps.setString(2, page);
             
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps);
             
             st = rs.next();
         

@@ -27,7 +27,7 @@ public class DBConnect {
         //String url = "jdbc:mysql://"+IP+":3306/";
         String url = "jdbc:mysql://192.168.1.135:3306/";
         
-        String dbName = "new_schema";
+        String dbName = "new_schema2";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "user";
         String password = "erpice";

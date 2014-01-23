@@ -4,20 +4,138 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Servlet.Login</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
-    
     <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>Servlet.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaveAvatar</servlet-name>
+        <servlet-class>Changing.SaveAvatar</servlet-class>
+        <init-param>
+            <param-name>uploadDir</param-name>
+            <!--Campi-->
+            <param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/img/users/</param-value>
+            <!--Sosi-->
+            <!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/img/users/</param-value>-->
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>AddGroup</servlet-name>
+        <servlet-class>Changing.AddGroup</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditGroup</servlet-name>
+        <servlet-class>Changing.EditGroup</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Download</servlet-name>
+        <servlet-class>Upload_Download.DownloadFile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcceptDeclineInvite</servlet-name>
+        <servlet-class>Changing.AcceptDeclineInvite</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteNews</servlet-name>
+        <servlet-class>Changing.DeleteNews</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPost</servlet-name>
+        <servlet-class>Changing.AddPost</servlet-class>
+        <init-param>
+            <param-name>uploadDir</param-name>
+            <!--Campi-->
+            <param-value>/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/</param-value>
+            <!--Sosi-->
+            <!--<param-value>/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/</param-value>-->
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>CreatePDF</servlet-name>
+        <servlet-class>Upload_Download.CreatePDF</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>SaveAvatar</servlet-name>
+        <url-pattern>/SaveAvatar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddGroup</servlet-name>
+        <url-pattern>/AddGroup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditGroup</servlet-name>
+        <url-pattern>/EditGroup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Download</servlet-name>
+        <url-pattern>/Download</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptDeclineInvite</servlet-name>
+        <url-pattern>/AcceptDeclineInvite</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteNews</servlet-name>
+        <url-pattern>/DeleteNews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPost</servlet-name>
+        <url-pattern>/AddPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreatePDF</servlet-name>
+        <url-pattern>/CreatePDF</url-pattern>
+    </servlet-mapping>
+    <!--
+    <filter>
+        <filter-name>FilterA</filter-name>
+        <filter-class>Filters.FilterA</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterA</filter-name>
+        <url-pattern>/Home</url-pattern>
+        <url-pattern>/CreaGruppo</url-pattern>
+        <url-pattern>/GroupPage</url-pattern>
+        <url-pattern>/Gruppi</url-pattern>
+        <url-pattern>/Inviti</url-pattern>
+        <url-pattern>/Logout</url-pattern>
+        <url-pattern>/ModificaGruppo</url-pattern>
+        <url-pattern>/CreatePDF</url-pattern>
+        <url-pattern>/SaveAvatar</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>FilterGruppi</filter-name>
+        <filter-class>Filters.FilterGruppi</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterGruppi</filter-name>
+        <url-pattern>/GroupPage</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>FilterPDF</filter-name>
+        <filter-class>Filters.FilterPDF</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterPDF</filter-name>
+        <url-pattern>/CreatePDF</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>FilterEditGroup</filter-name>
+        <filter-class>Filters.FilterEditGroup</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterEditGroup</filter-name>
+        <url-pattern>/ModificaGruppo</url-pattern>
+    </filter-mapping>
+    -->
     <session-config>
         <session-timeout>
             30

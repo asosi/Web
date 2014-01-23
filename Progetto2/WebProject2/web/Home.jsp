@@ -133,7 +133,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand">Forum</a>
+                <a class="navbar-brand">Forum2</a>
             </div>
             <div class="navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">

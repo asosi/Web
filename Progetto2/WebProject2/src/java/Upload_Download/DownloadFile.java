@@ -5,12 +5,9 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
  
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -29,17 +26,17 @@ public class DownloadFile extends javax.servlet.http.HttpServlet implements
     
     public void init() {
         // the file data.xls is under web application folder
-        filePath = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum/";
+        filePath = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/";
     }
     
     private String File(){
         String name = "";       
-        DBConnect db = new DBConnect(null,ip);        
+        DBConnect db = new DBConnect(ip);        
         try{
             PreparedStatement ps = db.conn.prepareStatement("SELECT post_file from post_file where id = ?");
             ps.setString(1, idF);
 
-            ResultSet rs = db.Query(ps,null);
+            ResultSet rs = db.Query(ps);
             
              while(rs.next()){
                  name = rs.getString("post_file");
