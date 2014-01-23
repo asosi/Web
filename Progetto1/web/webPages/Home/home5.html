@@ -2,7 +2,10 @@
                     <br />
 
                     <FORM name="EditAvatar" ENCTYPE='multipart/form-data'  method='POST' action='SaveAvatar'>
-                        <input type='file' name="ImageFile" accept="image/*" id="InputImage" class="form-control" onchange="readURL(this);" />
+                        <div id="ImageEditFile" class="form-group">
+                            <label>Image: (Max Size: 10 Mb)</label>
+                            <input type='file' name="ImageFile" accept="image/*" id="InputImage" class="form-control" onchange="readURL(this);" />
+                        </div>
                     </FORM>
 
                 </div>

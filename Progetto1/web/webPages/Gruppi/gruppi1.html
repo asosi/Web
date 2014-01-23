@@ -112,7 +112,7 @@
             Row.getElementsByTagName("td")[1].innerHTML = "<img class='table' src='"+src+"' />"+nome;
         }
 
-        //funzione che verifica se un bottono è disabilitato
+        //funzione che verifica se un bottono ï¿½ disabilitato
         function GetButtonStatus(target) {
             if ($(document.getElementsByName(target)).is(':disabled')) {
                 return true;
@@ -129,10 +129,24 @@
             return rows;
         }
 
-		function SaveEditModal() {
+	function SaveEditModal() {
             var tes = document.getElementById('InputImage').value;
-            $('#EditModal').modal('hide');						
-			document.EditAvatar.submit();	
+            var img = document.getElementById("InputImage").files[0];
+                
+                var x = 0;
+                
+                switch(img.type){
+                    case "image/jpeg":
+                    case "image/png": x = 1;
+                }
+            
+            
+            if(img.size > 10485760 || x == 0){                
+                document.getElementById("ImageEditFile").className = "form-group has-error";
+            }
+            else{
+                document.EditAvatar.submit();	
+            }
         }
 
         function CloseEditModal() {
@@ -143,18 +157,31 @@
 
         //funzione che cambia l'immagine di anteprima nella modal: "Modifica Dati utente"
         function readURL(input) {
+            
+                
+                var type = document.getElementById("InputImage").files[0].type;
+                
+                var x = 0;
+                
+                switch(type){
+                    case "image/jpeg":
+                    case "image/png": x = 1;
+                }
 
-            if (input.files && input.files[0]) {
+                if (input.files && input.files[0] && x == 1) {
 
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#avatar')
-                    .attr('src', e.target.result)
-                    .width(200)
-                    .height(200);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#avatar')
+                        .attr('src', e.target.result)
+                        .width(200)
+                        .height(200);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+
+                }
+                else
+                    document.getElementById("ImageEditFile").className = "form-group has-error";
         }
 		
 
