@@ -138,23 +138,6 @@ public class Gruppi extends HttpServlet {
         db.DBClose();
     }
     
-    private void EditGroup(int id, PrintWriter out){
-        DBConnect db = new DBConnect(out,ip);
-        try{
-            PreparedStatement ps = db.conn.prepareStatement("SELECT name,avatar from users join users_group on (users.id = users_groups.id_users where users_groups.id_groups = ?");
-            ps.setInt(1, id);
-
-            ResultSet rs = db.Query(ps,out);
-            
-             while(rs.next()){
-                 out.println("<li class=\"dropdown\">");
-                 out.println("<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">"+rs.getString("name")+"<b class=\"caret\"></b></a>");
-             }
-        }
-        catch(SQLException e){}
-        db.DBClose();
-    }
-    
     private void EditAvatar(int id, PrintWriter out){
         DBConnect db = new DBConnect(out,ip);
         
