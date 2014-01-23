@@ -1,6 +1,9 @@
+<%@page import="Stamp.Home"%>
 <%
     session = request.getSession();
     int idUser = (Integer)session.getAttribute("idUser");
+    
+    Home home = new Home(request);
 %>
 
 
@@ -135,10 +138,10 @@
             <div class="navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
                     <%
-                        //Notifiche
+                        home.Stampa(home.Notifiche(idUser), out);
                     %>
                     <%
-                        //Name
+                        home.Stampa(home.Name(idUser, null), out);
                     %>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>

@@ -25,16 +25,16 @@ public class Home extends Stamp{
         super(request);
     }
     
-    public ArrayList<String> Notifiche(int id, PrintWriter out){
+    public ArrayList<String> Notifiche(int id){
         ArrayList<String> result = new ArrayList<String>();
-        DBConnect db = new DBConnect(out,ip); 
+        DBConnect db = new DBConnect(null,ip); 
         
         try{           
             int numero = 0;
             
             PreparedStatement ps = db.conn.prepareStatement("select id,news,page from news where see = 0 and id_users = ?");
             ps.setInt(1, id);
-            ResultSet rs = db.Query(ps,out);
+            ResultSet rs = db.Query(ps,null);
             
             rs.last();
             numero = rs.getRow();
@@ -60,7 +60,6 @@ public class Home extends Stamp{
             
         }
         catch(SQLException e){
-            out.println(e.getMessage());
         }
         
         db.DBClose();

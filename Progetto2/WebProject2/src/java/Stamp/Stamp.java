@@ -3,6 +3,7 @@ package Stamp;
 
 import DB.DBConnect;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspWriter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -69,7 +71,7 @@ public class Stamp {
         return result;
     }
     
-    public void Stampa(ArrayList<String> result, PrintWriter out){
+    public void Stampa(ArrayList<String> result, JspWriter out) throws IOException{
         Iterator iter = result.iterator();
         while(iter.hasNext()){
             out.println((String)iter.next());
