@@ -105,9 +105,8 @@ public class AddPost extends HttpServlet {
                     AddFile(arrayFile[i], idG, idP, out);
                 }
             }
-            catch (Exception lEx) {
-                out.println("crasho nell'ultimo try: " +lEx.getMessage()+"<br>");                
-                //this.getServletContext().log(lEx, "Impossibile caricare il file");
+            catch (IOException lEx) {
+                out.println(lEx.getMessage()+"<br>");                
             }
             
             response.sendRedirect("GroupPage?numero="+idG);

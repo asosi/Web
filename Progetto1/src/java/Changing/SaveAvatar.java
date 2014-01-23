@@ -66,7 +66,6 @@ public class SaveAvatar extends HttpServlet {
         }
         
         catch (IOException lEx) {
-            this.getServletContext().log(lEx, "Errore caricamento immagine");
             response.sendRedirect("ErrorFile.html");
         }
         out.close();
