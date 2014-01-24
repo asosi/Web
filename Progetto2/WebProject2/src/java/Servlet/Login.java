@@ -38,7 +38,7 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             
-            String user = request.getParameter("username");
+            String user = request.getParameter("username");//email
             String pass = request.getParameter("password");
             ip = request.getLocalAddr();
             DBConnect db = new DBConnect(ip);

@@ -54,6 +54,10 @@
         <servlet-name>CreatePDF</servlet-name>
         <servlet-class>Upload_Download.CreatePDF</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SignIn</servlet-name>
+        <servlet-class>Servlet.SignIn</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -136,6 +140,10 @@
         <url-pattern>/ModificaGruppo</url-pattern>
     </filter-mapping>
     -->
+    <servlet-mapping>
+        <servlet-name>SignIn</servlet-name>
+        <url-pattern>/SignIn</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
