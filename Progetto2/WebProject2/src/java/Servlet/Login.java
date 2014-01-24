@@ -38,13 +38,13 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             
-            String user = request.getParameter("username");//email
+            String email = request.getParameter("email");
             String pass = request.getParameter("password");
             ip = request.getLocalAddr();
             DBConnect db = new DBConnect(ip);
             db.DBClose();
-            if(Validate(user,pass)==true){
-                int id = RetrunID(user, pass);
+            if(Validate(email,pass)==true){
+                int id = RetrunID(email, pass);
                 
                 HttpSession session = request.getSession(true);                
                 synchronized(session){ session.setAttribute("idUser", id);}
@@ -74,14 +74,14 @@ public class Login extends HttpServlet {
         }
     }
     
-    boolean Validate(String user, String pass){
+    boolean Validate(String email, String pass){
         
         boolean st = false;
         try{
             
             DBConnect db = new DBConnect(ip);
-            PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where username = ? and password = ?");
-            ps.setString(1, user);
+            PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where email = ? and password = ?");
+            ps.setString(1, email);
             ps.setString(2, pass);
             
             ResultSet rs = db.Query(ps);
@@ -96,13 +96,13 @@ public class Login extends HttpServlet {
         return st;
     }
     
-    int RetrunID(String user, String pass){
+    int RetrunID(String email, String pass){
         int  id = -1;
         try{
             
             DBConnect db = new DBConnect(ip);
-            PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where username = ? and password = ?");
-            ps.setString(1, user);
+            PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where email = ? and password = ?");
+            ps.setString(1, email);
             ps.setString(2, pass);
             
             ResultSet rs = db.Query(ps);
