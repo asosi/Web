@@ -202,6 +202,7 @@ public class GroupPage extends Stamp{
         boolean exist = f.exists();
         return exist;
     }
+    
     public ArrayList<String> Table(int id){
         ArrayList<String> result = new ArrayList<String>();
         DBConnect db = new DBConnect(ip);

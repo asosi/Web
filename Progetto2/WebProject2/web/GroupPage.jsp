@@ -2,10 +2,11 @@
 <%
     session = request.getSession();
     int idUser = (Integer)session.getAttribute("idUser");
-    String idG = request.getParameter("numero");
     
-    GroupPage groupP = new GroupPage(request);
+    GroupPage groupPage = new GroupPage(request);
+    String idG = request.getParameter("numero");
 %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -162,7 +163,7 @@
                         finale += files[i].name+"_-_-_";
 				
                 //CloseModalPost();
-                document.addpost.action = "AddPost?testopost="+tes+"&numero="+document.getElementById("idG").value+"&Elementi="+finale;
+                document.addpost.action = "AddPost?testopost="+tes+"&numeroElementi="+finale;
                 document.addpost.submit();
             }
         }
@@ -226,7 +227,7 @@
                         </div>
                     </li>
                     <%
-                        groupP.Stampa(groupP.Name(idUser), out);
+                        groupPage.Stampa(groupPage.Name(idUser), out);
                     %>
                     <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
@@ -248,7 +249,7 @@
         <div>
             <center>
                 <%
-                    groupP.Stampa(groupP.GroupTitle(idG), out);
+                    groupPage.Stampa(groupPage.GroupTitle(idG),out);
                 %>
             </center>
         </div>
@@ -256,9 +257,9 @@
         <div style="width:100%">
                 <table style="width:100%">
                     <!-- SINGLE POST -->
-                    <%
-                        groupP.Stampa(groupP.Post(idG), out);
-                    %>
+                        <%
+                            groupPage.Stampa(groupPage.Post(idG), out);
+                        %>
                 </table>
         </div>
     </div>
@@ -280,15 +281,13 @@
 
                     <div id="postFileDiv" class="form-group">
                         <label class="control-label" id="postFileLabel" for="inputError">File: (Max Size: 100 Mb)</label>
-                        <div id="postFileDiv" class="form-group">		
-                            <form ENCTYPE="multipart/form-data" method="POST" name="addpost" action="AddPost">
-                                    <input name="upload" type="file" class="form-control" id="postFile"  multiple="" />	
-                                    <%
-                                        //set Group Text Box
-                                        groupP.Stampa(groupP.SetGroupTextBox(idUser, idG), out);
-                                    %>
-
-                            </form>
+                            <div id="postFileDiv" class="form-group">		
+                                <form ENCTYPE="multipart/form-data" method="POST" name="addpost" action="AddPost">
+                                        <input name="upload" type="file" class="form-control" id="postFile"  multiple="" />	
+                                            <%
+                                                groupPage.Stampa(groupPage.SetGroupTextBox(idUser, idG), out);
+                                            %>
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -303,10 +302,11 @@
     </div>
     <!-- /.modal -->
 
+    <%
+        //Edit avatar
+    %>
     
-    <%@ include file="WebPages/ModalEditAvatar.jsp" %>
-    
-    <!-- Bootstrap core JavaScript
+        <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

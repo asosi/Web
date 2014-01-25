@@ -62,7 +62,7 @@ public class EditGroup extends HttpServlet {
             AddMembers(members);
             EditMembers(nomembers);            
             
-            response.sendRedirect("Gruppi");
+            response.sendRedirect("Gruppi.jsp");
             
         } catch(Exception e) {
         }

@@ -2,7 +2,7 @@
 <%
     session = request.getSession();
     int idUser = (Integer)session.getAttribute("idUser");
-    String idG = (String)session.getAttribute("idG");
+    String idG = request.getParameter("numero");
     
     ModificaGruppo modificaG = new ModificaGruppo(request);
 %>
@@ -261,7 +261,7 @@
                             modificaG.Stampa(modificaG.Table(idG), out);
                         %>
                         <%
-                            modificaG.Stampa(modificaG.Table1(id, idG), out);
+                            modificaG.Stampa(modificaG.Table1(idUser, idG), out);
                         %>
                                     </div>
                                 </form>
