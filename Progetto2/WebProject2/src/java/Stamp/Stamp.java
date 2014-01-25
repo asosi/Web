@@ -2,14 +2,11 @@ package Stamp;
 
 
 import DB.DBConnect;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspWriter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,12 +18,12 @@ import javax.servlet.jsp.JspWriter;
  *
  * @author davide
  */
-public class Stamp {
-    String ip;
-    
-    public Stamp(HttpServletRequest request){
-        ip = request.getLocalAddr();
+public class Stamp extends Print{
+
+    public Stamp(HttpServletRequest request) {
+        super(request);
     }
+    
     
     public ArrayList<String> Name(int id){
         ArrayList<String> result = new ArrayList<String>();
@@ -69,10 +66,4 @@ public class Stamp {
         return result;
     }
     
-    public void Stampa(ArrayList<String> result, JspWriter out) throws IOException{
-        Iterator iter = result.iterator();
-        while(iter.hasNext()){
-            out.println((String)iter.next());
-        }
-    }
 }
