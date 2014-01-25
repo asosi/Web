@@ -70,7 +70,7 @@
                         trovato = true;
                 
                 if(trovato)
-                    location.href = "SendEmail?="+email;
+                    location.href = "SendEmail?email="+email;
                 else
                     document.getElementById("formEmail").className = "form-group has-error";
             }
