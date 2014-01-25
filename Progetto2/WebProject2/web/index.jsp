@@ -82,7 +82,7 @@
     <br />    
     <br />
     <br />
-    <div class="ForgotPassword">
+    <div class="ForgotPassword" style="position: fixed">
             <a class="newHome" href="ForgotPassword.jsp">Forgot your password?</a>
     </div>
 
@@ -101,6 +101,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     
                     <%
                         Index index = new Index(request);

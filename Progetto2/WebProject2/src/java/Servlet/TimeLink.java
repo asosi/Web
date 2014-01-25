@@ -49,6 +49,7 @@ public class TimeLink extends HttpServlet {
             
         } finally {
             out.close();
+            
         }
     }
 

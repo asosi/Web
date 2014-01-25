@@ -8,10 +8,6 @@ package Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -20,6 +16,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -41,14 +41,10 @@ public class SendEmail extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            
             String ip = request.getLocalAddr();
             
             String email = request.getParameter("email");
             Send(email,ip);
-            
-            
-            
             
         } finally {
             out.close();
@@ -86,6 +82,7 @@ public class SendEmail extends HttpServlet {
                 Transport.send(message);
 
                 System.out.println("Done");
+                
 
         } catch (MessagingException e) {
                 throw new RuntimeException(e);
