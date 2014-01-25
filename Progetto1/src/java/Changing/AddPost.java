@@ -183,7 +183,7 @@ public class AddPost extends HttpServlet {
     private void AddNews(String membro, String idG, PrintWriter out, String name){
         DBConnect db = new DBConnect(out,ip);
         String news = "Nuovi post nel gruppo "+name;
-        String page = "GroupPage.jsp?numero="+idG;
+        String page = "GroupPage?numero="+idG;
         try{
             if(!ValidateNews(membro, page, out))
             {
