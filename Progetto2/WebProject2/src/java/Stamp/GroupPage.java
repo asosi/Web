@@ -198,7 +198,7 @@ public class GroupPage extends Stamp{
     
     //lasciate che lo faccio io :-)
     private boolean controlloLinkFile(String idG, String nomeFile){
-        File f = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/boobs3/files/"+ idG +"/"+nomeFile);
+        File f = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+ idG +"/"+nomeFile);
         boolean exist = f.exists();
         return exist;
     }
