@@ -67,7 +67,16 @@
 
             if (password != password1 || password1 == "") { document.getElementById("formPassword1").className = "form-group has-error"; bpassword1 = false; }
             else { document.getElementById("formPassword1").className = "form-group"; bpassword1 = true; }
-
+            
+            if(!validEmail(email)){
+                document.getElementById("formEmail").className = "form-group has-error";
+                document.getElementById("formEmail1").className = "form-group has-error";
+                bemail = false;
+            }
+            else{
+                document.getElementById("formEmail").className = "form-group";
+                bemail = false;                
+            }
 
             if (bname == true && bsurname == true && bemail == true && bemail1 == true && bpassword == true && bpassword1 == true){
                 document.location.href = "SignIn?name="+name+"&surname="+surname+"&email="+email+"&password="+password;
@@ -77,6 +86,11 @@
         function Registered() {
             location.href = "Registrazione.html";
         }
+
+        function validEmail(email){
+            return  /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+.([a-zA-Z])+([a-zA-Z])+/.test(email);
+        }
+
 
     </script>
 
