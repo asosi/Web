@@ -82,7 +82,7 @@
     <br />
     <br />
     <div class="ForgotPassword">
-            <a class="newHome" href="ForgotPassword.html">Forgot your password?</a>
+            <a class="newHome" href="ForgotPassword.jsp">Forgot your password?</a>
     </div>
 
     <div class="container">
