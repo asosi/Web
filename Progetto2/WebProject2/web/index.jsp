@@ -1,3 +1,4 @@
+<%@page import="Stamp.Index"%>
 <%
 
 %>
@@ -92,51 +93,21 @@
                 <thead>
                     <tr>
                         <th style="width:5%; display:none">ID</th>
-                        <th style="width:25%">Group Name</th>
-                        <th style="width:20%">Admin</th>
-                        <th style="width:15%">Post</th>
-                        <th style="width:25%">Last Post</th>
+                        <th style="width:40%">Group Name</th>
+                        <th style="width:15%">Admin</th>
+                        <th style="width:5%">Posts</th>
+                        <th style="width:20%">Last Post</th>
                         <th style="width:10%">Page</th>
                     </tr>
                 </thead>
                 <tbody>
                     
                     <%
+                        Index index = new Index(request);
                         
+                        index.Stampa(index.Table(), out);
                     %>
                     
-                    <tr id="tr1">
-                        <td style="display:none">1</td>
-                        <td><img class="table" src="img/group/icon.png" />Cucina</td>
-                        <td>Alfredo Mengiazzo</td>
-                        <td>Post: 10</td>
-                        <td>From: <strong>Turbato Thomas</strong> <br />19-12-2013, 11:00</td>
-                        <td><button class="btn btn-primary btn-sm" type="button" onclick="SelectGroup('tr1')">Page of Group</button></td>
-                    </tr>
-                    <tr id="tr2">
-                        <td style="display:none">2</td>
-                        <td><img class="table" src="img/group/icon.png" />Cucina</td>
-                        <td>Alfredo Mengiazzo</td>
-                        <td>Post: 10</td>
-                        <td>From: <strong>Turbato Thomas</strong> <br />19-12-2013, 11:00</td>
-                        <td><button class="btn btn-primary btn-sm" type="button" onclick="SelectGroup('tr2')">Page of Group</button></td>
-                    </tr>
-                    <tr id="tr3">
-                        <td style="display:none">3</td>
-                        <td><img class="table" src="img/group/icon.png" />Cucina</td>
-                        <td>Alfredo Mengiazzo</td>
-                        <td>Post: 10</td>
-                        <td>From: <strong>Turbato Thomas</strong> <br />19-12-2013, 11:00</td>
-                        <td><button class="btn btn-primary btn-sm" type="button" onclick="SelectGroup('tr3')">Page of Group</button></td>
-                    </tr>
-                    <tr id="tr4">
-                        <td style="display:none">14</td>
-                        <td><img class="table" src="img/group/icon.png" />Cucina</td>
-                        <td>Alfredo Mengiazzo</td>
-                        <td>Post: 10</td>
-                        <td>From: <strong>Turbato Thomas</strong> <br />19-12-2013, 11:00</td>
-                        <td><button class="btn btn-primary btn-sm" type="button" onclick="SelectGroup('tr4')">Page of Group</button></td>
-                    </tr>
                 </tbody>
             </table>
 

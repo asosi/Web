@@ -81,7 +81,7 @@ public class SendEmail extends HttpServlet {
                 message.setSubject("Change password");
                 message.setText("Dear Mail Crawler,"
                         + "\n\n To change your email address click (within 90 seconds) on the following link!"
-                        + "\n \n  "+ip+":8080/Forum2/TimeLink?email="+to);
+                        + "\n \n  http://"+ip+":8080/Forum2/TimeLink?email="+to);
 
                 Transport.send(message);
 

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Amedeo
  */
-public class ReturnEmail extends Stamp{
+public class ReturnEmail extends Print{
     
     public ReturnEmail(HttpServletRequest request) {
         super(request);
