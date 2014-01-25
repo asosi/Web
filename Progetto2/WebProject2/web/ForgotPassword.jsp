@@ -94,7 +94,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="index.html" class="navbar-brand">Back to Home</a>
+                <a href="index.jsp" class="navbar-brand">Back to Home</a>
             </div>  
             <!--/.nav-collapse -->
         </div>

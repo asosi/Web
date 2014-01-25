@@ -416,7 +416,7 @@
 
             // from:
             // http://www.javascripttoolbox.com/lib/table/examples.php
-            // http://www.javascripttoolbox.com/temp/table_cellindex.html
+            // http://www.javascripttoolbox.com/temp/table_cellindex.jsp
 
 
             function computeTableHeaderCellIndexes(t) {
