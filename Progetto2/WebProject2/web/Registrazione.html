@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
+    <title>Home</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- My css -->    
+    <link href="css/mycss.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="theme.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        function Registrazione() {
+            var name = document.getElementById("Name").value;
+            var bname = false;
+            if (name == "") document.getElementById("formName").className = "form-group has-error";
+            else { document.getElementById("formName").className = "form-group"; bname = true }
+
+            var surname = document.getElementById("Surname").value;
+            var bsurname = false;
+            if (surname == "") document.getElementById("formSurname").className = "form-group has-error";
+            else { document.getElementById("formSurname").className = "form-group"; bsurname = true; }
+
+            var email = document.getElementById("Email").value;
+            var bemail = false;
+            if (email == "") document.getElementById("formEmail").className = "form-group has-error";
+            else { document.getElementById("formEmail").className = "form-group"; bemail = true; }
+
+            var email1 = document.getElementById("Email1").value;
+            var bemail1 = false;
+            if (email1 == "") document.getElementById("formEmail1").className = "form-group has-error";
+            else { document.getElementById("formEmail1").className = "form-group"; bemail1 = true; }
+
+            var password = document.getElementById("Password").value;
+            var bpassword = false;
+            if (password == "") document.getElementById("formPassword").className = "form-group has-error";
+            else { document.getElementById("formPassword").className = "form-group"; bpassword = true; }
+
+            var password1 = document.getElementById("Password1").value;
+            var bpassword1 = false;
+            if (password1 == "") document.getElementById("formPassword1").className = "form-group has-error";
+            else { document.getElementById("formPassword1").className = "form-group"; bpassword1 = true; }
+
+            if (email != email1 || email1 == "") { document.getElementById("formEmail1").className = "form-group has-error"; bemail1 = false;}
+            else {document.getElementById("formEmail1").className = "form-group"; bemail1 = true;}
+
+            if (password != password1 || password1 == "") { document.getElementById("formPassword1").className = "form-group has-error"; bpassword1 = false; }
+            else { document.getElementById("formPassword1").className = "form-group"; bpassword1 = true; }
+
+
+            if (bname == true && bsurname == true && bemail == true && bemail1 == true && bpassword == true && bpassword1 == true){
+                document.location.href = "SignIn?name="+name+"&surname="+surname+"&email="+email+"&password="+password;
+            }
+        }
+
+        function Registered() {
+            location.href = "Registrazione.html";
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <div class="navbar navbar-inverse barra">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="navbar-brand">Back to Home</a>
+            </div>
+            <div class="navbar-collapse navbar-right mynavbar-right">
+                <form class="form-signin" action="Login">
+                    <input type="text" name="username" class="form-control input-sm newHome" placeholder="Email"/>
+                    <input name="password" type="password" class="form-control input-sm newHome1" placeholder="Password" />
+                    <button class="btn btn-primary btn-sm newHome" name="login" type="submit">Sign in</button>
+                </form>
+                    <button class="btn btn-success btn-sm newHome1" name="registrazione" type="button" onclick="Registered()">Registered</button>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="ForgotPassword">
+            <a class="newHome" href="ForgotPassword.html">Forgot your password?</a>
+    </div>
+
+    <div class="container">
+        <center>
+            <h2>Registration</h2>
+        </center>
+        <br />
+
+        <div id="formName" class="form-group">                    
+            <label class="control-label registrazione" for="inputError">Name:</label>                    
+            <input type="text" class="form-control input-sm registrazione" id="Name" required autofocus />
+        </div>
+        <div id="formSurname" class="form-group">                    
+            <label class="control-label registrazione" for="inputError">Surname:</label>                    
+            <input type="text" class="form-control input-sm  registrazione" id="Surname" />
+        </div>
+        <hr />
+        <div id="formEmail" class="form-group">                    
+            <label class="control-label registrazione" for="inputError">Email:</label>                    
+            <input type="text" class="form-control input-sm  registrazione" id="Email"  />
+        </div>
+        <div id="formEmail1" class="form-group">                    
+            <label class="control-label registrazione" for="inputError">Confirm Email:</label>                    
+            <input type="text" class="form-control input-sm  registrazione" id="Email1" />
+        </div>
+        <hr />
+        <div id="formPassword" class="form-group">                    
+            <label class="control-label registrazione" for="inputError">Password:</label>                    
+            <input type="password" class="form-control input-sm  registrazione" id="Password"/>
+        </div>
+        <div id="formPassword1" class="form-group">                    
+            <label class="control-label registrazione" for="inputError">Confirm Password:</label>                    
+            <input type="password" class="form-control input-sm  registrazione" id="Password1" />
+        </div>
+        <br />
+        <center>
+            <button class="btn btn-success" name="registrazione" type="button" onclick="Registrazione()">Complete the Registration</button> 
+        </center>
+        </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+	
+	<form name="Scelta">
+	</form>
+
+</body>
+</html>

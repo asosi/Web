@@ -41,7 +41,7 @@ public class Logout extends HttpServlet {
             
             session.invalidate();
             
-            request.getRequestDispatcher("index.html").include(request, response);
+            request.getRequestDispatcher("index.jsp").include(request, response);
             
             
         } catch(Exception e) {

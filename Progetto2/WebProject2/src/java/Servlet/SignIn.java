@@ -9,6 +9,7 @@ package Servlet;
 import DB.DBConnect;
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +41,14 @@ public class SignIn extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             ip = request.getLocalAddr();
-            sign(name, surname, email, password);
+            
+            if(!CheckEmail(email)){           
+                sign(name, surname, email, password);
+                response.sendRedirect("Login?email="+email+"&password="+password);
+            }
+            else{
+                response.sendRedirect("ErrorRegistration.html");
+            }
         } catch(Exception e){}
     }
     
@@ -56,6 +64,23 @@ public class SignIn extends HttpServlet {
         }
         catch(SQLException e){}
         db.DBClose();
+    }
+    
+    private boolean CheckEmail(String email){
+        DBConnect db = new DBConnect(ip);
+        boolean st = false;
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("select email from users where email = ?");
+            ps.setString(1, email);
+            
+            ResultSet rs = db.Query(ps);
+            st = rs.next();
+            
+        }
+        catch(SQLException e){}
+        db.DBClose();
+        return st;
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

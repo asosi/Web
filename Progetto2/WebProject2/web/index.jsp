@@ -68,7 +68,7 @@
             </div>
             <div class="navbar-collapse navbar-right mynavbar-right">
                 <form class="form-signin" action="Login">
-                    <input type="text" name="username" class="form-control input-sm newHome" placeholder="Email"/>
+                    <input type="text" name="email" class="form-control input-sm newHome" placeholder="Email">
                     <input name="password" type="password" class="form-control input-sm newHome1" placeholder="Password" />
                     <button class="btn btn-primary btn-sm newHome" name="login" type="submit">Sign in</button>
                 </form>
