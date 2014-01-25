@@ -37,18 +37,20 @@
     <script type="text/javascript">
 
         function Send() {
+            document.getElementById("sendEmail").disabled = "disabled";
             var email = document.getElementById("email").value;
             
             if(!validEmail(email)){
                 document.getElementById("formEmail").className = "form-group has-error";
+            document.getElementById("sendEmail").disabled = "";
             }
             else{
                 
-        <%
+            <%
                 ReturnEmail ret = new ReturnEmail(request);
                 ArrayList<String> email = ret.Email(); 
                 Iterator ITemail = email.iterator();
-        %>
+            %>
                 
                 var Arrayemail = new Array(<%                
                     int contaEmail = 0;
@@ -71,8 +73,10 @@
                 
                 if(trovato)
                     location.href = "SendEmail?email="+email;
-                else
+                else{
                     document.getElementById("formEmail").className = "form-group has-error";
+                    document.getElementById("sendEmail").disabled = "";
+                }
             }
         }
         
@@ -119,7 +123,7 @@
                 <input id="email" name="email" style="width:40%" type="text" class="form-control" placeholder="Email" />
             </div>
             <br />
-            <button type="button" class="btn btn-primary" onclick="Send()">Send Email</button>
+            <button id="sendEmail" type="button" class="btn btn-primary" onclick="Send()">Send Email</button>
         </center>
 
         </div>

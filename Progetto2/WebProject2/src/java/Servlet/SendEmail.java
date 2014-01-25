@@ -6,16 +6,13 @@
 
 package Servlet;
 
+import Class.Email;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -38,55 +35,25 @@ public class SendEmail extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             
-            
-            
             String ip = request.getLocalAddr();
             
             String email = request.getParameter("email");
-            Send(email,ip);
+            
+            String ogget = "Change password";
+            
+            String testo = "Dear Mail Crawler,"
+                        + "\n\n To change your email address click (within 90 seconds) on the following link!"
+                        + "\n \n  http://"+ip+":8080/Forum2/TimeLink?email="+email;
+            
+            Email send = new Email();
+            send.Send(email,ogget,testo);
             
         } finally {
             out.close();
         }
     }
     
-    private void Send(String to, String ip){
-        final String username = "forumunitn@gmail.com";
-        final String password = "DoppiePatate0";
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session session = Session.getInstance(props,
-          new javax.mail.Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                }
-          });
-
-        try {
-
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(username));
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(to));
-                message.setSubject("Change password");
-                message.setText("Dear Mail Crawler,"
-                        + "\n\n To change your email address click (within 90 seconds) on the following link!"
-                        + "\n \n  http://"+ip+":8080/Forum2/TimeLink?email="+to);
-
-                Transport.send(message);
-
-                System.out.println("Done");
-                
-
-        } catch (MessagingException e) {
-                throw new RuntimeException(e);
-        }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

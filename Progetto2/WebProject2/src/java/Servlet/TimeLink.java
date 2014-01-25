@@ -6,10 +6,15 @@
 
 package Servlet;
 
+import Class.Email;
+import DB.DBConnect;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +26,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class TimeLink extends HttpServlet {
 
+    private final String ALPHA_CAPS  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private final String ALPHA   = "abcdefghijklmnopqrstuvwxyz";
+    private final String NUM     = "0123456789";
+    private final String SPL_CHARS   = "!@#$%^&*_=+-/";
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,13 +55,85 @@ public class TimeLink extends HttpServlet {
                         
             if(differenza>90)
                 response.sendRedirect("LinkScaduto.html");
-            else
+            else{
+                
+                char[] p = generatePswd(8, 12, 1, 1, 1);                
+                String password = String.valueOf(p, 0, p.length) ;
+                
+                String email = request.getParameter("email");
+                String ip = request.getLocalAddr();
+                
+                UpdatePassword(email,password, ip);                
+            
+
+                String ogget = "Confirm change password";
+
+                String testo = "Dear Mail Crawler,"
+                            + "\n This is your new password:"
+                            + "\n\n "+password;
+
+                Email send = new Email();
+                send.Send(email,ogget,testo);
+                
                 response.sendRedirect("LinkValido.html");
+            }
             
         } finally {
             out.close();
             
         }
+    }
+    
+    public char[] generatePswd(int minLen, int maxLen, int noOfCAPSAlpha,
+            int noOfDigits, int noOfSplChars) {
+        if(minLen > maxLen)
+            throw new IllegalArgumentException("Min. Length > Max. Length!");
+        if( (noOfCAPSAlpha + noOfDigits + noOfSplChars) > minLen )
+            throw new IllegalArgumentException
+            ("Min. Length should be atleast sum of (CAPS, DIGITS, SPL CHARS) Length!");
+        Random rnd = new Random();
+        int len = rnd.nextInt(maxLen - minLen + 1) + minLen;
+        char[] pswd = new char[len];
+        int index = 0;
+        for (int i = 0; i < noOfCAPSAlpha; i++) {
+            index = getNextIndex(rnd, len, pswd);
+            pswd[index] = ALPHA_CAPS.charAt(rnd.nextInt(ALPHA_CAPS.length()));
+        }
+        for (int i = 0; i < noOfDigits; i++) {
+            index = getNextIndex(rnd, len, pswd);
+            pswd[index] = NUM.charAt(rnd.nextInt(NUM.length()));
+        }
+        for (int i = 0; i < noOfSplChars; i++) {
+            index = getNextIndex(rnd, len, pswd);
+            pswd[index] = SPL_CHARS.charAt(rnd.nextInt(SPL_CHARS.length()));
+        }
+        for(int i = 0; i < len; i++) {
+            if(pswd[i] == 0) {
+                pswd[i] = ALPHA.charAt(rnd.nextInt(ALPHA.length()));
+            }
+        }
+        return pswd;
+    }
+ 
+    private int getNextIndex(Random rnd, int len, char[] pswd) {
+        int index = rnd.nextInt(len);
+        while(pswd[index = rnd.nextInt(len)] != 0);
+        return index;
+    }
+    
+    private void UpdatePassword(String email, String password, String ip){
+        DBConnect db = new DBConnect(ip);
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("update users set password = ? where email = ?");
+            ps.setString(1, password);
+            ps.setString(2, email);
+
+            db.QueryInsert(ps);            
+        }
+        catch(SQLException e){}
+        db.DBClose();
+                
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -32,6 +32,7 @@
 
     <script type="text/javascript">
         function Registrazione() {
+            document.getElementById("registration").disabled = "disabled";
             var name = document.getElementById("Name").value;
             var bname = false;
             if (name == "") document.getElementById("formName").className = "form-group has-error";
@@ -81,6 +82,8 @@
             if (bname == true && bsurname == true && bemail == true && bemail1 == true && bpassword == true && bpassword1 == true){
                 document.location.href = "SignIn?name="+name+"&surname="+surname+"&email="+email+"&password="+password;
             }
+            else
+                document.getElementById("registration").disabled = "";
         }
 
         function Registered() {
@@ -160,7 +163,7 @@
         </div>
         <br />
         <center>
-            <button class="btn btn-success" name="registrazione" type="button" onclick="Registrazione()">Complete the Registration</button> 
+            <button id="registration" class="btn btn-success" name="registrazione" type="button" onclick="Registrazione()">Complete the Registration</button> 
         </center>
         </div>
 
