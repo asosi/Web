@@ -48,9 +48,16 @@ public class SendEmail extends HttpServlet {
             Email send = new Email();
             send.Send(email,ogget,testo);
             
+            SetDate(email);
+            
+            
         } finally {
             out.close();
         }
+    }
+    
+    private void SetDate(String email){
+        //modificare la data di invio email nel db
     }
     
     

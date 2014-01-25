@@ -47,14 +47,15 @@ public class TimeLink extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             
-            GregorianCalendar dataPrec = new GregorianCalendar(2013, 11, 24, 19, 34, 0);
+            GregorianCalendar dataPrec = GetDate();
                                   
             Calendar now = Calendar.getInstance();
-                     
+                   
             int differenza = (int) ((now.getTimeInMillis()- dataPrec.getTimeInMillis())/1000);
                         
-            if(differenza>90)
+            if(differenza>90){
                 response.sendRedirect("LinkScaduto.html");
+            }
             else{
                 
                 char[] p = generatePswd(8, 12, 1, 1, 1);                
@@ -82,6 +83,18 @@ public class TimeLink extends HttpServlet {
             out.close();
             
         }
+    }
+    
+    private GregorianCalendar GetDate(){
+        GregorianCalendar date = new GregorianCalendar();
+        
+        //select che ritorna data creazione link
+        
+        //split della stringa
+        
+        //date.set(year, month, date, hourOfDay, minute, second);
+        
+        return date;
     }
     
     public char[] generatePswd(int minLen, int maxLen, int noOfCAPSAlpha,
