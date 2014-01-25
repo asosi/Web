@@ -58,7 +58,7 @@ public class TimeLink extends HttpServlet {
             }
             else{
                 
-                char[] p = generatePswd(8, 12, 1, 1, 1);                
+                char[] p = generatePswd(8, 12, 1, 1, 1);  
                 String password = String.valueOf(p, 0, p.length) ;
                 
                 String email = request.getParameter("email");
@@ -69,7 +69,7 @@ public class TimeLink extends HttpServlet {
 
                 String ogget = "Confirm change password";
 
-                String testo = "Dear Mail Crawler,"
+                String testo = "Dear " + email
                             + "\n This is your new password:"
                             + "\n\n "+password;
 
