@@ -59,8 +59,10 @@ public class EditGroup extends HttpServlet {
             String[] nomembers = nomembri.split(" ");             
             
             EditGroupName(name);
-            AddMembers(members);
-            EditMembers(nomembers);            
+            if(members[0]!= "")
+                AddMembers(members);
+            if(nomembers[0]!= "")
+                EditMembers(nomembers);             
             
             response.sendRedirect("Gruppi.jsp");
             

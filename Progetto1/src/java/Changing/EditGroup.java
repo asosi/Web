@@ -40,6 +40,7 @@ public class EditGroup extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         try {
+                        
             
             HttpSession session = request.getSession();
             int id;
@@ -57,11 +58,17 @@ public class EditGroup extends HttpServlet {
             
             idG = request.getParameter("group_id");
             
+            out.println("idGruppo:"+idG);
+            
+            
             String[] members = membri.split(" ");             
             out.println(name);
             out.println("<br>Membri: ");
+            
             for(int i = 0; i < members.length; i++)
                 out.println(members[i]);
+            
+            out.println("lenght membri:"+members.length);
             
             
             String[] nomembers = nomembri.split(" ");             
@@ -70,7 +77,9 @@ public class EditGroup extends HttpServlet {
                 out.println(nomembers[i]);
             
             EditGroupName(name, out);
-            AddMembers(members,out);
+            if(members[0]!= "")
+                AddMembers(members,out);
+            if(nomembers[0]!= "")
             EditMembers(nomembers,out);            
             
             response.sendRedirect("Gruppi");
