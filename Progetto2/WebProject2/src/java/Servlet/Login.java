@@ -8,6 +8,7 @@ package Servlet;
 
 import DB.DBConnect;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
@@ -40,6 +41,7 @@ public class Login extends HttpServlet {
             
             String email = request.getParameter("email");
             String pass = request.getParameter("password");
+            
             ip = request.getLocalAddr();
             DBConnect db = new DBConnect(ip);
             db.DBClose();
@@ -67,7 +69,7 @@ public class Login extends HttpServlet {
                 response.sendRedirect("Home.jsp");
             }
             else{
-                response.sendRedirect("loginError.html");
+                response.sendRedirect("LoginError.html");
             }
             
         } catch(Exception e) {

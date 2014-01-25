@@ -116,3 +116,90 @@ button.createGroup {
     float: left;
     margin-top:5px;
 }
+
+
+/*---------------------------------------------NEW HOME-------------------------------------------------*/
+
+div.mynavbar-right {
+    width:50%;
+}
+
+input.newHome {
+    /*email*/
+    float: left;
+    margin-right:10px; 
+    width:30%; 
+    margin-top:5px;
+}
+
+input.newHome1 {
+    /*password*/
+    float: left;
+     margin-right:10px; 
+     width:30%; 
+     margin-top:5px;
+}
+
+button.newHome {
+    /*login*/
+    float:left;
+     margin-top:5px;
+}
+
+button.newHome1 {
+    /*registrazione*/
+    float:left;
+     margin-top:5px;
+     margin-left:20px; 
+}
+
+div.jumbotronNewHome {
+    margin-top:30px;
+}
+
+h3.newHome {
+    margin-top:-30px;
+}
+
+div.ForgotPassword {
+    position:absolute;    
+    z-index: 6;
+    margin-top:-27px;
+    margin-left:64%;
+}
+
+a.newHome {
+    font-size:11px;
+}
+/*------------------------------------------------REGISTRAZIONE-------------------------------------------------------*/
+label.registrazione {
+    float:left;
+    margin-top:2px;
+    margin-right:20px;
+    font-size:20px;
+    width:20%;
+}
+
+p.registrazione1 {
+    margin-top:2px;
+    margin-right:20px;
+    font-size:20px;
+    width:20%;
+}
+
+input.registrazione {
+    margin-bottom:10px;
+    width:70%;
+}
+
+div.registrazioneRegole {
+    width:100%;
+    height: 80px;
+    overflow:auto;
+}
+
+/*------------------------------------------------MODERATORE-------------------------------------------------------*/
+
+table.tablesorter th { 
+  cursor: pointer; 
+}

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
+    <title>Login Error</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- My css -->    
+    <link href="css/mycss.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="theme.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        function SelectGroup(IDriga) {
+            alert(GetValue(IDriga));
+        }
+
+        function GetValue(IDriga) {
+            //Codice che restituisce il valore della cella [IDriga,0]
+            var Row = document.getElementById(IDriga);
+            var Cells = Row.getElementsByTagName("td");
+            return Cells[0].innerText;
+        }
+
+        function Registered() {
+            location.href = "Registrazione.html";
+        }
+        
+        function Login(){
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            
+            location.href = "Login?email="+email+"&password="+password;
+        }
+
+    </script>
+    
+</head>
+
+<body>
+    <div class="navbar navbar-inverse barra">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.jsp" class="navbar-brand">Back to Home</a>
+            </div>
+            
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+    
+    <br />    
+    <br />
+    <br />
+    <div class="container">
+        <center>
+                <h2>Forum Login</h2>
+                <br>
+                <div style="width:55%" id="errore" class="alert alert-warning">
+                    <strong>Incorrect Email/Password</strong><br />
+                            The email/password you entered does not belong to any account.<br />
+                            You can login using any email and password associated with your account. Make sure that it is typed correctly.
+                </div>
+
+                
+                <input id="email" name="email" style="width:40%;" type="text" class="form-control" placeholder="Email"  required autofocus />
+                <br />
+                <input id="password" name="password" style="width:40%;" type="password" class="form-control" placeholder="Password" required/>
+                <br />
+                <div class="divOrizzontale">
+                <button type="button" class="btn btn-primary" onclick="Login()">Login</button>
+                    or
+                <button type="button" class="btn btn-success" onclick="Registered()">Registered</button><br /><br />
+                    <a class="newHome" href="ForgotPassword.jsp">Forgot your password?</a>
+                </div>       
+
+        </center>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+	
+	<form name="Scelta">
+	</form>
+
+</body>
+</html>
