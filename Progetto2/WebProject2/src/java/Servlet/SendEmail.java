@@ -38,7 +38,6 @@ public class SendEmail extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ip = request.getLocalAddr();
-        PrintWriter out = response.getWriter();
         try {
             
             String email = request.getParameter("email");
@@ -55,9 +54,7 @@ public class SendEmail extends HttpServlet {
             SetDate(email);
             
             
-        } finally {
-            out.close();
-        }
+        } catch(Exception e) {}
     }
     
     private void SetDate(String email){

@@ -9,8 +9,8 @@ package Servlet;
 import Class.Email;
 import DB.DBConnect;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -31,7 +31,7 @@ public class TimeLink extends HttpServlet {
     private final String NUM     = "0123456789";
     private final String SPL_CHARS   = "!@#$%^&*_=+-/";
     
-    
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,7 +44,7 @@ public class TimeLink extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        ip = request.getLocalAddr();
         try {
             
             GregorianCalendar dataPrec = GetDate();
@@ -79,17 +79,18 @@ public class TimeLink extends HttpServlet {
                 response.sendRedirect("LinkValido.html");
             }
             
-        } finally {
-            out.close();
-            
-        }
+        } catch(IOException e) {}
     }
-    
+    //manca id o email
     private GregorianCalendar GetDate(){
         GregorianCalendar date = new GregorianCalendar();
-        
         //select che ritorna data creazione link
-        
+        DBConnect db = new DBConnect(ip);
+        try {
+            PreparedStatement ps = db.conn.prepareStatement("SELECT contdown FROM users WHERE "/*id o email*/);
+            ResultSet rs = db.Query(ps);
+        } catch (SQLException e) {
+        }
         //split della stringa
         
         //date.set(year, month, date, hourOfDay, minute, second);
