@@ -103,4 +103,21 @@ public class Home extends Stamp{
         }
         return result;
     }
+    
+    public boolean Moderatore(int id){
+        boolean res = false;
+        try{
+            
+            DBConnect db = new DBConnect(ip);
+            PreparedStatement ps = db.conn.prepareStatement("SELECT moderatore FROM users where id = ?");
+            ps.setInt(1, id);
+            
+            ResultSet rs = db.Query(ps);
+            res = rs.next();
+            rs.close();
+            db.DBClose();
+        }catch(Exception e){
+        }
+        return res;
+    }
 }
