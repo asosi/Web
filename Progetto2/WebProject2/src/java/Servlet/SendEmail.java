@@ -7,8 +7,12 @@
 package Servlet;
 
 import Class.Email;
+import DB.DBConnect;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SendEmail extends HttpServlet {
 
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,10 +37,9 @@ public class SendEmail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        ip = request.getLocalAddr();
         PrintWriter out = response.getWriter();
         try {
-            
-            String ip = request.getLocalAddr();
             
             String email = request.getParameter("email");
             
@@ -57,7 +61,14 @@ public class SendEmail extends HttpServlet {
     }
     
     private void SetDate(String email){
-        //modificare la data di invio email nel db
+        DBConnect db = new DBConnect(ip);
+        String date = Calendar.getInstance().toString();
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("UPDATE users SET contdown = "+date+" WHERE email = ?");
+            ps.setString(1, email);
+            db.QueryInsert(null);
+            db.DBClose();
+        }catch(SQLException e){}
     }
     
     
