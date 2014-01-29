@@ -109,9 +109,8 @@ public class Home extends Stamp{
         try{
             
             DBConnect db = new DBConnect(ip);
-            PreparedStatement ps = db.conn.prepareStatement("SELECT moderatore FROM users where id = ?");
+            PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where id = ? AND moderatore = 1");
             ps.setInt(1, id);
-            
             ResultSet rs = db.Query(ps);
             res = rs.next();
             rs.close();
