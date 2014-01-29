@@ -47,7 +47,7 @@
 
         function CallServlet(servlet) {
             document.location.href = servlet;
-        }
+        }   
 
         function SaveEditModal() {
             var tes = document.getElementById('InputImage').value;
@@ -104,20 +104,10 @@
                     document.getElementById("ImageEditFile").className = "form-group has-error";
         }
 		
-		function Inviti(){
-			document.Scelta.action = "Inviti.jsp";
-			document.Scelta.submit();	
-		}
-		
-		function Gruppi(){
-			document.Scelta.action = "Gruppi.jsp";
-			document.Scelta.submit();	
-		}
-		
-		function CreaGruppo(){
-			document.Scelta.action = "CreaGruppo.jsp";
-			document.Scelta.submit();	
-		}
+                
+                function PageLink(page){
+                    docation.href = page;
+                }
 
     </script>
 
@@ -177,11 +167,21 @@
                 <br>
                 <div style="width: 70%">
                     <center>
-                        <button class="btn btn-lg btn-primary btn-block" onclick="Inviti()" type="button"> Invitations </button>
+                        <button class="btn btn-lg btn-primary btn-block" onclick="PageLink('Inviti.jsp')" type="button"> Invitations </button>
                         <br>
-                        <button class="btn btn-lg btn-primary btn-block" onclick="Gruppi()" type="button">Groups</button>
+                        <button class="btn btn-lg btn-primary btn-block" onclick="PageLink('Gruppi.jsp')" type="button">Groups</button>
                         <br>
-                        <button class="btn btn-lg btn-primary btn-block" onclick="CreaGruppo()" type="button">Create Groups</button>
+                        <button class="btn btn-lg btn-primary btn-block" onclick="PageLink('CreaGruppo.jsp')" type="button">Create Groups</button>
+                        <br>
+                        
+                        <%
+                        
+                        if(home.Moderatore(idUser)){
+                            out.println("<button class='btn btn-lg btn-primary btn-block' onclick='PageLink('Moderatore.jsp')' type='button'>Moderatore</button>");
+                        }
+                        
+                        %>
+                        
                     </center>
                 </div>
             </div>
@@ -196,9 +196,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
-	
-	<form name="Scelta">
-	</form>
 	
 </body>
 </html>
