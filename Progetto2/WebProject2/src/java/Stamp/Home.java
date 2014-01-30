@@ -107,7 +107,6 @@ public class Home extends Stamp{
     public boolean Moderatore(int id){
         boolean res = false;
         try{
-            
             DBConnect db = new DBConnect(ip);
             PreparedStatement ps = db.conn.prepareStatement("SELECT id FROM users where id = ? AND moderatore = 1");
             ps.setInt(1, id);

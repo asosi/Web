@@ -106,7 +106,7 @@
 		
                 
                 function PageLink(page){
-                    docation.href = page;
+                    location.href = page;
                 }
 
     </script>
@@ -177,7 +177,7 @@
                         <%
                         
                         if(home.Moderatore(idUser)){
-                            out.println("<button class='btn btn-lg btn-primary btn-block' onclick='PageLink('Moderatore.jsp')' type='button'>Moderatore</button>");
+                            out.println("<button class='btn btn-lg btn-warning btn-block' onclick=\"PageLink(\'Moderatore.jsp\')\" type='button'>Moderatore</button>");
                         }
                         
                         %>

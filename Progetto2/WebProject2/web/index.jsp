@@ -104,9 +104,9 @@
                     
                     
                     <%
-                        Index index = new Index(request);
+                       Index index = new Index(request);
                         
-                        index.Stampa(index.Table(), out);
+                       index.Stampa(index.Table(), out);
                     %>
                     
                 </tbody>
