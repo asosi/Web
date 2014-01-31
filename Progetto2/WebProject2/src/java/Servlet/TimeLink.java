@@ -48,9 +48,6 @@ public class TimeLink extends HttpServlet {
         try {
             
             GregorianCalendar dataPrec = GetDate(request.getParameter("email"));
-            
-            
-            
                                   
             Calendar now = Calendar.getInstance();
                    
@@ -99,7 +96,7 @@ public class TimeLink extends HttpServlet {
             String uno = rs.getString("countdown");
             String[] due = uno.split(" ");
             String[] giorno = due[0].split("-");
-            String[] ora = due[0].split(":");
+            String[] ora = due[1].split(":");
             
             date.set(Integer.parseInt(giorno[0]),Integer.parseInt(giorno[1]),Integer.parseInt(giorno[2]),
                     Integer.parseInt(ora[0]),Integer.parseInt(ora[1]),Integer.parseInt(ora[2]));
