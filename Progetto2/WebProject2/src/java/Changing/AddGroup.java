@@ -6,6 +6,7 @@
 
 package Changing;
 
+import Class.Email;
 import DB.DBConnect;
 import java.io.File;
 import java.io.IOException;
@@ -48,14 +49,15 @@ public class AddGroup extends HttpServlet {
             String name = request.getParameter("group_name");
             String avatar = request.getParameter("group_avatar");
             String membri = request.getParameter("group_member");
+            String flag = request.getParameter("group_flag");
         
             String[] members = membri.split(" "); 
 
             String[] images = avatar.split("/");
             String image = images[images.length-1];
-
-
-            AddGroup(name,image,id);
+            
+            AddGroup(name,image,id,flag);
+            
             int idG = returnID(id);
 
             while(idG==-1)
@@ -65,7 +67,7 @@ public class AddGroup extends HttpServlet {
             
             //File dir = new File("/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/"+idG);//sosi
             File dir = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+idG);//campi
-            boolean a = dir.mkdirs();
+            //boolean a = dir.mkdirs();
             
             
             response.sendRedirect("GroupPage.jsp?numero="+idG);
@@ -73,15 +75,16 @@ public class AddGroup extends HttpServlet {
         } catch(Exception e) {}
     }    
     
-    private void AddGroup(String nome, String image, int id){
+    private void AddGroup(String nome, String image, int id, String flag){
          DBConnect db = new DBConnect(ip);
         
         try{
-            PreparedStatement ps = db.conn.prepareStatement("insert into groups (name,id_owner, avatar) values "
-                    + "(?,?,?)");
+            PreparedStatement ps = db.conn.prepareStatement("insert into groups (name,id_owner, avatar, flag) values "
+                    + "(?,?,?,?)");
             ps.setString(1, nome);
             ps.setInt(2, id);
             ps.setString(3, image);
+            ps.setString(4, flag);
 
             db.QueryInsert(ps);            
         }
@@ -114,6 +117,8 @@ public class AddGroup extends HttpServlet {
             for(int i = 0; i < membri.length; i++){
                 AddInvito(idG, membri[i]);
                 AddNews(membri[i]);
+                SendEmail(idG,membri[i]);
+                
             }      
         db.DBClose();                
         
@@ -168,6 +173,35 @@ public class AddGroup extends HttpServlet {
         
         db.DBClose();
         return st;
+    }
+    
+    
+    private void SendEmail(int idG,String membro){
+        DBConnect db = new DBConnect(ip);
+        Email emailClass = new Email();
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("SELECT email FROM users where id = ?");
+            ps.setString(1, membro);            
+            ResultSet rs = db.Query(ps);   
+            rs.next();
+            String email = rs.getString("email");
+            rs.close();
+            
+            PreparedStatement ps1 = db.conn.prepareStatement("SELECT groups.name, users.name, users.surname FROM groups "
+                    + "JOIN users on (groups.id_owner = users.id) where groups.id = ?");
+            ps1.setInt(1, idG);
+            ResultSet rs1 = db.Query(ps1);   
+            rs1.next();
+            String nameG = rs1.getString("groups.name");
+            String nameU = rs1.getString("users.surname")+" "+rs1.getString("users.name");
+            rs1.close();
+            
+            
+            emailClass.Send(email, "New Invitation", "\nYou've received a new invitation from the group '"+nameG+"', created by "+nameU);
+        }
+        catch(SQLException e){}
+        db.DBClose();
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

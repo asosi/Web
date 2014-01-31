@@ -32,43 +32,60 @@
 
     <script type="text/javascript">
         function Registrazione() {
+            alert("inizio");
             document.getElementById("registration").disabled = "disabled";
             var name = document.getElementById("Name").value;
             var bname = false;
             if (name == "") document.getElementById("formName").className = "form-group has-error";
-            else { document.getElementById("formName").className = "form-group"; bname = true }
+            else { document.getElementById("formName").className = "form-group"; bname = true; }
+
+            alert("1");
 
             var surname = document.getElementById("Surname").value;
             var bsurname = false;
             if (surname == "") document.getElementById("formSurname").className = "form-group has-error";
             else { document.getElementById("formSurname").className = "form-group"; bsurname = true; }
 
+            alert("2");
+
             var email = document.getElementById("Email").value;
             var bemail = false;
             if (email == "") document.getElementById("formEmail").className = "form-group has-error";
             else { document.getElementById("formEmail").className = "form-group"; bemail = true; }
+
+            alert("3");
 
             var email1 = document.getElementById("Email1").value;
             var bemail1 = false;
             if (email1 == "") document.getElementById("formEmail1").className = "form-group has-error";
             else { document.getElementById("formEmail1").className = "form-group"; bemail1 = true; }
 
+            alert("4");
+
             var password = document.getElementById("Password").value;
             var bpassword = false;
             if (password == "") document.getElementById("formPassword").className = "form-group has-error";
             else { document.getElementById("formPassword").className = "form-group"; bpassword = true; }
+
+            alert("5");
 
             var password1 = document.getElementById("Password1").value;
             var bpassword1 = false;
             if (password1 == "") document.getElementById("formPassword1").className = "form-group has-error";
             else { document.getElementById("formPassword1").className = "form-group"; bpassword1 = true; }
 
+            alert("6");
+
             if (email != email1 || email1 == "") { document.getElementById("formEmail1").className = "form-group has-error"; bemail1 = false;}
             else {document.getElementById("formEmail1").className = "form-group"; bemail1 = true;}
+
+            alert("7");
 
             if (password != password1 || password1 == "") { document.getElementById("formPassword1").className = "form-group has-error"; bpassword1 = false; }
             else { document.getElementById("formPassword1").className = "form-group"; bpassword1 = true; }
             
+            alert("8");
+
             if(!validEmail(email)){
                 document.getElementById("formEmail").className = "form-group has-error";
                 document.getElementById("formEmail1").className = "form-group has-error";

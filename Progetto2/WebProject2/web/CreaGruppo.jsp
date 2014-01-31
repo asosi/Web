@@ -47,31 +47,30 @@
             document.getElementsByName("btnSend" + id)[0].disabled = false;
         }
 
+
+        var membriG = "";
+
         function CreaGruppo() {
             document.getElementById("creaG").disabled = "disabled";
+            var flag = document.getElementById("flag").value;
 
             var name = document.getElementById("GroupName").value;
 
             if (name == "") {
             document.getElementById("creaG").disabled = "";
                 document.getElementById("testo").className = "form-group has-error input-group-lg";
-                document.getElementById("testoLabel").innerText = "Name: Incorrect Field";
                 document.getElementById('GroupName').focus();
             }
             else {
                 document.getElementById("testo").className = "form-group  input-group-lg";
-                document.getElementById("testoLabel").innerText = "Name:";
-				
-				document.getElementById("group_name").value = name;
-				var x = document.getElementById("imageGroup").src;
-				document.getElementById("group_avatar").value = x;
-				
-				
+	
+                var image = document.getElementById("imageGroup").src;
+	
                 var num = countRowsTable();
                 Membri(num);
 				
-				//alert("servlet");				
-				document.Crea.submit();	
+                document.location.href = "AddGroup?group_name="+name+"&group_avatar="+image+"&group_member="+membriG+"&group_flag="+flag;
+		
             }
         }
 
@@ -85,8 +84,7 @@
                     x += GetValue("tr" + i) + " ";
                 }
             }
-			//alert(x);
-            document.getElementById("group_member").value = x;
+            membriG = x;
         }
 
         //funzione che restituisce il valore della cella (riga,0) della tabella
@@ -258,11 +256,17 @@
         <div class="jumbotron myjumbotron">
             
             <h1><img class="createGroup" id="imageGroup" src="img/group/icon.png" />Create Group / Discussion</h1>
-            <div class="divOrizzontale">
-                <div id="testo" class="form-group input-group-lg">                    
-                    <label style="text-align:left; width:100%"class="control-label" id="testoLabel" for="inputError">Name:</label>                    
-                    <input type="text" class="form-control createGroup" id="GroupName" required autofocus />
-                    <button class="btn btn-primary createGroup" type="button" id="btnImage" data-toggle="modal" data-target="#EditImageGroupModal"  >Change Image</button>
+            <div class="divOrizzontale"> 
+                <br>
+                <div id="testo" class="form-group input-group-lg">   
+                    <input type="text" class="form-control createGroup" style="width:60%" id="GroupName" placeholder="Name" required autofocus />
+                </div>
+                <select id="flag" class="form-control" style="width:20%;float:left; margin-right: 2%">
+                    <option value="0">Public</option>
+                    <option value="1">Private</option>
+                </select>
+                <button class="btn btn-primary createGroup" type="button" id="btnImage" data-toggle="modal" data-target="#EditImageGroupModal"  >Change Image</button>
+                    
                     
                 </div>
                 <br />
@@ -335,14 +339,6 @@
 
     <%@ include file="WebPages/ModalEditAvatar.jsp" %>
     
-    
-    <form name="Crea" action="AddGroup">
-            <input type="text" name="group_member" id="group_member" hidden="hidden"/>
-            <input type="text" name="group_name"  id="group_name"  hidden="hidden"/>
-            <input type="text" name="group_avatar" id="group_avatar" hidden="hidden"/>
-    </form>
-	
-	
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
