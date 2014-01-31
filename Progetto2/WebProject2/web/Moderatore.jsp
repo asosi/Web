@@ -1,3 +1,10 @@
+<%@page import="Stamp.Moderatore"%>
+<%
+    session = request.getSession();
+    int idUser = (Integer)session.getAttribute("idUser");
+    
+    Moderatore moderatore = new Moderatore(request);
+%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -148,36 +155,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr id="tr1">
-                    <td style="">1</td>
-                    <td>
-                        <img class="table" src="img/group/icon.png" />Cucina</td>
-                    <td>
-                        <img class="table" src="img/users/avatar.jpg" />Alfredo Mengiazzo</td>
-                    <td>10</td>
-                    <td>Private</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm" type="button" onclick="SelectGroup('tr1')">Page of Group</button></td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" type="button" name="btnBlock1" onclick="Block('1')">Block this Group</button>
-                        <button class="btn btn-default btn-sm" disabled="disabled" type="button" name="btnSBlock1" onclick="SBlock('1')">Cancel</button>
-                    </td>
-                </tr>
-                <tr id="tr2">
-                    <td style="">2</td>
-                    <td>
-                        <img class="table" src="img/group/icon2.png" />Teatro</td>
-                    <td>
-                        <img class="table" src="img/users/avatar.jpg" />Turbato Thomas</td>
-                    <td>25</td>
-                    <td>Public</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm" type="button" onclick="SelectGroup('tr2')">Page of Group</button></td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" type="button" name="btnBlock2" onclick="Block('2')">Block this Group</button>
-                        <button class="btn btn-default btn-sm" disabled="disabled" type="button" name="btnSBlock2" onclick="SBlock('2')">Cancel</button>
-                    </td>
-                </tr>
+                <%
+                    moderatore.Stampa(moderatore.Table(), out);
+                %>
             </tbody>
         </table>
 

@@ -39,10 +39,44 @@ public class Moderatore extends Stamp{
                                                             "users.avatar as admin_avatar \n" +
                                                             "FROM groups, users \n" +
                                                             "WHERE groups.ID_owner = users.ID) as T2 \n" +
-                                                            "ON T1.id_groups = T2.id");
+                                                            "ON T1.id_groups = T2.id order by T2.id");
             ResultSet rs =  db.Query(ps);
+            int contatore = 0;
             while(rs.next()){
+                contatore++;
+                result.add("<tr id='tr"+contatore+"'>");
+                result.add("<td>"+rs.getString("T2.id")+"</td>");
+                result.add("<td><img class='table' src='img/group/"+rs.getString("T2.avatar")+"' />"+rs.getString("T2.name")+"</td>");
+                result.add("<td><img class='table' src='"+rs.getString("T2.admin_avatar")+"' />"+rs.getString("T2.admin_surname")+" "+rs.getString("T2.admin_name")+"</td>");
                 
+                if(rs.getString("T1.npost")!=null){
+                    result.add("<td>"+rs.getString("T1.npost")+"</td>");
+                }
+                else{
+                    result.add("<td>0</td>");
+                }
+                
+                if(rs.getInt("T2.flag")==0){
+                    result.add("<td>Public</td>");
+                }
+                else{
+                    result.add("<td>Private</td>");
+                }
+                
+                result.add("<td><button class='btn btn-primary btn-sm' type='button' onclick='SelectGroup('tr"+contatore+"')'>Page of Group</button></td></td>");
+                result.add("<td>");
+                
+                if(rs.getInt("T2.blocked")==0){
+                    result.add("<button class='btn btn-danger btn-sm' disabled='disabled' type='button' name='btnBlock"+contatore+"' onclick=\"Block('"+contatore+"')\">Block this Group</button>");
+                    result.add("<button class='btn btn-default btn-sm' type='button' name='btnSBlock"+contatore+"' onclick=\"SBlock('"+contatore+"')\">Cancel</button>");
+                }
+                else{
+                    result.add("<button class='btn btn-danger btn-sm' type='button' name='btnBlock"+contatore+"' onclick=\"Block('"+contatore+"')\">Block this Group</button>");
+                    result.add("<button class='btn btn-default btn-sm' disabled='disabled' type='button' name='btnSBlock"+contatore+"' onclick=\"SBlock('"+contatore+"')\">Cancel</button>");
+                }
+                result.add("</td>");
+                result.add("</tr>");
+                result.add("");
             }
         }catch(SQLException e){}
         db.DBClose();
