@@ -69,8 +69,8 @@ public class SendEmail extends HttpServlet {
             ps.setString(1, email);
             
             db.QueryInsert(ps);
-            db.DBClose();
         }catch(SQLException e){}
+        db.DBClose();
     }
     
     

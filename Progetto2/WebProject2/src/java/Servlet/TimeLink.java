@@ -63,7 +63,7 @@ public class TimeLink extends HttpServlet {
                 String email = request.getParameter("email");
                 String ip = request.getLocalAddr();
                 
-                UpdatePassword(email,password, ip);                
+                UpdatePassword(email,password);                
             
 
                 String ogget = "Confirm change password";
@@ -95,7 +95,7 @@ public class TimeLink extends HttpServlet {
             date = Timestamp.valueOf(datevalue);
         } catch (SQLException e) {
         }
-        
+        db.DBClose();
         return date;
     }
     
@@ -112,7 +112,7 @@ public class TimeLink extends HttpServlet {
             date = Timestamp.valueOf(datevalue);
         } catch (SQLException e) {
         }
-        
+        db.DBClose();
         return date;
     }
     
@@ -153,7 +153,7 @@ public class TimeLink extends HttpServlet {
         return index;
     }
     
-    private void UpdatePassword(String email, String password, String ip){
+    private void UpdatePassword(String email, String password){
         DBConnect db = new DBConnect(ip);
         
         try{
