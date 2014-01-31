@@ -99,11 +99,9 @@ public class TimeLink extends HttpServlet {
             String[] giorno = due[0].split("-");
             String[] ora = due[1].split(":");
             
-            out.println(giorno[0]+" "+giorno[1]+" "+giorno[2]+" "+ora[0]+" "+ora[1]+" "+ora[2].split(".")[0]+" ");
+            date.set(Integer.parseInt(giorno[0]),Integer.parseInt(giorno[1]),Integer.parseInt(giorno[2]),
+                    Integer.parseInt(ora[0]),Integer.parseInt(ora[1]),Integer.parseInt(ora[2].substring(0,ora[2].length()-2)));
             
-           /* date.set(Integer.parseInt(giorno[0]),Integer.parseInt(giorno[1]),Integer.parseInt(giorno[2]),
-                    Integer.parseInt(ora[0]),Integer.parseInt(ora[1]),Integer.parseInt(ora[2].split(".")[0]));
-            */
             
         } catch (SQLException e) {
         }
