@@ -47,7 +47,7 @@ public class TimeLink extends HttpServlet {
         ip = request.getLocalAddr();
         try {
             
-            GregorianCalendar dataPrec = GetDate();
+            GregorianCalendar dataPrec = GetDate(request.getParameter("email"));
                                   
             Calendar now = Calendar.getInstance();
                    
@@ -82,18 +82,27 @@ public class TimeLink extends HttpServlet {
         } catch(IOException e) {}
     }
     //manca id o email
-    private GregorianCalendar GetDate(){
+    private GregorianCalendar GetDate(String email){
         GregorianCalendar date = new GregorianCalendar();
+        
         //select che ritorna data creazione link
         DBConnect db = new DBConnect(ip);
         try {
-            PreparedStatement ps = db.conn.prepareStatement("SELECT contdown FROM users WHERE "/*id o email*/);
+            PreparedStatement ps = db.conn.prepareStatement("SELECT countdown FROM users WHERE "/*id o email*/);
             ResultSet rs = db.Query(ps);
+            rs.next();
+            
+            String uno = rs.getString("countdown");
+            String[] due = uno.split(" ");
+            String[] giorno = due[0].split("-");
+            String[] ora = due[0].split(":");
+            
+            date.set(Integer.parseInt(giorno[0]),Integer.parseInt(giorno[1]),Integer.parseInt(giorno[2]),
+                    Integer.parseInt(ora[0]),Integer.parseInt(ora[1]),Integer.parseInt(ora[2]));
+            
+            
         } catch (SQLException e) {
         }
-        //split della stringa
-        
-        //date.set(year, month, date, hourOfDay, minute, second);
         
         return date;
     }

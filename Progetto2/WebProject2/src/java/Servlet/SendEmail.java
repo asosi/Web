@@ -8,15 +8,19 @@ package Servlet;
 
 import Class.Email;
 import DB.DBConnect;
+import com.sun.xml.rpc.processor.modeler.j2ee.xml.javaIdentifierType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sun.util.calendar.Gregorian;
 
 /**
  *
@@ -53,17 +57,23 @@ public class SendEmail extends HttpServlet {
             
             SetDate(email);
             
+            response.sendRedirect("index.jsp");
             
-        } catch(Exception e) {}
+            
+        } catch(Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println("crasho, tutta colpa di campi e del suo DB");
+        }
     }
     
     private void SetDate(String email){
         DBConnect db = new DBConnect(ip);
-        String date = Calendar.getInstance().toString();
+                
         try{
-            PreparedStatement ps = db.conn.prepareStatement("UPDATE users SET contdown = "+date+" WHERE email = ?");
+            PreparedStatement ps = db.conn.prepareStatement("UPDATE users SET countdown = NOW() WHERE email = ?");
             ps.setString(1, email);
-            db.QueryInsert(null);
+            
+            db.QueryInsert(ps);
             db.DBClose();
         }catch(SQLException e){}
     }
