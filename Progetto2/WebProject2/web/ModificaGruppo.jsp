@@ -63,9 +63,9 @@
             var num = countRowsTable();
 			document.getElementById("group_name").value = document.getElementById("GroupName").innerText;	
             Membri(num);
-			NoMembri(num);
-			
-			document.Modifica.submit();	
+            NoMembri(num);
+
+            document.Modifica.submit();	
 			
         }
 

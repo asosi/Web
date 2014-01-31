@@ -66,6 +66,10 @@
         <servlet-name>TimeLink</servlet-name>
         <servlet-class>Servlet.TimeLink</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BlockGroup</servlet-name>
+        <servlet-class>Changing.BlockGroup</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>TimeLink</servlet-name>
         <url-pattern>/TimeLink</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlockGroup</servlet-name>
+        <url-pattern>/BlockGroup</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

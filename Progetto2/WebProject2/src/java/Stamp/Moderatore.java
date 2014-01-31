@@ -66,7 +66,7 @@ public class Moderatore extends Stamp{
                 result.add("<td><button class='btn btn-primary btn-sm' type='button' onclick='SelectGroup('tr"+contatore+"')'>Page of Group</button></td></td>");
                 result.add("<td>");
                 
-                if(rs.getInt("T2.blocked")==0){
+                if(rs.getInt("T2.blocked")==1){
                     result.add("<button class='btn btn-danger btn-sm' disabled='disabled' type='button' name='btnBlock"+contatore+"' onclick=\"Block('"+contatore+"')\">Block this Group</button>");
                     result.add("<button class='btn btn-default btn-sm' type='button' name='btnSBlock"+contatore+"' onclick=\"SBlock('"+contatore+"')\">Cancel</button>");
                 }

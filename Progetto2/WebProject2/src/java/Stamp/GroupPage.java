@@ -196,7 +196,30 @@ public class GroupPage extends Stamp{
         return testofinale;
     }
     
-    //lasciate che lo faccio io :-)
+    public boolean isBlocked(String idG){
+        DBConnect db = new DBConnect(ip);
+        boolean stato = false;
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("SELECT blocked from groups where id = ?");
+            ps.setString(1, idG);
+
+            ResultSet rs = db.Query(ps);
+            rs.next();
+            int bloc = rs.getInt("blocked");
+            
+            switch(bloc){
+                case 0: stato = false;break;
+                case 1: stato = true;break;
+            }
+            
+        }
+        catch(SQLException e){}
+        db.DBClose();
+        
+        return stato;
+    }
+    
     private boolean controlloLinkFile(String idG, String nomeFile){
         File f = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+ idG +"/"+nomeFile);
         boolean exist = f.exists();

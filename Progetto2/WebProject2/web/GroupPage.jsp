@@ -221,7 +221,10 @@
                         <div class="navbar-collapse collapse">
                             <form class="navbar-form navbar-right">
                                 <div class="form-group">
-                                    <button class="btn btn-success " data-toggle="modal" data-target="#PostModal" type="button">Add Post</button>
+                                    <%
+                                        if(!groupPage.isBlocked(idG))
+                                            out.println("<button class='btn btn-success ' data-toggle='modal' data-target='#PostModal' type='button'>Add Post</button>");
+                                    %>
                                 </div>
                             </form>
                         </div>
@@ -254,6 +257,18 @@
             </center>
         </div>
 
+        <%
+            if(groupPage.isBlocked(idG)){
+                out.println("<center>");
+                out.println("<div style='width:100%' class='alert alert-danger'>");
+                out.println("<strong>This Group is Blocked</strong><br>");
+                out.println("You can't add post");
+                out.println("</div>");
+                out.println("</center>");
+            }
+        %>
+            
+            
         <div style="width:100%">
                 <table style="width:100%">
                     <!-- SINGLE POST -->

@@ -60,9 +60,14 @@
             }
         }
 
+        var bloccati;
+        var nobloccati;
         function Salva() {
+            document.getElementById("btnSave").disabled = "disabled";
             var num = countRowsTable();
             Bloccati(num);
+            NoBloccatii(num);
+            location.href = "BlockGroup?bloccati="+bloccati+"&nobloccati="+nobloccati;
         }
 
         function Bloccati(num) {
@@ -75,7 +80,19 @@
                 }
 
             }
-            alert("Bloccati: " + bl);
+            bloccati = bl;
+        }
+
+        function NoBloccatii(num) {
+            var x = "";
+            for (i = 1; i < num + 1; i++) {
+                var y = GetButtonStatus("btnSBlock" + i);
+                if (y) {
+                    x += GetValue("tr" + i) + " ";
+                }
+            }
+		
+            nobloccati = x;
         }
 
         //funzione che verifica se un bottono è disabilitato
@@ -117,7 +134,7 @@
                         <div class="navbar-collapse collapse">
                             <form class="navbar-form navbar-right">
                                 <div class="form-group">
-                                    <button class="btn btn-success" type="button" onclick="Salva()">Save</button>
+                                    <button class="btn btn-success" id="btnSave" type="button" onclick="Salva()">Save</button>
                                 </div>
                             </form>
                         </div>
