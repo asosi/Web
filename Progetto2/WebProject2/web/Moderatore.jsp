@@ -139,12 +139,15 @@
                             </form>
                         </div>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Thomas <b class="caret"></b></a>
+                    
+                    <%
+                        moderatore.Stampa(moderatore.Name(idUser), out);
+                    %>
+                    
                         <ul class="dropdown-menu">
                             <li><a href="#">Change User Data</a></li>
                             <li class="divider"></li>
-                            <li><a onclick="CallServlet('Logout')" href="#">Logout</a></li>
+                            <li><a onclick="CallServlet('Logout')" href="Logout">Logout</a></li>
                         </ul>
                     </li>
                 </ul>

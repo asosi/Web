@@ -1,7 +1,7 @@
-<%@page import="java.util.Iterator"%>
+﻿<%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Stamp.ReturnEmail"%>
-?<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
