@@ -9,7 +9,6 @@ package Servlet;
 import Class.Email;
 import DB.DBConnect;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -56,8 +55,6 @@ public class SendEmail extends HttpServlet {
             
             
         } catch(Exception e) {
-            PrintWriter out = response.getWriter();
-            out.println("crasho, tutta colpa di campi e del suo DB");
         }
     }
     

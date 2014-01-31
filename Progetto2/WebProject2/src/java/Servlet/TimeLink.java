@@ -6,6 +6,7 @@
 
 package Servlet;
 
+import Class.Email;
 import DB.DBConnect;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,7 +52,7 @@ public class TimeLink extends HttpServlet {
                         
             response.getWriter().println(differenza+"<br>");
             
-            /*
+            
             if(differenza>90){
                 response.sendRedirect("LinkScaduto.html");
             }
@@ -76,7 +77,7 @@ public class TimeLink extends HttpServlet {
                 send.Send(email,ogget,testo);
                 
                 response.sendRedirect("LinkValido.html");
-            }*/
+            }
             
         } catch(IOException e) {}
     }
