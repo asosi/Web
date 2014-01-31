@@ -9,6 +9,7 @@ package Servlet;
 import Class.Email;
 import DB.DBConnect;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,7 +48,7 @@ public class TimeLink extends HttpServlet {
         ip = request.getLocalAddr();
         try {
             
-            GregorianCalendar dataPrec = GetDate(request.getParameter("email"));
+            GregorianCalendar dataPrec = GetDate(request.getParameter("email"),response.getWriter());
                                   
             Calendar now = Calendar.getInstance();
                    
@@ -82,7 +83,7 @@ public class TimeLink extends HttpServlet {
         } catch(IOException e) {}
     }
     //manca id o email
-    private GregorianCalendar GetDate(String email){
+    private GregorianCalendar GetDate(String email, PrintWriter out){
         GregorianCalendar date = new GregorianCalendar();
         
         //select che ritorna data creazione link
@@ -97,6 +98,8 @@ public class TimeLink extends HttpServlet {
             String[] due = uno.split(" ");
             String[] giorno = due[0].split("-");
             String[] ora = due[1].split(":");
+            
+            out.println(giorno[0]+" "+giorno[1]+" "+giorno[2]+" "+ora[0]+" "+ora[1]+" "+ora[2].split(".")[0]+" ");
             
             date.set(Integer.parseInt(giorno[0]),Integer.parseInt(giorno[1]),Integer.parseInt(giorno[2]),
                     Integer.parseInt(ora[0]),Integer.parseInt(ora[1]),Integer.parseInt(ora[2].split(".")[0]));
