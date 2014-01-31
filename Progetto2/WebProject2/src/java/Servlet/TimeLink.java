@@ -99,7 +99,7 @@ public class TimeLink extends HttpServlet {
             String[] ora = due[1].split(":");
             
             date.set(Integer.parseInt(giorno[0]),Integer.parseInt(giorno[1]),Integer.parseInt(giorno[2]),
-                    Integer.parseInt(ora[0]),Integer.parseInt(ora[1]),Integer.parseInt(ora[2]));
+                    Integer.parseInt(ora[0]),Integer.parseInt(ora[1]),Integer.parseInt(ora[2].split(".")[0]));
             
             
         } catch (SQLException e) {
