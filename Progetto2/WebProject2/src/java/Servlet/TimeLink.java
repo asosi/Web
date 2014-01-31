@@ -54,7 +54,8 @@ public class TimeLink extends HttpServlet {
                    
             int differenza = (int) ((now.getTimeInMillis()- dataPrec.getTimeInMillis())/1000);
                         
-            response.getWriter().println(differenza);
+            response.getWriter().println(now.getTimeInMillis()+"<br>");
+            response.getWriter().println(dataPrec.getTimeInMillis());
             
             /*
             if(differenza>90){
