@@ -48,6 +48,9 @@ public class TimeLink extends HttpServlet {
         try {
             
             GregorianCalendar dataPrec = GetDate(request.getParameter("email"));
+            
+            
+            
                                   
             Calendar now = Calendar.getInstance();
                    
@@ -88,7 +91,8 @@ public class TimeLink extends HttpServlet {
         //select che ritorna data creazione link
         DBConnect db = new DBConnect(ip);
         try {
-            PreparedStatement ps = db.conn.prepareStatement("SELECT countdown FROM users WHERE "/*id o email*/);
+            PreparedStatement ps = db.conn.prepareStatement("SELECT countdown FROM users WHERE email = ?");
+            ps.setString(1, email);
             ResultSet rs = db.Query(ps);
             rs.next();
             
