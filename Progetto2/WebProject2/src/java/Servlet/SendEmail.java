@@ -8,19 +8,14 @@ package Servlet;
 
 import Class.Email;
 import DB.DBConnect;
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.javaIdentifierType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sun.util.calendar.Gregorian;
 
 /**
  *

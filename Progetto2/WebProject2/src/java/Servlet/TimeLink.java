@@ -6,15 +6,13 @@
 
 package Servlet;
 
-import Class.Email;
 import DB.DBConnect;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.sql.Timestamp;
 import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -47,15 +45,11 @@ public class TimeLink extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         ip = request.getLocalAddr();
         try {
-            
-            GregorianCalendar dataPrec = GetDate(request.getParameter("email"),response.getWriter());
-                                  
-            Calendar now = Calendar.getInstance();
-                   
-            int differenza = (int) ((now.getTimeInMillis()- dataPrec.getTimeInMillis())/1000);
+            Timestamp dataNow = GetNow();
+            Timestamp dataPrec = GetDate(request.getParameter("email"),response.getWriter());
+            long differenza = (dataNow.getTime()-dataPrec.getTime())/1000;
                         
-            response.getWriter().println(now.getTimeInMillis()+"<br>");
-            response.getWriter().println(dataPrec.getTimeInMillis());
+            response.getWriter().println(differenza+"<br>");
             
             /*
             if(differenza>90){
@@ -87,9 +81,8 @@ public class TimeLink extends HttpServlet {
         } catch(IOException e) {}
     }
     //manca id o email
-    private GregorianCalendar GetDate(String email, PrintWriter out){
-        GregorianCalendar date = new GregorianCalendar();
-        
+    private Timestamp GetDate(String email, PrintWriter out){
+        Timestamp date = null;
         //select che ritorna data creazione link
         DBConnect db = new DBConnect(ip);
         try {
@@ -98,15 +91,25 @@ public class TimeLink extends HttpServlet {
             ResultSet rs = db.Query(ps);
             rs.next();
             
-            String uno = rs.getString("countdown");
-            String[] due = uno.split(" ");
-            String[] giorno = due[0].split("-");
-            String[] ora = due[1].split(":");
+            String datevalue = rs.getString("countdown");
+            date = Timestamp.valueOf(datevalue);
+        } catch (SQLException e) {
+        }
+        
+        return date;
+    }
+    
+    private Timestamp GetNow(){
+        Timestamp date = null;
+        //select che ritorna data del server
+        DBConnect db = new DBConnect(ip);
+        try {
+            PreparedStatement ps = db.conn.prepareStatement("SELECT NOW() as now");
+            ResultSet rs = db.Query(ps);
+            rs.next();
             
-            date.set(Integer.parseInt(giorno[0]),Integer.parseInt(giorno[1]),Integer.parseInt(giorno[2]),
-                    Integer.parseInt(ora[0]),Integer.parseInt(ora[1]),Integer.parseInt(ora[2].substring(0,ora[2].length()-2)));
-            
-            
+            String datevalue = rs.getString("now");
+            date = Timestamp.valueOf(datevalue);
         } catch (SQLException e) {
         }
         
