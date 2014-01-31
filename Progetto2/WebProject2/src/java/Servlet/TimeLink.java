@@ -52,7 +52,7 @@ public class TimeLink extends HttpServlet {
                                   
             Calendar now = Calendar.getInstance();
                    
-            int differenza = (int) ((now.getTimeInMillis()- dataPrec.getTimeInMillis())/1000);
+            long differenza = (long) ((now.getTimeInMillis()- dataPrec.getTimeInMillis())/1000);
                         
             if(differenza>90){
                 response.sendRedirect("LinkScaduto.html");
