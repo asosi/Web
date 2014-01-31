@@ -52,7 +52,7 @@ public class TimeLink extends HttpServlet {
                                   
             Calendar now = Calendar.getInstance();
                    
-            long differenza = (long) ((now.getTimeInMillis()- dataPrec.getTimeInMillis())/1000);
+            int differenza = (int) ((now.getTimeInMillis()- dataPrec.getTimeInMillis())/1000);
                         
             response.getWriter().println(differenza);
             
