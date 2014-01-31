@@ -54,6 +54,9 @@ public class TimeLink extends HttpServlet {
                    
             long differenza = (long) ((now.getTimeInMillis()- dataPrec.getTimeInMillis())/1000);
                         
+            response.getWriter().println(differenza);
+            
+            /*
             if(differenza>90){
                 response.sendRedirect("LinkScaduto.html");
             }
@@ -78,7 +81,7 @@ public class TimeLink extends HttpServlet {
                 send.Send(email,ogget,testo);
                 
                 response.sendRedirect("LinkValido.html");
-            }
+            }*/
             
         } catch(IOException e) {}
     }
