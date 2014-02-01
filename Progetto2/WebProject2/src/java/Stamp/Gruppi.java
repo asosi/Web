@@ -94,12 +94,21 @@ public class Gruppi extends Stamp{
             PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM groups WHERE id_owner <> ? AND (flag = 0 OR flag = 2) \n"+
                                                             "AND groups.id NOT IN (SELECT groups.id from groups join users_groups \n" +
                                                             "on(groups.id = users_groups.id_groups) \n" +
-                                                            "where users_groups.id_users = 1 and active = 1)");
+                                                            "where users_groups.id_users = ? and active = 1)");
             ps.setInt(1, id);
+            ps.setInt(2, id);
 
             ResultSet rs = db.Query(ps);
             while(rs.next()){
-                //tableeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+                contatoreTabPrinc++;
+                result.add("<tr id='tr"+contatoreTabPrinc+"'>");                
+                result.add("<td>"+rs.getString("id")+"</td>");
+                result.add("<td>\n <img class='table' src='img/group/"+rs.getString("groups.avatar")+"' />"+rs.getString("groups.name")+"\n</td>");
+                result.add("<td>"+rs.getString("born_date").substring(0,rs.getString("born_date").length()-2)+"</td>");
+                result.add("<td>\n<form>\n<div class=\"form-group\">\n" +
+"                                    <button class=\"btn btn-primary \" name='tr"+contatoreTabPrinc+"' onclick=\"GroupPage(name)\" type=\"button\">Page of Group</button>\n" +
+"                                </div>\n</form>\n</td>");
+                result.add("<td></td></tr>");
             }
             
         }catch(SQLException e){}
