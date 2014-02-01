@@ -227,7 +227,7 @@
                         </thead>
                         <tbody>
                             <%
-                                gruppi.Stampa(gruppi.Table1(idUser), out);
+                                gruppi.Stampa(gruppi.Table2(idUser), out);
                             %>
                         </tbody>
                     </table>
@@ -256,7 +256,7 @@
                         </thead>
                         <tbody>
                             <%
-                                gruppi.Stampa(gruppi.Table2(idUser), out);
+                                gruppi.Stampa(gruppi.Table1(idUser), out);
                             %>
                         </tbody>
                     </table>
