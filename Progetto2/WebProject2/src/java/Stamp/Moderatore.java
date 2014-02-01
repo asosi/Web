@@ -39,7 +39,7 @@ public class Moderatore extends Stamp{
                                                             "users.avatar as admin_avatar \n" +
                                                             "FROM groups, users \n" +
                                                             "WHERE groups.ID_owner = users.ID) as T2 \n" +
-                                                            "ON T1.id_groups = T2.id order by T2.id");
+                                                            "ON T1.id_groups = T2.id ORDER BY T2.id");
             ResultSet rs =  db.Query(ps);
             int contatore = 0;
             while(rs.next()){

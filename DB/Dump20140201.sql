@@ -84,7 +84,7 @@ CREATE TABLE `users` (
   `email` varchar(45) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `password` varchar(45) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `avatar` varchar(100) NOT NULL DEFAULT 'img/users/default.jpg',
-  `lastvisit` varchar(45) DEFAULT NULL,
+  `lastvisit` timestamp NULL DEFAULT NULL,
   `countdown` timestamp NULL DEFAULT NULL,
   `moderatore` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`ID`),
