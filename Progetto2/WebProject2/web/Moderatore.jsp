@@ -146,7 +146,8 @@
                     %>
                     
                         <ul class="dropdown-menu">
-                            <li><a href="#">Change User Data</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#EditModal">Change Avatar</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#EditPasswordModal">Change Password</a></li>
                             <li class="divider"></li>
                             <li><a onclick="CallServlet('Logout')" href="Logout">Logout</a></li>
                         </ul>
@@ -212,6 +213,10 @@
         var tf = setFilterGrid("tabella", 1, tableFilters);
     </script>
 
+    
+    <%@ include file="WebPages/ModalEditAvatar.jsp" %>
+    <%@ include file="WebPages/ModalEditPassword.jsp" %>
+    
      <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

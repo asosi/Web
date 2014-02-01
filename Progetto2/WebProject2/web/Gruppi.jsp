@@ -41,13 +41,13 @@
 
         var riga;
 
-		function GroupPage(IDriga){
-			
-			document.Scelta.action = "GroupPage.jsp";
-			document.Scelta.target = "";
-			document.getElementById("txtScelta").value = GetValue(IDriga);
-			document.Scelta.submit();	
-		}
+        function GroupPage(IDriga){
+
+                document.Scelta.action = "GroupPage.jsp";
+                document.Scelta.target = "";
+                document.getElementById("txtScelta").value = GetValue(IDriga);
+                document.Scelta.submit();	
+        }
 		
         function PDFGroup(IDriga) {
 			document.Scelta.action = "CreatePDF";
@@ -59,10 +59,10 @@
         function EditGroup(IDriga) {
             riga = IDriga;
 			
-			document.Scelta.action = "ModificaGruppo.jsp";
-			document.Scelta.target = "";
-			document.getElementById("txtScelta").value = GetValue(IDriga);
-			document.Scelta.submit();			
+            document.Scelta.action = "ModificaGruppo.jsp";
+            document.Scelta.target = "";
+            document.getElementById("txtScelta").value = GetValue(IDriga);
+            document.Scelta.submit();			
 			
         }
 
@@ -96,7 +96,7 @@
             return Cells[0].innerText;
         }
 		
-		function GetValue1(IDriga) {
+        function GetValue1(IDriga) {
             //Codice che restituisce il valore della cella [IDriga,1]
             var Row = document.getElementById(IDriga);
             var Cells = Row.getElementsByTagName("td");
@@ -136,63 +136,7 @@
             var rows = document.getElementById('tabellaEditGroup').getElementsByTagName('tbody')[0].rows.length;
             return rows;
         }
-
-	function SaveEditModal() {
-            var tes = document.getElementById('InputImage').value;
-            var img = document.getElementById("InputImage").files[0];
-                
-                var x = 0;
-                
-                switch(img.type){
-                    case "image/jpeg":
-                    case "image/png": x = 1;
-                }
-            
-            
-            if(img.size > 10485760 || x == 0){                
-                document.getElementById("ImageEditFile").className = "form-group has-error";
-            }
-            else{
-                document.EditAvatar.submit();	
-            }
-        }
-
-        function CloseEditModal() {
-            document.getElementById('InputImage').value = "";
-
-            //richiamo funzione che resetta l'immagine in base a quella salvata nel DB
-        }
-
-        //funzione che cambia l'immagine di anteprima nella modal: "Modifica Dati utente"
-        function readURL(input) {
-            
-                
-                var type = document.getElementById("InputImage").files[0].type;
-                
-                var x = 0;
-                
-                switch(type){
-                    case "image/jpeg":
-                    case "image/png": x = 1;
-                }
-
-                if (input.files && input.files[0] && x == 1) {
-
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#avatar')
-                        .attr('src', e.target.result)
-                        .width(200)
-                        .height(200);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-
-                }
-                else
-                    document.getElementById("ImageEditFile").className = "form-group has-error";
-        }
-		
-
+	
     </script>
 
 </head>
@@ -210,7 +154,8 @@
                         gruppi.Stampa(gruppi.Name(idUser), out);
                     %>
                     <ul class="dropdown-menu">
-                             <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#EditModal">Change Avatar</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#EditPasswordModal">Change Password</a></li>
                             <li class="divider"></li>
                             <li><a href="Logout">Logout</a></li>
                         </ul>
@@ -327,6 +272,7 @@
 
 
     <%@ include file="WebPages/ModalEditAvatar.jsp" %>
+    <%@ include file="WebPages/ModalEditPassword.jsp" %>
     
     
 	<form name="Scelta">

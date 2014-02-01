@@ -48,66 +48,10 @@
         function CallServlet(servlet) {
             document.location.href = servlet;
         }   
-
-        function SaveEditModal() {
-            var tes = document.getElementById('InputImage').value;
-            var img = document.getElementById("InputImage").files[0];
-                
-                var x = 0;
-                
-                switch(img.type){
-                    case "image/jpeg":
-                    case "image/png": x = 1;
-                }
-            
-            
-            if(img.size > 10485760 || x == 0){                
-                document.getElementById("ImageEditFile").className = "form-group has-error";
-            }
-            else{
-                document.EditAvatar.submit();	
-            }
+        
+        function PageLink(page){
+            location.href = page;
         }
-
-        function CloseEditModal() {
-            document.getElementById('InputImage').value = "";
-
-            //richiamo funzione che resetta l'immagine in base a quella salvata nel DB
-        }
-
-        //funzione che cambia l'immagine di anteprima nella modal: "Modifica Dati utente"
-        function readURL(input) {
-            
-                
-                var type = document.getElementById("InputImage").files[0].type;
-                
-                var x = 0;
-                
-                switch(type){
-                    case "image/jpeg":
-                    case "image/png": x = 1;
-                }
-
-                if (input.files && input.files[0] && x == 1) {
-
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#avatar')
-                        .attr('src', e.target.result)
-                        .width(200)
-                        .height(200);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-
-                }
-                else
-                    document.getElementById("ImageEditFile").className = "form-group has-error";
-        }
-		
-                
-                function PageLink(page){
-                    location.href = page;
-                }
 
     </script>
 
