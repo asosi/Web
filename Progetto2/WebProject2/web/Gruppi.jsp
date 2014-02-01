@@ -168,108 +168,105 @@
     <div class="container">
 
         <br />
-        <br />
 
         <!-- Jumbotron -->
         <div class="jumbotron myjumbotron">
             <h1>Groups</h1>
         </div>
-        <div class="bs-example">
-            <table class="table">
-                <thead>
-                    <tr>
-			<th>#</th>
-                        <th>Group Name</th>
-                        <th>Date</th>
-                        <th>Link Group</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        gruppi.Stampa(gruppi.Table(idUser), out);
-                    %>
-                    <%
-                        gruppi.Stampa(gruppi.Table1(idUser), out);
-                    %>
-                    <!--ultima riga (vuota)-->
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-     <!-- Modal Edit Group -->
-    <div class="modal fade" id="EditGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="CloseEdit()">&times;</button>
-                    <h3 class="modal-title" id="myModalLabel">Edit Group</h3>
+        
+        
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    My Groups
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Group Name</th>
+                                <th>Date</th>
+                                <th>Link Group</th>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                gruppi.Stampa(gruppi.Table(idUser), out);
+                            %>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="modal-body">
-                    <div id="EditGroupNameDiv" class="form-group">
-                        <label class="control-label" id="EditGroupNameLabel" for="inputError">Name:</label>
-                        <input type="text" id="EditGroupName" class="form-control" />
-                    </div>
-
-                    <div id="postFileDiv" class="form-group" style="height:250px;overflow-y: scroll;">
-                        
-                        <table class="table" id="tabellaEditGroup" onclick="handleClick(event);">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Invites</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <tr id="tre1">
-                            <td>
-                                <img class="table" src="img/avatar2.jpg" />Mengiazzo Alfredo
-                            </td>
-                            <td>
-                                <form>
-                                    <div class="form-group">
-                                        <button class="btn btn-primary" name="btnSend1" id="1" onclick="Send(id)" type="button">Send Invitation</button>
-                                        <button disabled="disabled" class="btn btn-danger" id="1" name="btnCancel1" onclick="Cancel(id)" type="button">Cancel</button>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
-                                <tr id="tre2">
-                            <td>
-                                <img class="table" src="img/avatar1.jpg" />LaTorta Gustavo
-                            </td>
-                            <td>
-                                <form>
-                                    <div class="form-group">
-                                        <button class="btn btn-primary" name="btnSend2" id="2" onclick="Send(id)" type="button">Send Invitation</button>
-                                        <button disabled="disabled" class="btn btn-danger" id="2" name="btnCancel2" onclick="Cancel(id)" type="button">Cancel</button>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="CloseEdit()">Close</button>
-                    <button type="button" class="btn btn-success" id="btnPublicpost" onclick="SaveEdit()">Save</button>
-                </div>
+              </div>
             </div>
-            <!-- /.modal-content -->
+            <br>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    Public Groups
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Group Name</th>
+                                <th>Date</th>
+                                <th>Link Group</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                gruppi.Stampa(gruppi.Table1(idUser), out);
+                            %>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                    Other Groups
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Group Name</th>
+                                <th>Date</th>
+                                <th>Link Group</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                gruppi.Stampa(gruppi.Table2(idUser), out);
+                            %>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
 
+        
+       
 
     <%@ include file="WebPages/ModalEditAvatar.jsp" %>
     <%@ include file="WebPages/ModalEditPassword.jsp" %>
