@@ -94,7 +94,7 @@
     
     <div class="container">
         <%
-            home.Stampa(home.StampaCookie(idUser, request), out);
+            home.Stampa(home.StampaData(idUser, request), out);
         %>
                 <br>
         <div class="row marketing">

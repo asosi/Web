@@ -88,19 +88,31 @@ public class Home extends Stamp{
         return result;
     }
     
-    public ArrayList<String> StampaCookie(int id, HttpServletRequest request) {
+    public ArrayList<String> StampaData(int id, HttpServletRequest request) {
+        
         ArrayList<String> result = new ArrayList<String>();
-        Cookie cookies [] = request.getCookies();
-        for(int i= 0; i < cookies.length; i++){
-            if(cookies[i].getName().equals("date"+id)){
-                if(cookies[i].getValue().equals("no")){
-                    result.add("<h4 class=\"title\" id=\"ultimoAccesso\">Last access: First visit</h4>");
-                }
-                else{
-                    result.add("<h4 class=\"title\" id=\"ultimoAccesso\">Last access: "+cookies[i].getValue()+"</h4>");
-                }                    
-            }
+        DBConnect db = new DBConnect(ip);
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("SELECT lastvisit from users where id = ?");
+            ps.setInt(1, id);
+
+            ResultSet rs = db.Query(ps);
+            rs.next();
+            
+            String date;
+            
+            if(rs.getString("lastvisit")==null)
+                date = "<h4 class='title' id='ultimoAccesso'>Welcome! this is the first time you connect to the Forum</h4>";
+            else
+                date = "<h4 class='title' id='ultimoAccesso'>Last access: "+rs.getString("lastvisit").substring(0,rs.getString("lastvisit").length()-2)+"</h4>";
+            
+            result.add(date);
+            rs.close();
         }
+        catch(SQLException e){}
+        
+        db.DBClose();
         return result;
     }
     

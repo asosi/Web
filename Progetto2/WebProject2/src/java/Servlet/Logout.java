@@ -6,7 +6,10 @@
 
 package Servlet;
 
+import DB.DBConnect;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +23,8 @@ import javax.servlet.http.HttpSession;
  */
 public class Logout extends HttpServlet {
 
+    
+    String ip;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,10 +39,11 @@ public class Logout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             
+            ip = request.getLocalAddr();
             
             HttpSession session = request.getSession();
             
-            SettaCookie((Integer)session.getAttribute("idUser"),request,response);
+            AggiornaLastVisit((Integer)session.getAttribute("idUser"));
             
             session.invalidate();
             
@@ -48,15 +54,19 @@ public class Logout extends HttpServlet {
         }
     }
     
-    private void SettaCookie(int id, HttpServletRequest request,HttpServletResponse response) {
-        Cookie cookies [] = request.getCookies();
-        for(int i= 0; i < cookies.length; i++){
-            if(cookies[i].getName().equals("date"+id)){
-                cookies[i].setValue(new java.util.Date().toString());
-                response.addCookie(cookies[i]);
-            }
+    private void AggiornaLastVisit(int idUser){
+        DBConnect db = new DBConnect(ip);
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("UPDATE users SET lastvisit = NOW() WHERE id = ?");
+            ps.setInt(1, idUser);
+
+            db.QueryInsert(ps);            
         }
+        catch(SQLException e){}
+        db.DBClose();
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
