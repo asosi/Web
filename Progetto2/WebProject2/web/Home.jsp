@@ -134,7 +134,8 @@
                         home.Stampa(home.Name(idUser), out);
                     %>
                         <ul class="dropdown-menu">
-                            <li><a href="#" data-toggle="modal" data-target="#EditModal">Change User Data</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#EditModal">Change Avatar</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#EditPasswordModal">Change Password</a></li>
                             <li class="divider"></li>
                             <li><a onclick="CallServlet('Logout')" href="Logout">Logout</a></li>
                         </ul>
@@ -189,6 +190,7 @@
     </div>
     
     <%@ include file="WebPages/ModalEditAvatar.jsp" %>
+    <%@ include file="WebPages/ModalEditPassword.jsp" %>
     
     
     <!-- Bootstrap core JavaScript
