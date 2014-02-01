@@ -50,22 +50,7 @@ public class Login extends HttpServlet {
                 
                 HttpSession session = request.getSession(true);                
                 synchronized(session){ session.setAttribute("idUser", id);}
-                if(request.getCookies() == null){                    
-                    Cookie date = new Cookie("date"+id,"no");
-                    response.addCookie(date);
-                }
-                else{
-                    Cookie cookies [] = request.getCookies();
-                        for(int i= 0; i < cookies.length+1; i++){
-                            if(i==cookies.length){
-                                Cookie date = new Cookie("date"+id,"no");
-                                response.addCookie(date);
-                            }
-                            else if(cookies[i].getName().equals("date"+id)){
-                                break;
-                            }
-                        }
-                }
+            
                 response.sendRedirect("Home.jsp");
             }
             else{
