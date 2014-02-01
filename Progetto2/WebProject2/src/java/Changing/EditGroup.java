@@ -6,6 +6,7 @@
 
 package Changing;
 
+import Class.Email;
 import DB.DBConnect;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -50,7 +51,8 @@ public class EditGroup extends HttpServlet {
             
             String name = request.getParameter("group_name");
             String membri = request.getParameter("group_member");
-            String nomembri = request.getParameter("group_nomember");
+            String nomembri = request.getParameter("group_nomember");            
+            String flag = request.getParameter("group_flag");
             
             idG = request.getParameter("group_id");
             
@@ -58,7 +60,7 @@ public class EditGroup extends HttpServlet {
             
             String[] nomembers = nomembri.split(" ");             
             
-            EditGroupName(name);
+            EditGroup(name,flag);
             if(members[0]!= "")
                 AddMembers(members);
             if(nomembers[0]!= "")
@@ -70,13 +72,14 @@ public class EditGroup extends HttpServlet {
         }
     }
     
-    private void EditGroupName(String nome){
+    private void EditGroup(String nome, String flag){
          DBConnect db = new DBConnect(ip);
         
         try{
-            PreparedStatement ps = db.conn.prepareStatement("update groups set name = ? where id = ?");
+            PreparedStatement ps = db.conn.prepareStatement("update groups set name = ?, flag = ? where id = ?");
             ps.setString(1, nome);
-            ps.setString(2, idG);
+            ps.setString(2, flag);
+            ps.setString(3, idG);
 
             db.QueryInsert(ps);            
         }
@@ -96,6 +99,7 @@ public class EditGroup extends HttpServlet {
                         ps.setString(2, membri[i]);
                         db.QueryInsert(ps); 
                         AddNews(membri[i]);
+                        SendEmail(Integer.parseInt(idG),membri[i]);
                     }
                     else{
                         PreparedStatement ps = db.conn.prepareStatement("update ask set state = 0 where id_groups = ? and id_users = ?");
@@ -205,6 +209,47 @@ public class EditGroup extends HttpServlet {
         
         db.DBClose();
         return st;
+    }
+    
+    private void SendEmail(int idG,String membro){
+        DBConnect db = new DBConnect(ip);
+        Email emailClass = new Email();
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("SELECT email FROM users where id = ?");
+            ps.setString(1, membro);            
+            ResultSet rs = db.Query(ps);   
+            rs.next();
+            String email = rs.getString("email");
+            rs.close();
+            
+            PreparedStatement ps1 = db.conn.prepareStatement("SELECT groups.name, users.name, users.surname FROM groups "
+                    + "JOIN users on (groups.id_owner = users.id) where groups.id = ?");
+            ps1.setInt(1, idG);
+            ResultSet rs1 = db.Query(ps1);   
+            rs1.next();
+            String nameG = rs1.getString("groups.name");
+            String nameU = rs1.getString("users.surname")+" "+rs1.getString("users.name");
+            rs1.close();
+            
+            PreparedStatement ps2 = db.conn.prepareStatement("SELECT id FROM ask where id_groups = ? and id_users = ?");
+            ps2.setInt(1, idG);
+            ps2.setString(2, membro);                        
+            ResultSet rs2 = db.Query(ps2);   
+            rs2.next();
+            String idI = rs2.getString("id");
+            rs2.close();
+                        
+            String oggetto = "New Invitation";
+            String testo = "\nYou've received a new invitation from the group '"+nameG+"', created by "+nameU+
+                    "\n\nClick the following link to accept the invitation"+
+                    "\n\n\n http://"+ip+":8080/Forum2/AcceptInvite?email="+email+"&n="+idI+"&g="+idG;
+            
+            
+            emailClass.Send(email, oggetto, testo);
+        }
+        catch(SQLException e){}
+        db.DBClose();
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

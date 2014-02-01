@@ -58,14 +58,20 @@
             document.getElementsByName("btnSend" + id)[0].disabled = false;
         }
 
+        var invitati = "";
+        var noinvitati = "";
+
         function Salva() {
             document.getElementById("editG").disabled = "disabled";
             var num = countRowsTable();
-			document.getElementById("group_name").value = document.getElementById("GroupName").innerText;	
+            var name = document.getElementById("GroupName").innerText;
+            var flag = document.getElementById("flag").value; 
+            var idG = <%=idG%>;
             Membri(num);
             NoMembri(num);
 
-            document.Modifica.submit();	
+            location.href="EditGroup?group_id="+idG+"&group_name="+name+"&group_member="+invitati+"&group_nomember="+noinvitati+"&group_flag="+flag;
+
 			
         }
 
@@ -99,10 +105,10 @@
                 }
             }
 			//alert(x);
-            document.getElementById("group_member").value = x;
+            invitati = x;
         }
 		
-		function NoMembri(num) {
+        function NoMembri(num) {
             var x = "";
             for (i = 1; i < num + 1; i++) {
                 var y = GetButtonStatus("btnCancel" + i);
@@ -110,8 +116,8 @@
                     x += GetValue("tr" + i) + " ";
                 }
             }
-			//alert(x);
-            document.getElementById("group_nomember").value = x;
+            
+            noinvitati = x;
         }
 
         //funzione che restituisce il valore della cella (riga,0) della tabella
@@ -244,8 +250,16 @@
                 <%
                     modificaG.Stampa(modificaG.GroupTitle(idG), out);
                 %>
-            <button class="btn btn-primary " data-toggle="modal" data-target="#PostEditTitle" type="button" onclick="SetTextBox()">Edit Name</button>
+            <br>
+            
+            <div class="divOrizzontale">
+                <button class="btn btn-primary" style="margin-top: -12px" data-toggle="modal" data-target="#PostEditTitle" type="button" onclick="SetTextBox()">Edit Name</button>
 
+                <select id="flag" class="form-control" style="width:80%;float:left; margin-right: 2%">
+                    <option value="0">Public</option>
+                    <option value="2">Private</option>
+                </select>            
+            </div>
             <br /><br />
             <div class="bs-example">
                 <table class="table" style="text-align: left" id="tabella">
@@ -305,15 +319,6 @@
     <%@ include file="WebPages/ModalEditAvatar.jsp" %>
     
     
-	<form name="Modifica" action="EditGroup">
-		<input type="text" name="group_member" id="group_member" hidden='hidden'/>
-		<input type="text" name="group_nomember" id="group_nomember" hidden='hidden'/>
-		<input type="text" name="group_name"  id="group_name" hidden='hidden'/>
-                
-		<%
-			out.println("<input type='text' name='group_id'  id='group_id' value='"+idG+"' hidden='hidden'/>");
-		%>
-        </form>
 	
     <!-- Bootstrap core JavaScript
     ================================================== -->
