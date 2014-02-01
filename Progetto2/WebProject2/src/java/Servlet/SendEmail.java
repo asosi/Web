@@ -44,7 +44,7 @@ public class SendEmail extends HttpServlet {
             
             String testo = "Dear " + email
                         + "\n\n To change your email address click (within 90 seconds) on the following link!"
-                        + "\n \n  http://"+ip+":8080/Forum2/TimeLink?email="+email;
+                        + "\n \n  http://"+request.getServerName()+":8080/Forum2/TimeLink?email="+email;
             
             Email send = new Email();
             send.Send(email,ogget,testo);

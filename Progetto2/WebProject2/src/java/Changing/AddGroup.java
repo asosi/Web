@@ -10,7 +10,6 @@ import Class.Email;
 import DB.DBConnect;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +26,7 @@ import javax.servlet.http.HttpSession;
 public class AddGroup extends HttpServlet {
 
     String ip;
+    String server;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,6 +44,7 @@ public class AddGroup extends HttpServlet {
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             ip = request.getLocalAddr();
+            server = request.getServerName();
             DBConnect db = new DBConnect(ip);
             db.DBClose();
             String name = request.getParameter("group_name");
@@ -208,7 +209,7 @@ public class AddGroup extends HttpServlet {
             String oggetto = "New Invitation";
             String testo = "\nYou've received a new invitation from the group '"+nameG+"', created by "+nameU+
                     "\n\nClick the following link to accept the invitation"+
-                    "\n\n\n http://"+ip+":8080/Forum2/AcceptInvite?email="+email+"&n="+idI+"&g="+idG;
+                    "\n\n\n http://"+server+":8080/Forum2/AcceptInvite?email="+email+"&n="+idI+"&g="+idG;
             
             
             emailClass.Send(email, oggetto, testo);

@@ -26,6 +26,7 @@ public class EditGroup extends HttpServlet {
 
     String idG;
     String ip;
+    String server;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,6 +47,8 @@ public class EditGroup extends HttpServlet {
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
                         
             ip = request.getLocalAddr();
+            server = request.getServerName();
+            
             DBConnect db = new DBConnect(ip);
             db.DBClose();
             
@@ -243,7 +246,7 @@ public class EditGroup extends HttpServlet {
             String oggetto = "New Invitation";
             String testo = "\nYou've received a new invitation from the group '"+nameG+"', created by "+nameU+
                     "\n\nClick the following link to accept the invitation"+
-                    "\n\n\n http://"+ip+":8080/Forum2/AcceptInvite?email="+email+"&n="+idI+"&g="+idG;
+                    "\n\n\n http://"+server+":8080/Forum2/AcceptInvite?email="+email+"&n="+idI+"&g="+idG;
             
             
             emailClass.Send(email, oggetto, testo);
