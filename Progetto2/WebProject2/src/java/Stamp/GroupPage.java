@@ -7,13 +7,21 @@
 package Stamp;
 
 import DB.DBConnect;
-import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.servlet.http.HttpServletRequest;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+ 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 /**
  *
  * @author davide
@@ -26,7 +34,7 @@ public class GroupPage extends Stamp{
         contatoreTabPrinc = 0;
     }
     
-    public ArrayList<String> Post(String idG){
+    public ArrayList<String> Post(String idG,HttpServletResponse response) throws IOException{
         ArrayList<String> result = new ArrayList<String>();
         DBConnect db = new DBConnect(ip);
         
@@ -59,9 +67,10 @@ public class GroupPage extends Stamp{
     "                            <p class='postDate'>"+rs.getString("date").substring(0,rs.getString("date").length()-2)+"</p>");
                  result.add("<h4>"+rs.getString("surname")+" "+rs.getString("name")+"</h4>");
                  
-                 String testo = ConvertiLink(rs.getString("text"),idG);
+                 String testo = ConvertiLinkQR(rs.getString("text"),response,idG);
+                 String testo1 = ConvertiLink(testo,idG);
                  
-                 result.add("<p>"+testo+"</p>");
+                 result.add("<p>"+testo1+"</p>");
                  //out.println("<div class=\"postLink\">\n");
                  boolean canDownload = true;
                  while(rs1.next()){
@@ -194,6 +203,96 @@ public class GroupPage extends Stamp{
         }
         
         return testofinale;
+    }
+    
+    private String ConvertiLinkQR(String testo, HttpServletResponse response, String idG) throws IOException{
+        String testofinale="";
+        boolean azione = false;
+        boolean finito = false;
+        //che porcata
+        int inizio = 0;
+        int fine = -1;
+        int inizio1 = 0;
+        
+        while(!finito)
+        {    
+            for(int i = inizio; i < testo.length()-1; i++){
+                if(!azione) {
+                    if(i < testo.length()-3){
+                        String s = testo.substring(i,i+4);            
+                        if(s.compareTo("$QR$") == 0){
+                            azione = true;
+                            i++;
+                            inizio = i+1;
+                        }
+                    }
+                }
+                else{
+                    String s = testo.substring(i,i+2);           
+                    if(s.compareTo("$$") == 0){
+                        i++;
+                        fine = i-1;
+                        break;                        
+                    }
+                }
+            }
+            //non toccare
+            if(inizio<=fine)
+            {
+                System.out.println(testo.substring(inizio, fine));
+                if(inizio-2 >inizio1)
+                    testofinale += testo.substring(inizio1,inizio-2);
+                
+                testofinale += "<table><tr><td>";
+                testofinale += GeneraQR(testo.substring(inizio+2,fine), response, idG);     
+                testofinale += "</td><td>";          
+                testofinale += "<a  target='_blank' href='http://";
+                testofinale += testo.substring(inizio+2,fine);
+                testofinale += "'>";
+                testofinale += testo.substring(inizio+2,fine);
+                testofinale += "</a>";
+                testofinale += "</td></tr></table><br>";
+                
+                
+                inizio1 = fine+2;
+                inizio = fine+2;
+                azione = false;
+            }
+            else{
+                inizio = inizio1;
+                testofinale += testo.substring(inizio,testo.length());
+                finito = true;
+            }
+        }
+        
+        return testofinale;
+    }
+    
+    private String GeneraQR(String qrtext, HttpServletResponse response, String idG) throws IOException{
+        ByteArrayOutputStream out = QRCode.from(qrtext).to(ImageType.PNG).stream();
+
+        String image = "";
+        
+        try {
+            
+            String path = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/img/group/"+idG+"/"+qrtext+".jpg";
+            
+            FileOutputStream fout = new FileOutputStream(new File(path));
+
+            image = "<a href='img/group/"+idG+"/"+qrtext+".jpg'><img style='width:60px; height:60px;' src='img/group/"+idG+"/"+qrtext+".jpg'/></a>";
+            
+            fout.write(out.toByteArray());
+
+            fout.flush();
+            fout.close();
+
+        } catch (FileNotFoundException e) {
+            // Do Logging
+        } catch (IOException e) {
+            // Do Logging
+        } 
+        
+        return image;
     }
     
     public boolean isBlocked(String idG){

@@ -132,9 +132,10 @@
                 for (var i = 0; i < files.length; i++)
                         finale += files[i].name+"_-_-_";
 				
-                //CloseModalPost();
-                document.addpost.action = "AddPost?testopost="+tes+"&numeroElementi="+finale;
-                document.addpost.submit();
+                var idG = <%=request.getParameter("numero")%>;
+                                
+                location.href="AddPost?testopost="+tes+"&numeroElementi="+finale+"&numero="+idG;
+                                
             }
         }
 
