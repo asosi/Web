@@ -48,6 +48,8 @@ public class AcceptInvite extends HttpServlet {
             UpdateAsk(1, idG, idU);
             InsertMember(idG, idU);
             
+            response.sendRedirect("AcceptInvitation.html");
+            
         } finally {
             out.close();
         }
