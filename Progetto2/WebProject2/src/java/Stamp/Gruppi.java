@@ -85,4 +85,25 @@ public class Gruppi extends Stamp{
         db.DBClose();
         return result;
     }
+    
+     
+    public ArrayList<String> Table2(int id){
+        ArrayList<String> result = new ArrayList<String>();
+        DBConnect db = new DBConnect(ip);
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("SELECT * FROM groups WHERE id_owner <> ? AND (flag = 0 OR flag = 2) \n"+
+                                                            "AND groups.id NOT IN (SELECT groups.id from groups join users_groups \n" +
+                                                            "on(groups.id = users_groups.id_groups) \n" +
+                                                            "where users_groups.id_users = 1 and active = 1)");
+            ps.setInt(1, id);
+
+            ResultSet rs = db.Query(ps);
+            while(rs.next()){
+                //tableeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            }
+            
+        }catch(SQLException e){}
+        db.DBClose();
+        return result;
+    }
 }
