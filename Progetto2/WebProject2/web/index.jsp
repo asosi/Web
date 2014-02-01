@@ -37,7 +37,8 @@
 
     <script type="text/javascript">
         function SelectGroup(IDriga) {
-            alert(GetValue(IDriga));
+            var id = GetValue(IDriga);
+            location.href="PublicGroupPage.jsp?numero="+id;
         }
 
         function GetValue(IDriga) {

@@ -63,7 +63,7 @@ public class Moderatore extends Stamp{
                     result.add("<td>Private</td>");
                 }
                 
-                result.add("<td><button class='btn btn-primary btn-sm' type='button' onclick='SelectGroup('tr"+contatore+"')'>Page of Group</button></td></td>");
+                result.add("<td><button class='btn btn-primary btn-sm' type='button' onclick=\"SelectGroup('tr"+contatore+"')\">Page of Group</button></td></td>");
                 result.add("<td>");
                 
                 if(rs.getInt("T2.blocked")==1){

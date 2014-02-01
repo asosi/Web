@@ -67,7 +67,7 @@ public class AddGroup extends HttpServlet {
             
             //File dir = new File("/home/pi/apache-tomcat-7.0.47/webapps/ciao/files/"+idG);//sosi
             File dir = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+idG);//campi
-            //boolean a = dir.mkdirs();
+            boolean a = dir.mkdirs();
             
             
             response.sendRedirect("GroupPage.jsp?numero="+idG);
@@ -197,8 +197,21 @@ public class AddGroup extends HttpServlet {
             String nameU = rs1.getString("users.surname")+" "+rs1.getString("users.name");
             rs1.close();
             
+            PreparedStatement ps2 = db.conn.prepareStatement("SELECT id FROM ask where id_groups = ? and id_users = ?");
+            ps2.setInt(1, idG);
+            ps2.setString(2, membro);                        
+            ResultSet rs2 = db.Query(ps2);   
+            rs2.next();
+            String idI = rs2.getString("id");
+            rs2.close();
+                        
+            String oggetto = "New Invitation";
+            String testo = "\nYou've received a new invitation from the group '"+nameG+"', created by "+nameU+
+                    "\n\nClick the following link to accept the invitation"+
+                    "\n\n\n http://"+ip+":8080/Forum2/AcceptInvite?email="+email+"&n="+idI+"&g="+idG;
             
-            emailClass.Send(email, "New Invitation", "\nYou've received a new invitation from the group '"+nameG+"', created by "+nameU);
+            
+            emailClass.Send(email, oggetto, testo);
         }
         catch(SQLException e){}
         db.DBClose();

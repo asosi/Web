@@ -48,8 +48,8 @@ public class Index extends Print{
             ResultSet rs = db.Query(ps);
             
             while(rs.next()){
-                 result.add(" <tr id='tr'"+contatore+">");
-                 result.add(" <td style='display:none'>"+rs.getString("T2.id")+"</td>");
+                 result.add("<tr id='tr"+contatore+"'>");
+                 result.add("<td style='display:none'>"+rs.getString("T2.id")+"</td>");
                  result.add("<td><img class='table' src='img/group/"+rs.getString("T2.avatar")+"' />"+rs.getString("T2.name")+"</td>");
                  result.add("<td>"+rs.getString("T2.adminSurname")+" "+rs.getString("T2.adminName")+"</td>");
                  
@@ -64,7 +64,7 @@ public class Index extends Print{
                     result.add("<td></td>");
                  }
                  
-                 result.add("<td><button class='btn btn-primary btn-sm' type='button' onclick='SelectGroup('tr"+contatore+"')'>Page of Group</button></td>");
+                 result.add("<td><button class='btn btn-primary btn-sm' type='button' onclick=\"SelectGroup('tr"+contatore+"')\">Page of Group</button></td>");
                  result.add("</tr>");
                  contatore++;
             }

@@ -70,6 +70,10 @@
         <servlet-name>BlockGroup</servlet-name>
         <servlet-class>Changing.BlockGroup</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AcceptInvite</servlet-name>
+        <servlet-class>Servlet.AcceptInvite</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -167,6 +171,10 @@
     <servlet-mapping>
         <servlet-name>BlockGroup</servlet-name>
         <url-pattern>/BlockGroup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptInvite</servlet-name>
+        <url-pattern>/AcceptInvite</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
