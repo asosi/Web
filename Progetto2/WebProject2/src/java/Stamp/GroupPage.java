@@ -165,14 +165,35 @@ public class GroupPage extends Stamp{
                 System.out.println(testo.substring(inizio, fine));
                 if(inizio-2 >inizio1)
                     testofinale += testo.substring(inizio1,inizio-2);
-                testofinale += " <a  target='_blank' href='http://";
-                testofinale += testo.substring(inizio,fine);
-                testofinale += "'>";
-                testofinale += testo.substring(inizio,fine);
-                testofinale += "</a>";
-                inizio1 = fine+2;
-                inizio = fine+2;
-                azione = false;
+                if(controlloLinkFile(idG, testo.substring(inizio,fine))){
+                    DBConnect db= new DBConnect(ip);
+                    try{
+                        String name = "files/"+idG+"/";
+                        name += testo.substring(inizio, fine);
+                        PreparedStatement ps = db.conn.prepareStatement("SELECT ID from post_file where post_file = ?");
+                        ps.setString(1, name);
+                        ResultSet rs = db.Query(ps);
+                        rs.next();
+                        testofinale += "<a href='Download?idF="+rs.getString("ID")+"'>";
+                    }
+                    catch(SQLException e){}
+                    db.DBClose();
+                    testofinale += testo.substring(inizio,fine);
+                    testofinale += "</a>";
+                    inizio1 = fine+2;
+                    inizio = fine+2;
+                    azione = false;
+                }
+                else{
+                    testofinale += "<a  target='_blank' href='http://";
+                    testofinale += testo.substring(inizio,fine);
+                    testofinale += "'>";
+                    testofinale += testo.substring(inizio,fine);
+                    testofinale += "</a>";
+                    inizio1 = fine+2;
+                    inizio = fine+2;
+                    azione = false;
+                }
             }
             else{
                 inizio = inizio1;
