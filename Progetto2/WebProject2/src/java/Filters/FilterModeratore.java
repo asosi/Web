@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class FilterPDF implements Filter{
+public class FilterModeratore implements Filter{
     
   String ip;
     
@@ -39,9 +39,10 @@ public class FilterPDF implements Filter{
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             
             // seleziono tutti i gruppi come table
-            PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id_owner = ?");
+            PreparedStatement ps = db.conn.prepareStatement("SELECT * from users where id = ? and moderatore = 1");
             ps.setInt(1, id);
             ResultSet rs = db.Query(ps);
+            
             while(rs.next()){
                 String idgruppo = rs.getString("id");
                 
@@ -51,22 +52,23 @@ public class FilterPDF implements Filter{
             }
             // chiudo resultset
             rs.close();
+           
             
             // chiudo la connessione con il DB
             db.DBClose();
             if(trovato == true){
-                chain.doFilter(req, res);
+                chain.doFilter(request, response);
             }else{
                 res.sendRedirect("Gruppi.jsp");
             }
+            
         } else {
             res.sendRedirect("index.jsp");
         }
         
       }catch (Exception e){
           
-      }
-      
+      }   
   }
   
   @Override

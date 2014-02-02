@@ -28,7 +28,7 @@ public class FilterA implements Filter{
         if(session != null && session.getAttribute("idUser")!= null){
             chain.doFilter(request, response);
         } else {
-            res.sendRedirect("index.html");
+            res.sendRedirect("index.jsp");
         }
         
       }catch (Exception e){
