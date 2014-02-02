@@ -118,6 +118,30 @@
         <servlet-name>CreatePDF</servlet-name>
         <url-pattern>/CreatePDF</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignIn</servlet-name>
+        <url-pattern>/SignIn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendEmail</servlet-name>
+        <url-pattern>/SendEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TimeLink</servlet-name>
+        <url-pattern>/TimeLink</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlockGroup</servlet-name>
+        <url-pattern>/BlockGroup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptInvite</servlet-name>
+        <url-pattern>/AcceptInvite</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
     
     <filter>
         <filter-name>FilterA</filter-name>
@@ -158,31 +182,14 @@
         <filter-name>FilterEditGroup</filter-name>
         <url-pattern>/ModificaGruppo.jsp</url-pattern>
     </filter-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>SignIn</servlet-name>
-        <url-pattern>/SignIn</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SendEmail</servlet-name>
-        <url-pattern>/SendEmail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TimeLink</servlet-name>
-        <url-pattern>/TimeLink</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BlockGroup</servlet-name>
-        <url-pattern>/BlockGroup</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AcceptInvite</servlet-name>
-        <url-pattern>/AcceptInvite</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangePassword</servlet-name>
-        <url-pattern>/ChangePassword</url-pattern>
-    </servlet-mapping>
+    <filter>
+        <filter-name>FilterModeratore</filter-name>
+        <filter-class>Filters.FilterModeratore</filter-class>
+    </filter>
+     <filter-mapping>
+        <filter-name>FilterModeratore</filter-name>
+        <url-pattern>/Moderatore.jsp</url-pattern>
+    </filter-mapping>
     <session-config>
         <session-timeout>
             30
