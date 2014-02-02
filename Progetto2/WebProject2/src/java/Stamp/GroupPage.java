@@ -272,14 +272,14 @@ public class GroupPage extends Stamp{
         ByteArrayOutputStream out = QRCode.from(qrtext).to(ImageType.PNG).stream();
 
         String image = "";
-        
+            
         try {
             
-            String path = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/img/group/"+idG+"/"+qrtext+".jpg";
+            String path = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+idG+"/"+qrtext+".jpg";
             
             FileOutputStream fout = new FileOutputStream(new File(path));
 
-            image = "<a href='img/group/"+idG+"/"+qrtext+".jpg'><img style='width:60px; height:60px;' src='img/group/"+idG+"/"+qrtext+".jpg'/></a>";
+            image = "<a href='files/"+idG+"/"+qrtext+".jpg'><img style='width:60px; height:60px;' src='files/"+idG+"/"+qrtext+".jpg'/></a>";
             
             fout.write(out.toByteArray());
 
