@@ -115,12 +115,11 @@
                 document.getElementById("postFileDiv").className = "form-group has-error";
             }
             else{
-                t = 0;
+                f = 0;
                 document.getElementById("postFileDiv").className = "form-group";
             }
             
-            
-            if(t==0&&f==0) {
+            if(t==0 && f==0) {
                 document.getElementById("postTestoDiv").className = "form-group";
                 document.getElementById("postTestoLabel").innerText = "Text";
                 $('#PostModal').modal('hide');
