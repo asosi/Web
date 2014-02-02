@@ -57,10 +57,10 @@ public class FilterPDF implements Filter{
             if(trovato == true){
                 chain.doFilter(req, res);
             }else{
-                res.sendRedirect("Gruppi.jsp");
+                res.sendRedirect("Gruppi");
             }
         } else {
-            res.sendRedirect("index.jsp");
+            res.sendRedirect("index.html");
         }
         
       }catch (Exception e){
