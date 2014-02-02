@@ -46,6 +46,7 @@ public class AcceptInvite extends HttpServlet {
             String idU = GetIDUser(email);
             
             UpdateAsk(1, idG, idU);
+            DeleteNews(id);
             InsertMember(idG, idU);
             
             response.sendRedirect("AcceptInvitation.html");
@@ -95,6 +96,19 @@ public class AcceptInvite extends HttpServlet {
             ps.setString(2, idG);
             ps.setString(3, id);
             db.QueryInsert(ps);   
+        }
+        catch(SQLException e){}
+        db.DBClose();
+    }
+     
+      private void DeleteNews(String id){
+        DBConnect db = new DBConnect(ip);
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("update news set see = 1 where id = ?");
+            ps.setString(1, id);
+
+            db.QueryInsert(ps);            
         }
         catch(SQLException e){}
         db.DBClose();
