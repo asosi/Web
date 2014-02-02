@@ -118,22 +118,21 @@
         <servlet-name>CreatePDF</servlet-name>
         <url-pattern>/CreatePDF</url-pattern>
     </servlet-mapping>
-    <!--
+    
     <filter>
         <filter-name>FilterA</filter-name>
         <filter-class>Filters.FilterA</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>FilterA</filter-name>
-        <url-pattern>/Home</url-pattern>
-        <url-pattern>/CreaGruppo</url-pattern>
-        <url-pattern>/GroupPage</url-pattern>
-        <url-pattern>/Gruppi</url-pattern>
-        <url-pattern>/Inviti</url-pattern>
+        <url-pattern>/Home.jsp</url-pattern>
+        <url-pattern>/CreaGruppo.jsp</url-pattern>
+        <url-pattern>/GroupPage.jsp</url-pattern>
+        <url-pattern>/Gruppi.jsp</url-pattern>
+        <url-pattern>/Inviti.jsp</url-pattern>
         <url-pattern>/Logout</url-pattern>
-        <url-pattern>/ModificaGruppo</url-pattern>
+        <url-pattern>/ModificaGruppo.jsp</url-pattern>
         <url-pattern>/CreatePDF</url-pattern>
-        <url-pattern>/SaveAvatar</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>FilterGruppi</filter-name>
@@ -141,7 +140,7 @@
     </filter>
     <filter-mapping>
         <filter-name>FilterGruppi</filter-name>
-        <url-pattern>/GroupPage</url-pattern>
+        <url-pattern>/GroupPage.jsp</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>FilterPDF</filter-name>
@@ -157,9 +156,9 @@
     </filter>
     <filter-mapping>
         <filter-name>FilterEditGroup</filter-name>
-        <url-pattern>/ModificaGruppo</url-pattern>
+        <url-pattern>/ModificaGruppo.jsp</url-pattern>
     </filter-mapping>
-    -->
+    
     <servlet-mapping>
         <servlet-name>SignIn</servlet-name>
         <url-pattern>/SignIn</url-pattern>

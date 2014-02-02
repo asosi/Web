@@ -73,11 +73,11 @@ public class FilterGruppi implements Filter{
             if(trovato == true){
                 chain.doFilter(request, response);
             }else{
-                res.sendRedirect("Gruppi");
+                res.sendRedirect("Gruppi.jsp");
             }
             
         } else {
-            res.sendRedirect("index.html");
+            res.sendRedirect("index.jsp");
         }
         
       }catch (Exception e){
