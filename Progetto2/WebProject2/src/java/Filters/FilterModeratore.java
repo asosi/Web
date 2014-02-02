@@ -38,8 +38,8 @@ public class FilterModeratore implements Filter{
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             
-            // seleziono tutti i gruppi come table
-            PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id = ?");
+            // seleziono tutti gli utenti che hanno questo id
+            PreparedStatement ps = db.conn.prepareStatement("SELECT * from users where id = ?");
             ps.setInt(1, id);
             ResultSet rs = db.Query(ps);
             
