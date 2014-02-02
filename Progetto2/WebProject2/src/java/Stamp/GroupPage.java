@@ -34,7 +34,7 @@ public class GroupPage extends Stamp{
         contatoreTabPrinc = 0;
     }
     
-    public ArrayList<String> Post(String idG,HttpServletResponse response) throws IOException{
+    public ArrayList<String> Post(String idG) throws IOException{
         ArrayList<String> result = new ArrayList<String>();
         DBConnect db = new DBConnect(ip);
         
@@ -67,7 +67,7 @@ public class GroupPage extends Stamp{
     "                            <p class='postDate'>"+rs.getString("date").substring(0,rs.getString("date").length()-2)+"</p>");
                  result.add("<h4>"+rs.getString("surname")+" "+rs.getString("name")+"</h4>");
                  
-                 String testo = ConvertiLinkQR(rs.getString("text"),response,idG);
+                 String testo = ConvertiLinkQR(rs.getString("text"),idG);
                  String testo1 = ConvertiLink(testo,idG);
                  
                  result.add("<p>"+testo1+"</p>");
@@ -205,7 +205,7 @@ public class GroupPage extends Stamp{
         return testofinale;
     }
     
-    private String ConvertiLinkQR(String testo, HttpServletResponse response, String idG) throws IOException{
+    private String ConvertiLinkQR(String testo, String idG) throws IOException{
         String testofinale="";
         boolean azione = false;
         boolean finito = false;
@@ -244,7 +244,7 @@ public class GroupPage extends Stamp{
                     testofinale += testo.substring(inizio1,inizio-2);
                 
                 testofinale += "<table><tr><td>";
-                testofinale += GeneraQR(testo.substring(inizio+2,fine), response, idG);     
+                testofinale += GeneraQR(testo.substring(inizio+2,fine), idG);     
                 testofinale += "</td><td>";          
                 testofinale += "<a  target='_blank' href='http://";
                 testofinale += testo.substring(inizio+2,fine);
@@ -268,7 +268,7 @@ public class GroupPage extends Stamp{
         return testofinale;
     }
     
-    private String GeneraQR(String qrtext, HttpServletResponse response, String idG) throws IOException{
+    private String GeneraQR(String qrtext, String idG) throws IOException{
         ByteArrayOutputStream out = QRCode.from(qrtext).to(ImageType.PNG).stream();
 
         String image = "";

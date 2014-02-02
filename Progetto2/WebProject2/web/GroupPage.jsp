@@ -218,7 +218,7 @@
                 <table style="width:100%">
                     <!-- SINGLE POST -->
                         <%
-                            groupPage.Stampa(groupPage.Post(idG,response), out);
+                            groupPage.Stampa(groupPage.Post(idG), out);
                         %>
                 </table>
         </div>
