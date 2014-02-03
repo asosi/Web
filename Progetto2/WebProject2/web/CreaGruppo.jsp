@@ -56,8 +56,8 @@
 
             var name = document.getElementById("GroupName").value;
 
-            if (name == "") {
-            document.getElementById("creaG").disabled = "";
+            if (name == ""  || /^\s*$/.test(name) || !isValid(name)) {
+                document.getElementById("creaG").disabled = "";
                 document.getElementById("testo").className = "form-group has-error input-group-lg";
                 document.getElementById('GroupName').focus();
             }
@@ -68,12 +68,18 @@
 	
                 var num = countRowsTable();
                 Membri(num);
+                
+                if(flag==0)
+                    membriG = "";
 				
                 document.location.href = "AddGroup?group_name="+name+"&group_avatar="+image+"&group_member="+membriG+"&group_flag="+flag;
 		
             }
         }
 
+        function isValid(str){
+            return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+        }
 
         //Funzione che restituisce i nomi dei membri selezionati
         function Membri(num) {
@@ -156,13 +162,20 @@
             
             document.getElementById("EditImg01").className = "table1";
         }
+        
+        function hiddenTable(){
+            if(document.getElementById("flag").value == 0)
+                document.getElementById("tabella").hidden = "hidden";
+            else
+                document.getElementById("tabella").hidden = "";
+        }
 
         
     </script>
 
 </head>
 
-<body>
+<body onload="hiddenTable()">
     <div class="navbar navbar-inverse barra">
         <div class="container">
             <div class="navbar-header">
@@ -207,7 +220,7 @@
                 <div id="testo" class="form-group input-group-lg">   
                     <input type="text" class="form-control createGroup" style="width:60%" id="GroupName" placeholder="Name" required autofocus />
                 </div>
-                <select id="flag" class="form-control" style="width:20%;float:left; margin-right: 2%">
+                <select id="flag" class="form-control" style="width:20%;float:left; margin-right: 2%" onchange="hiddenTable()">
                     <option value="0">Public</option>
                     <option value="1">Private</option>
                 </select>

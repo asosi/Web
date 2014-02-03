@@ -78,8 +78,7 @@
         function EditName() {
             var tes = document.getElementById("postName").value;
 
-
-            if (tes == "") {
+            if (tes == "" || /^\s*$/.test(tes)) {
                 document.getElementById("postNameDiv").className = "form-group has-error";
                 document.getElementById("postNameLabel").innerText = "Text: Incorrect Field";
                 document.getElementById("postName").focus();
@@ -104,7 +103,6 @@
                     x += GetValue("tr" + i) + " ";
                 }
             }
-			//alert(x);
             invitati = x;
         }
 		
@@ -189,9 +187,11 @@
         <!-- Jumbotron -->
         <div class="jumbotron myjumbotron">
             <h1>Edit Group / Discussion</h1>
+            <h1 id='GroupName'>
                 <%
                     modificaG.Stampa(modificaG.GroupTitle(idG), out);
                 %>
+            </h1>
             <br>
             
             <div class="divOrizzontale">

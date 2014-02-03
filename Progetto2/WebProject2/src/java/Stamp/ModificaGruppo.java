@@ -107,7 +107,7 @@ public class ModificaGruppo extends Stamp{
             ResultSet rs = db.Query(ps);
             
              while(rs.next()){
-                 result.add("<h1 id='GroupName'>"+rs.getString("name")+"</h1>");
+                 result.add(rs.getString("name"));
              }
         }
         catch(SQLException e){}

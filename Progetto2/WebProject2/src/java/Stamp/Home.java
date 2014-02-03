@@ -133,4 +133,50 @@ public class Home extends Stamp{
         }
         return res;
     }
+    
+    public int NumberInvitation(int id){
+        int res = 0;
+        try{
+            DBConnect db = new DBConnect(ip);
+            PreparedStatement ps = db.conn.prepareStatement("SELECT count(id) as num FROM ask where id_users = ? and state = 0");
+            ps.setInt(1, id);
+            ResultSet rs = db.Query(ps);
+            rs.next();
+            res = rs.getInt("num");
+            rs.close();
+            db.DBClose();
+        }catch(Exception e){
+        }
+        return res;
+    }
+    
+    public int NumberGroup(int id){
+        int res = 0;
+        try{
+            DBConnect db = new DBConnect(ip);
+            PreparedStatement ps = db.conn.prepareStatement("SELECT count(id) as num FROM groups where id_owner = ?");
+            ps.setInt(1, id);
+            ResultSet rs = db.Query(ps);
+            rs.next();
+            res = rs.getInt("num");
+            rs.close();
+            
+            PreparedStatement ps1 = db.conn.prepareStatement("SELECT count(id_users) as num FROM users_groups where id_users = ?");
+            ps1.setInt(1, id);
+            ResultSet rs1 = db.Query(ps1);
+            rs1.next();
+            res += rs1.getInt("num");
+            rs1.close();
+            
+            PreparedStatement ps2 = db.conn.prepareStatement("SELECT count(id) as num FROM groups where flag = 0");
+            ResultSet rs2 = db.Query(ps2);
+            rs2.next();
+            res += rs2.getInt("num");
+            rs2.close();
+            
+            db.DBClose();
+        }catch(Exception e){
+        }
+        return res;
+    }
 }

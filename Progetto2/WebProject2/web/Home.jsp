@@ -112,9 +112,22 @@
                 <br>
                 <div style="width: 70%">
                     <center>
-                        <button class="btn btn-lg btn-primary btn-block" onclick="PageLink('Inviti.jsp')" type="button"> Invitations </button>
+                        <%if(home.NumberInvitation(idUser)>0){ 
+                            out.println("<button class='btn btn-lg btn-primary btn-block' onclick=\"PageLink('Inviti.jsp')\" type='button'> Invitations </button>");                           
+                        }
+                        else{
+                            out.println("<button disabled='disabled' class='btn btn-lg btn-primary btn-block' onclick=\"PageLink('Inviti.jsp')\" type='button'> Invitations </button>");                           
+                        }
+                        %>
                         <br>
-                        <button class="btn btn-lg btn-primary btn-block" onclick="PageLink('Gruppi.jsp')" type="button">Groups</button>
+                        
+                        <%if(home.NumberGroup(idUser)>0){ 
+                            out.println("<button class='btn btn-lg btn-primary btn-block' onclick=\"PageLink('Gruppi.jsp')\" type='button'>Groups</button>");                           
+                        }
+                        else{
+                            out.println("<button disabled='disabled' class='btn btn-lg btn-primary btn-block' onclick=\"PageLink('Gruppi.jsp')\" type='button'>Groups</button>");                           
+                        }%>
+                        
                         <br>
                         <button class="btn btn-lg btn-primary btn-block" onclick="PageLink('CreaGruppo.jsp')" type="button">Create Groups</button>
                         <br>
