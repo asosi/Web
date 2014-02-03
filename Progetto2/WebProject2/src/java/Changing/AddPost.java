@@ -67,7 +67,7 @@ public class AddPost extends HttpServlet {
             String text = request.getParameter("testopost");
             //idG = request.getParameter("idG");
             String idG;
-            idG = (String) session.getAttribute("idG");
+            idG = request.getParameter("numero");
             
             Add(text, idG, id);            
             String name = ReturnGroupName(idG);
