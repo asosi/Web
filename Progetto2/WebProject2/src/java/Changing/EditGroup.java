@@ -63,6 +63,9 @@ public class EditGroup extends HttpServlet {
             
             String[] nomembers = nomembri.split(" ");             
             
+            if(VerificaFlag(idG) == 0 && flag.equals("1"))
+                flag = "2";
+            
             EditGroup(name,flag);
             if(members[0]!= "")
                 AddMembers(members);
@@ -253,6 +256,26 @@ public class EditGroup extends HttpServlet {
         }
         catch(SQLException e){}
         db.DBClose();
+    }
+    
+    private int VerificaFlag(String idG){
+        int valore = -1;
+        DBConnect db = new DBConnect(ip);
+        try{
+            
+            PreparedStatement ps = db.conn.prepareStatement("SELECT flag FROM groups where id = ?");
+            ps.setString(1, idG);
+            
+            ResultSet rs = db.Query(ps);
+            
+            rs.next();
+            valore = rs.getInt("flag");
+        
+        }catch(Exception e)
+        {}
+        
+        db.DBClose();
+        return valore;
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

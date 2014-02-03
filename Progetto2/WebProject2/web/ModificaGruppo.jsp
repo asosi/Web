@@ -199,7 +199,7 @@
 
                 <select id="flag" class="form-control" style="width:80%;float:left; margin-right: 2%">
                     <option value="0">Public</option>
-                    <option value="2">Private</option>
+                    <option value="1">Private</option>
                 </select>            
             </div>
             <br /><br />
