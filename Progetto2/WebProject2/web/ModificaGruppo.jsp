@@ -71,14 +71,13 @@
             NoMembri(num);
 
             location.href="EditGroup?group_id="+idG+"&group_name="+name+"&group_member="+invitati+"&group_nomember="+noinvitati+"&group_flag="+flag;
-
-			
+	
         }
 
         function EditName() {
             var tes = document.getElementById("postName").value;
 
-            if (tes == "" || /^\s*$/.test(tes)) {
+            if (tes == "" || /^\s*$/.test(tes) || !isValid(tes) ) {
                 document.getElementById("postNameDiv").className = "form-group has-error";
                 document.getElementById("postNameLabel").innerText = "Text: Incorrect Field";
                 document.getElementById("postName").focus();
@@ -88,6 +87,10 @@
                 $('#PostEditTitle').modal('hide');
                 CloseModal();
             }            
+        }
+        
+        function isValid(str){
+            return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
         }
 
         function CloseModal() {
@@ -143,12 +146,18 @@
             return rows;
         }
         
+        function hiddenTable(){
+            if(document.getElementById("flag").value == 0)
+                document.getElementById("tabella").hidden = "hidden";
+            else
+                document.getElementById("tabella").hidden = "";
+        }
 	
     </script>
 
 </head>
 
-<body>
+<body onload="hiddenTable()">
     <div class="navbar navbar-inverse barra">
         <div class="container">
             <div class="navbar-header">
@@ -197,7 +206,7 @@
             <div class="divOrizzontale">
                 <button class="btn btn-primary" style="margin-top: -12px" data-toggle="modal" data-target="#PostEditTitle" type="button" onclick="SetTextBox()">Edit Name</button>
 
-                <select id="flag" class="form-control" style="width:80%;float:left; margin-right: 2%">
+                <select id="flag" class="form-control" style="width:80%;float:left; margin-right: 2%" onchange="hiddenTable()">
                     <%
                         if(modificaG.VerificaFlag(idG)==1){
                             out.println("<option value='1'>Private</option>");

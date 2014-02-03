@@ -35,12 +35,12 @@
             document.getElementById("registration").disabled = "disabled";
             var name = document.getElementById("Name").value;
             var bname = false;
-            if (name == "") document.getElementById("formName").className = "form-group has-error";
+            if (name == "" || /^\s*$/.test(name) || !isValid(name)) document.getElementById("formName").className = "form-group has-error";
             else { document.getElementById("formName").className = "form-group"; bname = true; }
 
             var surname = document.getElementById("Surname").value;
             var bsurname = false;
-            if (surname == "") document.getElementById("formSurname").className = "form-group has-error";
+            if (surname == "" || /^\s*$/.test(surname) || !isValid(surname)) document.getElementById("formSurname").className = "form-group has-error";
             else { document.getElementById("formSurname").className = "form-group"; bsurname = true; }
 
             var email = document.getElementById("Email").value;
@@ -55,7 +55,7 @@
 
             var password = document.getElementById("Password").value;
             var bpassword = false;
-            if (password == "") document.getElementById("formPassword").className = "form-group has-error";
+            if (password == "" || /^\s*$/.test(password) || !isValid(password)) document.getElementById("formPassword").className = "form-group has-error";
             else { document.getElementById("formPassword").className = "form-group"; bpassword = true; }
 
             var password1 = document.getElementById("Password1").value;
@@ -92,6 +92,10 @@
 
         function validEmail(email){
             return  /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+.([a-zA-Z])+([a-zA-Z])+/.test(email);
+        }
+        
+        function isValid(str){
+            return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
         }
 
 
