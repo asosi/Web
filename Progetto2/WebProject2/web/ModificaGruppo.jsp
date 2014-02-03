@@ -142,7 +142,7 @@
             var rows = document.getElementById('tabella').getElementsByTagName('tbody')[0].rows.length;
             return rows;
         }
-		
+        
 	
     </script>
 
@@ -198,8 +198,16 @@
                 <button class="btn btn-primary" style="margin-top: -12px" data-toggle="modal" data-target="#PostEditTitle" type="button" onclick="SetTextBox()">Edit Name</button>
 
                 <select id="flag" class="form-control" style="width:80%;float:left; margin-right: 2%">
-                    <option value="0">Public</option>
-                    <option value="1">Private</option>
+                    <%
+                        if(modificaG.VerificaFlag(idG)==1){
+                            out.println("<option value='1'>Private</option>");
+                            out.println("<option value='0'>Public</option>");
+                        }
+                        else{
+                            out.println("<option value='0'>Public</option>");
+                            out.println("<option value='1'>Private</option>");
+                        }
+                    %>
                 </select>            
             </div>
             <br /><br />

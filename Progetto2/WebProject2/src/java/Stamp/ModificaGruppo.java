@@ -114,4 +114,24 @@ public class ModificaGruppo extends Stamp{
         db.DBClose();
         return result;
     }
+    
+    public int VerificaFlag(String idG){
+        int valore = -1;
+        DBConnect db = new DBConnect(ip);
+        try{
+            
+            PreparedStatement ps = db.conn.prepareStatement("SELECT flag FROM groups where id = ?");
+            ps.setString(1, idG);
+            
+            ResultSet rs = db.Query(ps);
+            
+            rs.next();
+            valore = rs.getInt("flag");
+        
+        }catch(Exception e)
+        {}
+        
+        db.DBClose();
+        return valore;
+    }
 }
