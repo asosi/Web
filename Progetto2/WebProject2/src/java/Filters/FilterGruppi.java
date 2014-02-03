@@ -38,6 +38,8 @@ public class FilterGruppi implements Filter{
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             
+            
+            /*
             // seleziono tutti i gruppi come table
             PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id_owner = ?");
             ps.setInt(1, id);
@@ -67,6 +69,22 @@ public class FilterGruppi implements Filter{
             }
             // chiudo resultset2
             rs2.close();
+            
+            */
+            
+            
+            //new part -----
+            String idGruppo = request.getParameter("numero");
+            PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where flag = 0 and id = ?");
+            ps.setString(1, idGruppo);
+            ResultSet rs = db.Query(ps);
+            
+            trovato = rs.next();
+       
+            // chiudo resultset
+            rs.close();
+            //new part -----
+            
             
             // chiudo la connessione con il DB
             db.DBClose();
