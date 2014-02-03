@@ -25,13 +25,13 @@ public class DBConnect {
      public DBConnect(String IP){
         conn = null;
         //String url = "jdbc:mysql://"+IP+":3306/";
-        String url = "jdbc:mysql://192.168.1.123:3306/";
+        String url = "jdbc:mysql://192.168.1.99:3306/";
         
         String dbName = "new_schema2";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "user";
-        String password = "erpice";
-        //String password = "user";
+        //String password = "erpice";
+        String password = "user";
         try {
             Class.forName(driver).newInstance();
             conn = DriverManager.getConnection(url+dbName,userName,password);            

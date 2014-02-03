@@ -96,7 +96,9 @@
         <%
             home.Stampa(home.StampaData(idUser, request), out);
         %>
-                <br>
+                <br>               
+                
+                
         <div class="row marketing">
             <div class="col-lg-6">
                 <center>

@@ -148,6 +148,15 @@
         }
 
         </script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="http://w3resource.com/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-tooltip.js"></script>
+        <script src="http://w3resource.com/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-popover.js"></script>
+        <script>
+        $(function (){
+           $("#example").popover({ html : true });
+        });
+        </script>
     
     
 </head>
@@ -252,6 +261,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <a href="#" style="float:left" id="example" class="btn btn-info" rel="popover"  data-placement="bottom"
+                       data-content="Create link: $$link$$ <br> Create QR: $QR$link$$" title="Text">Info
+                    </a>
+                    
+                    
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="CloseModalPost()">Close</button>
                     <button type="button" class="btn btn-primary" id="btnPublicpost" onclick="PublicPost()">Public</button>
                 </div>
