@@ -43,13 +43,13 @@ public class FilterModeratore implements Filter{
             ps.setInt(1, id);
             ResultSet rs = db.Query(ps);
             
-            while(rs.next()){
-                Integer mod = rs.getInt("moderatore");
+            rs.next();
+            Integer mod = rs.getInt("moderatore");
                 
-                if(mod == 1){               
+            if(mod == 1){               
                     trovatoModeratore = true;
-                }
             }
+            
             // chiudo resultset
             rs.close();
             
