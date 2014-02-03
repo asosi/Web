@@ -45,10 +45,19 @@
             n1 = false;            
         }
         
+        if(!isValid(newP) || /^\s*$/.test(newP)){
+            document.getElementById("formNEWpassword").className = "form-group has-error";
+            n = false;            
+        }
+        
         if(o && n && n1){
             location.href="ChangePassword?old="+oldP+"&new="+newP;
         }
         
+    }
+    
+    function isValid(str){
+        return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
     }
 </script>
 
