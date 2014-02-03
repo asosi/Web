@@ -44,11 +44,11 @@ public class Home extends Stamp{
             if(numero == 0){
                 result.add("<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" onclick=\"Notify()\">Notifications <span id=\"notify\" class=\"badge notnotify\">0</span></a>\n");
                 result.add("<ul class=\"dropdown-menu\">");
+                result.add("</ul> \n </li>");          
             }else{  
                 
                 result.add("<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" onclick=\"Notify()\">Notifications <span id=\"notify\" class=\"badge notify\">"+numero+"</span></a>\n");
                 result.add("<ul class=\"dropdown-menu\">");
-                result.add("</ul> \n </li>");          
                 
                 while(rs.next()){
                     result.add("<li><a href='DeleteNews?val="+rs.getString("page")+"&id="+rs.getString("id")+"'>"+rs.getString("news")+"</a></li>\n <li class='divider'></li>");
