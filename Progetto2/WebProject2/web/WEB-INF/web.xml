@@ -160,6 +160,7 @@
         <url-pattern>/Logout</url-pattern>
         <url-pattern>/ModificaGruppo.jsp</url-pattern>
         <url-pattern>/CreatePDF</url-pattern>
+        <url-pattern>/ChangedPassword.jsp</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>FilterGruppi</filter-name>
