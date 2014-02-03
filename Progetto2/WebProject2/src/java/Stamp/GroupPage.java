@@ -241,10 +241,11 @@ public class GroupPage extends Stamp{
             {
                 System.out.println(testo.substring(inizio, fine));
                 if(inizio-2 >inizio1)
-                    testofinale += testo.substring(inizio1,inizio-2);
+                testofinale += testo.substring(inizio1,inizio-2);
                 
                 testofinale += "<table><tr><td>";
-                testofinale += GeneraQR(testo.substring(inizio+2,fine), idG);     
+                if(testo.substring(inizio+2,fine).compareTo("")!=0)
+                    testofinale += GeneraQR(testo.substring(inizio+2,fine), idG);     
                 testofinale += "</td><td>";          
                 testofinale += "<a  target='_blank' href='http://";
                 testofinale += testo.substring(inizio+2,fine);
@@ -252,7 +253,6 @@ public class GroupPage extends Stamp{
                 testofinale += testo.substring(inizio+2,fine);
                 testofinale += "</a>";
                 testofinale += "</td></tr></table><br>";
-                
                 
                 inizio1 = fine+2;
                 inizio = fine+2;
@@ -269,28 +269,30 @@ public class GroupPage extends Stamp{
     }
     
     private String GeneraQR(String qrtext, String idG) throws IOException{
-        ByteArrayOutputStream out = QRCode.from(qrtext).to(ImageType.PNG).stream();
-
         String image = "";
+        if(qrtext.compareTo("")!=0){
         
-        try {
-            
-            String path = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+idG+"/"+qrtext+".jpg";
-            
-            FileOutputStream fout = new FileOutputStream(new File(path));
+            ByteArrayOutputStream out = QRCode.from(qrtext).to(ImageType.PNG).stream();
 
-            image = "<a href='files/"+idG+"/"+qrtext+".jpg'><img style='width:60px; height:60px;' src='files/"+idG+"/"+qrtext+".jpg'/></a>";
-            
-            fout.write(out.toByteArray());
+            try {
 
-            fout.flush();
-            fout.close();
+                String path = "/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+idG+"/"+qrtext+".jpg";
 
-        } catch (FileNotFoundException e) {
-            // Do Logging
-        } catch (IOException e) {
-            // Do Logging
-        } 
+                FileOutputStream fout = new FileOutputStream(new File(path));
+
+                image = "<a href='files/"+idG+"/"+qrtext+".jpg'><img style='width:60px; height:60px;' src='files/"+idG+"/"+qrtext+".jpg'/></a>";
+
+                fout.write(out.toByteArray());
+
+                fout.flush();
+                fout.close();
+
+            } catch (FileNotFoundException e) {
+                // Do Logging
+            } catch (IOException e) {
+                // Do Logging
+            }
+        }
         
         return image;
     }
