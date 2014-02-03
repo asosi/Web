@@ -103,6 +103,9 @@
             <div class="col-lg-6">
                 <center>
                     <%
+                        if(home.Moderatore(idUser))
+                            out.println("<br><br>");
+            
                         home.Stampa(home.User(idUser), out);
                     %>
                 </center>
