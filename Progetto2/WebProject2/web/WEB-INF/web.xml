@@ -78,6 +78,10 @@
         <servlet-name>ChangePassword</servlet-name>
         <servlet-class>Changing.ChangePassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteAllNews</servlet-name>
+        <servlet-class>Changing.DeleteAllNews</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -142,7 +146,6 @@
         <servlet-name>ChangePassword</servlet-name>
         <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
-    
     <filter>
         <filter-name>FilterA</filter-name>
         <filter-class>Filters.FilterA</filter-class>
@@ -186,10 +189,14 @@
         <filter-name>FilterModeratore</filter-name>
         <filter-class>Filters.FilterModeratore</filter-class>
     </filter>
-     <filter-mapping>
+    <filter-mapping>
         <filter-name>FilterModeratore</filter-name>
         <url-pattern>/Moderatore.jsp</url-pattern>
     </filter-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAllNews</servlet-name>
+        <url-pattern>/DeleteAllNews</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
