@@ -127,7 +127,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="Home" class="navbar-brand">Back to Home</a>
+                <a href="Home.jsp" class="navbar-brand">Back to Home</a>
             </div>
             <div class="navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
