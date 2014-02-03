@@ -25,6 +25,7 @@ public class FilterGruppi implements Filter{
       
       
       boolean trovato = false;
+      boolean moderatore = false;
       try{
           
         HttpSession session = ((HttpServletRequest) request).getSession();       
@@ -75,13 +76,25 @@ public class FilterGruppi implements Filter{
             trovato = rs3.next();
             // chiudo resultset
             rs3.close();
-            }
+            }    
             
+            if(!trovato){
+                PreparedStatement ps4 = db.conn.prepareStatement("SELECT moderatore from users where id = ?");
+                ps4.setInt(1, id);
+                ResultSet rs4 = db.Query(ps4);
+                rs4.next();
+                if(rs4.getInt("moderatore")==1){
+                    moderatore = true;
+                }
+                rs4.close();
+            }       
             
             // chiudo la connessione con il DB
             db.DBClose();
             if(trovato == true){
                 chain.doFilter(request, response);
+            }else if(moderatore == true){
+                res.sendRedirect("PublicGroupPage.jsp?numero="+idGruppo);
             }else{
                 res.sendRedirect("Gruppi.jsp");
             }
