@@ -9,12 +9,14 @@ package Changing;
 import DB.DBConnect;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -63,17 +65,16 @@ public class AddPost extends HttpServlet {
             DBConnect db = new DBConnect(ip);
             db.DBClose();
             String text = request.getParameter("testopost");
-           
+            //idG = request.getParameter("idG");
             String idG;
-            idG = request.getParameter("numero");            
-//idG = (String) session.getAttribute("idG");
-            
-            out.println(idG);
-            
+            idG = (String) session.getAttribute("idG");
             
             Add(text, idG, id);            
             String name = ReturnGroupName(idG);
                          
+            
+            
+            
             List<String> membri = SearchMembers(idG, id, name);
             for(int i = 0; i < membri.size(); i++)
                AddNews(membri.get(i), idG, name);
@@ -105,7 +106,7 @@ public class AddPost extends HttpServlet {
                 out.println(lEx.getMessage()+"<br>");                
             }
             
-            response.sendRedirect("GroupPage.jsp?numero="+idG);
+            response.sendRedirect("GroupPage?numero="+idG);
             
             
             
@@ -182,7 +183,7 @@ public class AddPost extends HttpServlet {
     private void AddNews(String membro, String idG, String name){
         DBConnect db = new DBConnect(ip);
         String news = "Nuovi post nel gruppo "+name;
-        String page = "GroupPage.jsp?numero="+idG;
+        String page = "GroupPage?numero="+idG;
         try{
             if(!ValidateNews(membro, page))
             {
@@ -245,8 +246,7 @@ public class AddPost extends HttpServlet {
             ps.setString(2, "files/" + idG+ "/" + nome);
             db.QueryInsert(ps);            
         }
-        catch(SQLException e){
-        }
+        catch(SQLException e){}
         db.DBClose();
     }
 

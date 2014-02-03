@@ -119,7 +119,8 @@
                 document.getElementById("postFileDiv").className = "form-group";
             }
             
-            if(t==0 && f==0) {
+            
+            if(t==0&&f==0) {
                 document.getElementById("postTestoDiv").className = "form-group";
                 document.getElementById("postTestoLabel").innerText = "Text";
                 $('#PostModal').modal('hide');
@@ -131,10 +132,9 @@
                 for (var i = 0; i < files.length; i++)
                         finale += files[i].name+"_-_-_";
 				
-                var idG = <%=request.getParameter("numero")%>;
-                                
-                location.href="AddPost?testopost="+tes+"&numeroElementi="+finale+"&numero="+idG;
-                                
+                //CloseModalPost();
+                document.addpost.action = "AddPost?testopost="+tes+"&numeroElementi="+finale;
+                document.addpost.submit();
             }
         }
 
@@ -145,8 +145,7 @@
             document.getElementById('postFile').value = ""; 
         }
 
-        
-    </script>
+        </script>
     
     
 </head>
