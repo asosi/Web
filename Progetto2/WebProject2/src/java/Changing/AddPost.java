@@ -106,7 +106,7 @@ public class AddPost extends HttpServlet {
                 out.println(lEx.getMessage()+"<br>");                
             }
             
-            response.sendRedirect("GroupPage?numero="+idG);
+            response.sendRedirect("GroupPage.jsp?numero="+idG);
             
             
             

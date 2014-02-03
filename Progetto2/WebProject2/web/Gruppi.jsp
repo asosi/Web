@@ -48,6 +48,14 @@
                 document.getElementById("txtScelta").value = GetValue(IDriga);
                 document.Scelta.submit();	
         }
+        
+        function PublicGroupPage(IDriga){
+
+                document.Scelta.action = "PublicGroupPage.jsp";
+                document.Scelta.target = "";
+                document.getElementById("txtScelta").value = GetValue(IDriga);
+                document.Scelta.submit();	
+        }
 		
         function PDFGroup(IDriga) {
 			document.Scelta.action = "CreatePDF";
