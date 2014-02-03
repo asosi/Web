@@ -38,52 +38,44 @@ public class FilterGruppi implements Filter{
             int id;
             synchronized(session){id = (Integer) session.getAttribute("idUser");}
             
+            String idGruppo = request.getParameter("numero");
             
-            /*
-            // seleziono tutti i gruppi come table
-            PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id_owner = ?");
-            ps.setInt(1, id);
-            ResultSet rs = db.Query(ps);
-            
-            while(rs.next()){
-                String idgruppo = rs.getString("id");
-                
-                if(request.getParameter("numero").equals(idgruppo)){               
-                    trovato = true;
-                }
+            //se il gruppo è mio
+            if(!trovato){
+                // seleziono tutti i gruppi come table
+                PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where id_owner = ? and id = ?");
+                ps.setInt(1, id);
+                ps.setString(2, idGruppo);
+                ResultSet rs = db.Query(ps);
+
+                trovato = rs.next();
+                // chiudo resultset
+                rs.close();
             }
-            // chiudo resultset
-            rs.close();
             
+            //se sono invitato nel gruppo
+            if(!trovato){
             // seleziono tutti i gruppi come table 1
-            PreparedStatement ps2 = db.conn.prepareStatement("SELECT * from  groups join users_groups on(groups.id = users_groups.id_groups) where users_groups.id_users = ? and active = 1");
+            PreparedStatement ps2 = db.conn.prepareStatement("SELECT * from  groups join users_groups on(groups.id = users_groups.id_groups) where users_groups.id_users = ? and active = 1 and groups.id = ?");
             ps2.setInt(1, id);
+            ps2.setString(2, idGruppo);
             ResultSet rs2 = db.Query(ps2);
             
-            while(rs2.next()){
-                String idgruppo = rs2.getString("id");
-                
-                if(request.getParameter("numero").equals(idgruppo)){               
-                    trovato = true;
-                }
-            }
+            trovato = rs2.next();
             // chiudo resultset2
             rs2.close();
+            }
             
-            */
+            // se il gruppo è pubblico(0) o supremo(2) e non sono invitato
+            if(!trovato){
+            PreparedStatement ps3 = db.conn.prepareStatement("SELECT * from groups where flag <> 1 and id = ?");
+            ps3.setString(1, idGruppo);
+            ResultSet rs3 = db.Query(ps3);
             
-            
-            //new part -----
-            String idGruppo = request.getParameter("numero");
-            PreparedStatement ps = db.conn.prepareStatement("SELECT * from groups where flag = 0 and id = ?");
-            ps.setString(1, idGruppo);
-            ResultSet rs = db.Query(ps);
-            
-            trovato = rs.next();
-       
+            trovato = rs3.next();
             // chiudo resultset
-            rs.close();
-            //new part -----
+            rs3.close();
+            }
             
             
             // chiudo la connessione con il DB
