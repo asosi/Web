@@ -29,7 +29,6 @@ public class TimeLink extends HttpServlet {
     private final String ALPHA_CAPS  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private final String ALPHA   = "abcdefghijklmnopqrstuvwxyz";
     private final String NUM     = "0123456789";
-    private final String SPL_CHARS   = "!@#$%^&*_=+-/";
     
     String ip;
     /**
@@ -135,10 +134,6 @@ public class TimeLink extends HttpServlet {
         for (int i = 0; i < noOfDigits; i++) {
             index = getNextIndex(rnd, len, pswd);
             pswd[index] = NUM.charAt(rnd.nextInt(NUM.length()));
-        }
-        for (int i = 0; i < noOfSplChars; i++) {
-            index = getNextIndex(rnd, len, pswd);
-            pswd[index] = SPL_CHARS.charAt(rnd.nextInt(SPL_CHARS.length()));
         }
         for(int i = 0; i < len; i++) {
             if(pswd[i] == 0) {
