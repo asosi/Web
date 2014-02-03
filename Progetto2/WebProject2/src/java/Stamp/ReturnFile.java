@@ -13,23 +13,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  *
- * @author Amedeo
+ * @author davide
  */
-public class ReturnEmail extends Print{
-    
-    public ReturnEmail(HttpServletRequest request) {
+public class ReturnFile extends Print{
+
+    public ReturnFile(HttpServletRequest request) {
         super(request);
     }
     
-    public ArrayList<String> Email(){
+    public ArrayList<String> Email(String idG){
         ArrayList<String> result = new ArrayList<String>();
         DBConnect db = new DBConnect(ip);
         
         try{
-            PreparedStatement ps = db.conn.prepareStatement("select email from users");
+            PreparedStatement ps = db.conn.prepareStatement("SELECT post_file.post_file FROM post_file, post \n" +
+                                                            "WHERE post.ID = post_file.ID_post and post.ID_groups = ?");
+            ps.setString(1, idG);
             ResultSet rs = db.Query(ps);
             
             while(rs.next()){
@@ -43,4 +44,5 @@ public class ReturnEmail extends Print{
         return result;
         
     }
+    
 }
