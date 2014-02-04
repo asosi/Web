@@ -69,48 +69,40 @@ public class AddPost extends HttpServlet {
             String idG;
             idG = request.getParameter("numero");
             
-            Add(text, idG, id);            
-            String name = ReturnGroupName(idG);
-                         
             
+            if(!isBlocked(idG)){
             
-            
-            List<String> membri = SearchMembers(idG, id, name);
-            for(int i = 0; i < membri.size(); i++)
-               AddNews(membri.get(i), idG, name);
-            
-            //***************************************************   
-            String idP;
-            idP = ReturnIDPost(id);
-            
-            
-            out.println("ok");
-            
-            
-            try {
-                MultipartRequest multi;
-                multi = new MultipartRequest(request, dirName+idG+"/", 100*1024*1024,"ISO-8859-1",
-                        new DefaultFileRenamePolicy());
-               
-                String nomeFile = request.getParameter("numeroElementi");
-                String arrayFile[] = nomeFile.split("_-_-_");
-                
-                out.println("arrayfile.lenght: "+arrayFile.length+"<br>");
-                
-                for(int i = 1; i < arrayFile.length; i++){
-                    out.println("File"+i+": "+arrayFile[i]+"<br>");                    
-                    AddFile(arrayFile[i], idG, idP);
+                Add(text, idG, id);            
+                String name = ReturnGroupName(idG);
+
+                List<String> membri = SearchMembers(idG, id, name);
+                for(int i = 0; i < membri.size(); i++)
+                   AddNews(membri.get(i), idG, name);
+
+                //***************************************************   
+                String idP;
+                idP = ReturnIDPost(id);
+
+
+                try {
+                    MultipartRequest multi;
+                    multi = new MultipartRequest(request, dirName+idG+"/", 100*1024*1024,"ISO-8859-1",
+                            new DefaultFileRenamePolicy());
+
+                    String nomeFile = request.getParameter("numeroElementi");
+                    String arrayFile[] = nomeFile.split("_-_-_");
+
+                    for(int i = 1; i < arrayFile.length; i++){
+                        out.println("File"+i+": "+arrayFile[i]+"<br>");                    
+                        AddFile(arrayFile[i], idG, idP);
+                    }
                 }
-            }
-            catch (Exception lEx) {
-                out.println(lEx.getMessage()+"<br>");                
-            }
-            
-            response.sendRedirect("GroupPage.jsp?numero="+idG);
-            
-            
-            
-            
+                catch (Exception lEx) {
+                    out.println(lEx.getMessage()+"<br>");                
+                }
+
+                response.sendRedirect("GroupPage.jsp?numero="+idG);
+            }            
         } catch(Exception e) {
         }
     }
@@ -248,6 +240,30 @@ public class AddPost extends HttpServlet {
         }
         catch(SQLException e){}
         db.DBClose();
+    }
+    
+    private boolean isBlocked(String idG){
+        DBConnect db = new DBConnect(ip);
+        boolean stato = false;
+        
+        try{
+            PreparedStatement ps = db.conn.prepareStatement("SELECT blocked from groups where id = ?");
+            ps.setString(1, idG);
+
+            ResultSet rs = db.Query(ps);
+            rs.next();
+            int bloc = rs.getInt("blocked");
+            
+            switch(bloc){
+                case 0: stato = false;break;
+                case 1: stato = true;break;
+            }
+            
+        }
+        catch(SQLException e){}
+        db.DBClose();
+        
+        return stato;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
