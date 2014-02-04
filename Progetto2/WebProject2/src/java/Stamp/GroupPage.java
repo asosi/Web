@@ -185,11 +185,15 @@ public class GroupPage extends Stamp{
                     azione = false;
                 }
                 else{
-                    testofinale += "<a  target='_blank' href='http://";
-                    testofinale += testo.substring(inizio,fine);
-                    testofinale += "'>";
-                    testofinale += testo.substring(inizio,fine);
-                    testofinale += "</a>";
+                    if(testo.substring(inizio,fine).length() != 0){
+                        testofinale += "<a  target='_blank' href='http://";
+                        testofinale += testo.substring(inizio,fine);
+                        testofinale += "'>";
+                        testofinale += testo.substring(inizio,fine);
+                        testofinale += "</a>";
+                    }
+                    else
+                        testofinale += "$$$$";
                     inizio1 = fine+2;
                     inizio = fine+2;
                     azione = false;
@@ -237,30 +241,31 @@ public class GroupPage extends Stamp{
                 }
             }
             //non toccare
-            if(inizio<=fine)
+            if(inizio+2<=fine)
             {
                 System.out.println(testo.substring(inizio, fine));
-                if(inizio-2 >inizio1)
-                    testofinale += testo.substring(inizio1,inizio-2);
-                
-                testofinale += "<table><tr><td>";
-                testofinale += GeneraQR(testo.substring(inizio+2,fine), idG);     
-                testofinale += "</td><td>";          
-                testofinale += "<a  target='_blank' href='http://";
-                testofinale += testo.substring(inizio+2,fine);
-                testofinale += "'>";
-                testofinale += testo.substring(inizio+2,fine);
-                testofinale += "</a>";
-                testofinale += "</td></tr></table><br>";
-                
-                
+                if(inizio+2-2 >inizio1)
+                    testofinale += testo.substring(inizio1,inizio+2-2);
+                if(testo.substring(inizio+2,fine).length() != 0){
+                    testofinale += "<table><tr><td>";
+                    testofinale += GeneraQR(testo.substring(inizio+2,fine), idG);     
+                    testofinale += "</td><td>";          
+                    testofinale += "<a  target='_blank' href='http://";
+                    testofinale += testo.substring(inizio+2,fine);
+                    testofinale += "'>";
+                    testofinale += testo.substring(inizio+2,fine);
+                    testofinale += "</a>";
+                    testofinale += "</td></tr></table><br>";
+                }
+                else
+                    testofinale += "$QR$$$";
                 inizio1 = fine+2;
                 inizio = fine+2;
                 azione = false;
             }
             else{
                 inizio = inizio1;
-                testofinale += testo.substring(inizio,testo.length());
+                testofinale += testo.substring(inizio+2,testo.length());
                 finito = true;
             }
         }
