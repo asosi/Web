@@ -146,6 +146,10 @@
         <servlet-name>ChangePassword</servlet-name>
         <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
+    
+    
+    
+    
     <filter>
         <filter-name>FilterA</filter-name>
         <filter-class>Filters.FilterA</filter-class>
@@ -161,7 +165,6 @@
         <url-pattern>/ModificaGruppo.jsp</url-pattern>
         <url-pattern>/CreatePDF</url-pattern>
         <url-pattern>/ChangedPassword.jsp</url-pattern>
-        <url-pattern>/Download</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>FilterGruppi</filter-name>
@@ -195,6 +198,19 @@
         <filter-name>FilterModeratore</filter-name>
         <url-pattern>/Moderatore.jsp</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>FilterDownload</filter-name>
+        <filter-class>Filters.FilterDownload</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterDownload</filter-name>
+        <url-pattern>/Download</url-pattern>
+    </filter-mapping>
+    
+    
+    
+    
+    
     <servlet-mapping>
         <servlet-name>DeleteAllNews</servlet-name>
         <url-pattern>/DeleteAllNews</url-pattern>
