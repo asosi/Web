@@ -10,13 +10,13 @@
             var tes = document.getElementById('InputImage').value;
             var img = document.getElementById("InputImage").files[0];
                 
-                var x = 0;
-                
-                switch(img.type){
-                    case "image/jpeg":
-                    case "image/png": x = 1;
-                }
-            
+            var x = 0;
+
+            switch(img.type){
+                case "image/jpeg":
+                case "image/png": x = 1; break;
+                default: x = 0; break;
+            }
             
             if(img.size > 10485760 || x == 0){                
                 document.getElementById("ImageEditFile").className = "form-group has-error";
@@ -76,9 +76,11 @@
                     <br />
                     <br />
 
-                    <FORM name="EditAvatar" ENCTYPE='multipart/form-data'  method='POST' action='SaveAvatar'>
-                        <input type='file' name="ImageFile" accept="image/*" id="InputImage" class="form-control" onchange="readURL(this);" />
-                    </FORM>
+                    <div id="ImageEditFile" class="form-group">   
+                        <FORM name="EditAvatar" ENCTYPE='multipart/form-data'  method='POST' action='SaveAvatar'>
+                            <input type='file' name="ImageFile" accept="image/*" id="InputImage" class="form-control" onchange="readURL(this);" />
+                        </FORM>
+                    </div>
 
                 </div>
                 <div class="modal-footer">
