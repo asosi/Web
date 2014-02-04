@@ -20,6 +20,7 @@ import java.io.IOException;
  
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 /**
@@ -34,7 +35,7 @@ public class GroupPage extends Stamp{
         contatoreTabPrinc = 0;
     }
     
-    public ArrayList<String> Post(String idG) throws IOException{
+    public ArrayList<String> Post(String idG, HttpServletRequest request) throws IOException{
         ArrayList<String> result = new ArrayList<String>();
         DBConnect db = new DBConnect(ip);
         
@@ -70,7 +71,16 @@ public class GroupPage extends Stamp{
                  String testo = ConvertiLinkQR(rs.getString("text"),idG);
                  String testo1 = ConvertiLink(testo,idG);
                  
-                 result.add("<p>"+testo1+"</p>");
+                 HttpSession session = ((HttpServletRequest) request).getSession();
+                 
+                 String testo2 = "";
+                 if(session != null && session.getAttribute("idUser")!= null)
+                    testo2 = testo1;
+                 else
+                    testo2 = MascheraEmail(testo1);
+                     
+                 
+                 result.add("<p>"+testo2+"</p>");
                  //out.println("<div class=\"postLink\">\n");
                  boolean canDownload = true;
                  while(rs1.next()){
@@ -328,4 +338,19 @@ public class GroupPage extends Stamp{
         boolean exist = f.exists();
         return exist;
     }
+    
+     private static String MascheraEmail(String email){
+        String[] array = email.split("@");
+        if(array.length==2){
+            if(array[1].contains (".") && array[1].length()>3){
+                array[1] = "xxxxx";
+                return array[0]+"@"+array[1];
+            }
+            else
+                return array[0]+"@"+array[1];
+        }
+        else
+            return email;
+    }
+  
 }
