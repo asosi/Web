@@ -162,7 +162,6 @@ public class GroupPage extends Stamp{
             //non toccare
             if(inizio<=fine)
             {
-                System.out.println(testo.substring(inizio, fine));
                 if(inizio-2 >inizio1)
                     testofinale += testo.substring(inizio1,inizio-2);
                 if(controlloLinkFile(idG, testo.substring(inizio,fine))){
@@ -265,7 +264,7 @@ public class GroupPage extends Stamp{
             }
             else{
                 inizio = inizio1;
-                testofinale += testo.substring(inizio+2,testo.length());
+                testofinale += testo.substring(inizio,testo.length());
                 finito = true;
             }
         }
