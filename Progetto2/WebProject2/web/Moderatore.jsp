@@ -185,23 +185,6 @@
 
     </div>
 
-    <!--order-->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#tabella").tablesorter({
-                // si definisce l'oggetto passato 
-                headers: {
-                    // disabilitiamo il sorting della seconda colonna; 
-                    5: { sorter: false },
-
-                    // disabilitiamo il sorting della terza colonna 
-                    6: { sorter: false }
-                }
-            });
-        });
-
-
-    </script>
 
     <!--filters-->
     <script type="text/javascript">
@@ -211,6 +194,16 @@
             col_6: "none"
         }
         var tf = setFilterGrid("tabella", 1, tableFilters);
+        $("#tabella").tablesorter({
+                // si definisce l'oggetto passato 
+                headers: {
+                    // disabilitiamo il sorting della seconda colonna; 
+                    5: { sorter: false },
+
+                    // disabilitiamo il sorting della terza colonna 
+                    6: { sorter: false }
+                }
+            });
     </script>
 
     

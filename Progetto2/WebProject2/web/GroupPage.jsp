@@ -86,8 +86,7 @@
         function PublicPost() {
            
             //Controllo textArea
-            var test = document.getElementById("postTesto").value;
-            var tes = test.replace(/[|&;%@"<>()+,]/g,"");
+            var tes = document.getElementById("postTesto").value;
             
             var dim = 0;
             var file = document.getElementById('postFile').files;
@@ -99,7 +98,7 @@
             var t, f = 0;
             
             
-            if (tes == "" || /^\s*$/.test(tes)) {
+            if (tes == "" || /^\s*$/.test(tes) || /[|&;%"<>+,]/g.test(tes)) {
                 t = 1;
                 document.getElementById("postTestoDiv").className = "form-group has-error";
                 document.getElementById("postTestoLabel").innerText = "Text: Incorrect Field";
