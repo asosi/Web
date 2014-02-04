@@ -161,6 +161,7 @@
         <url-pattern>/ModificaGruppo.jsp</url-pattern>
         <url-pattern>/CreatePDF</url-pattern>
         <url-pattern>/ChangedPassword.jsp</url-pattern>
+        <url-pattern>/Download</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>FilterGruppi</filter-name>
