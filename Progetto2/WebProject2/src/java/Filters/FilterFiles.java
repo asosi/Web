@@ -94,8 +94,7 @@ public class FilterFiles implements Filter{
             if(trovato == true){
                 chain.doFilter(request, response);
             }else{
-                String referer = req.getHeader("Referer");
-                res.sendRedirect(referer);
+                res.sendRedirect("../../Home.jsp");
             }
             
         } else {
