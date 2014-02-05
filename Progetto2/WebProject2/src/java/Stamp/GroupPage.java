@@ -299,7 +299,7 @@ public class GroupPage extends Stamp{
             
             FileOutputStream fout = new FileOutputStream(new File(path));
 
-            image = "<a href='files/"+idG+"/"+qrtext+".jpg'><img style='width:60px; height:60px;' src='files/"+idG+"/QR/"+qrtext+".jpg'/></a>";
+            image = "<a href='files/"+idG+"/QR/"+qrtext+".jpg'><img style='width:60px; height:60px;' src='files/"+idG+"/QR/"+qrtext+".jpg'/></a>";
             
             fout.write(out.toByteArray());
 
