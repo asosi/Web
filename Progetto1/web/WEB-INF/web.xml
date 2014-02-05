@@ -182,6 +182,15 @@
         <filter-name>FilterEditGroup</filter-name>
         <url-pattern>/ModificaGruppo</url-pattern>
     </filter-mapping>
+    <filter>
++        <filter-name>FilterFiles</filter-name>
++        <filter-class>Filters.FilterFiles</filter-class>
++    </filter>
++    <filter-mapping>
++        <filter-name>FilterFiles</filter-name>
+            <url-pattern>/files</url-pattern>
++        <url-pattern>/files/*</url-pattern>
++    </filter-mapping>
     <session-config>
         <session-timeout>
             30
