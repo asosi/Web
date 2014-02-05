@@ -77,7 +77,7 @@
         function EditName() {
             var tes = document.getElementById("postName").value;
 
-            if (tes == "" || /^\s*$/.test(tes) || !isValid(tes) ) {
+            if (tes == ""  || tes.length > 45 || /^\s*$/.test(tes) || !isValid(tes) ) {
                 document.getElementById("postNameDiv").className = "form-group has-error";
                 document.getElementById("postNameLabel").innerText = "Text: Incorrect Field";
                 document.getElementById("postName").focus();

@@ -98,7 +98,7 @@
             var t, f = 0;
             
             
-            if (tes == "" || /^\s*$/.test(tes) || /[|&;%"<>+,]/g.test(tes)) {
+            if (tes == "" || tes.length > 2000 ||  /^\s*$/.test(tes) || /[|&%<>+]/g.test(tes)) {
                 t = 1;
                 document.getElementById("postTestoDiv").className = "form-group has-error";
                 document.getElementById("postTestoLabel").innerText = "Text: Incorrect Field";

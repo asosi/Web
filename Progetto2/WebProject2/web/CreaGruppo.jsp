@@ -56,7 +56,7 @@
 
             var name = document.getElementById("GroupName").value;
 
-            if (name == ""  || /^\s*$/.test(name) || !isValid(name)) {
+            if (name == ""  || name.length > 45  || /^\s*$/.test(name) || !isValid(name)) {
                 document.getElementById("creaG").disabled = "";
                 document.getElementById("testo").className = "form-group has-error input-group-lg";
                 document.getElementById('GroupName').focus();

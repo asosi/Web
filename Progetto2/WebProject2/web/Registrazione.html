@@ -35,17 +35,17 @@
             document.getElementById("registration").disabled = "disabled";
             var name = document.getElementById("Name").value;
             var bname = false;
-            if (name == "" || /^\s*$/.test(name) || !isValid(name)) document.getElementById("formName").className = "form-group has-error";
+            if (name == "" || name.length > 45 || /^\s*$/.test(name) || !isValid(name)) document.getElementById("formName").className = "form-group has-error";
             else { document.getElementById("formName").className = "form-group"; bname = true; }
 
             var surname = document.getElementById("Surname").value;
             var bsurname = false;
-            if (surname == "" || /^\s*$/.test(surname) || !isValid(surname)) document.getElementById("formSurname").className = "form-group has-error";
+            if (surname == ""  || surname.length > 45 || /^\s*$/.test(surname) || !isValid(surname)) document.getElementById("formSurname").className = "form-group has-error";
             else { document.getElementById("formSurname").className = "form-group"; bsurname = true; }
 
             var email = document.getElementById("Email").value;
             var bemail = false;
-            if (email == "") document.getElementById("formEmail").className = "form-group has-error";
+            if (email == "" || email.length > 45 ) document.getElementById("formEmail").className = "form-group has-error";
             else { document.getElementById("formEmail").className = "form-group"; bemail = true; }
 
             var email1 = document.getElementById("Email1").value;
@@ -55,7 +55,7 @@
 
             var password = document.getElementById("Password").value;
             var bpassword = false;
-            if (password == "" || /^\s*$/.test(password) || !isValid(password)) document.getElementById("formPassword").className = "form-group has-error";
+            if (password == ""  || password.length > 45 || /^\s*$/.test(password) || !isValid(password)) document.getElementById("formPassword").className = "form-group has-error";
             else { document.getElementById("formPassword").className = "form-group"; bpassword = true; }
 
             var password1 = document.getElementById("Password1").value;
