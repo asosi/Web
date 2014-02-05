@@ -9,6 +9,7 @@ package Changing;
 import DB.DBConnect;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.oreilly.servlet.multipart.FileRenamePolicy;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,7 +59,7 @@ public class AddPost extends HttpServlet {
         try {
                                     
             HttpSession session = request.getSession();
-            int id;
+            final int id;
             synchronized(session){ id = (Integer) session.getAttribute("idUser");}
             PrintWriter out = response.getWriter();
             ip = request.getLocalAddr();
@@ -87,7 +88,14 @@ public class AddPost extends HttpServlet {
                 try {
                     MultipartRequest multi;
                     multi = new MultipartRequest(request, dirName+idG+"/", 100*1024*1024,"ISO-8859-1",
-                            new DefaultFileRenamePolicy());
+                            new FileRenamePolicy(){
+                            @Override
+                            public File rename(File file) {
+                                int xcv = 0;
+                                return new File(file.getParentFile(),ReturnIDPost(id)+"_"+file.getName());
+                            }
+                    });
+
 
                     String nomeFile = request.getParameter("numeroElementi");
                     String arrayFile[] = nomeFile.split("_-_-_");
@@ -235,7 +243,7 @@ public class AddPost extends HttpServlet {
         try{
             PreparedStatement ps = db.conn.prepareStatement("insert post_file (id_post,post_file) values (?,?)");
             ps.setString(1, idP );
-            ps.setString(2, "files/" + idG+ "/" + nome);
+            ps.setString(2, "files/" + idG+ "/" + idP + "_" + nome);
             db.QueryInsert(ps);            
         }
         catch(SQLException e){}
