@@ -65,6 +65,10 @@
                 document.Crea.submit();	
             }
         }
+        
+        function isValid(str){
+            return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+        }
 
 
         //Funzione che restituisce i nomi dei membri selezionati

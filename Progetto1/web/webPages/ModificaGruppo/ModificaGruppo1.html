@@ -75,6 +75,10 @@
                 CloseModal();
             }            
         }
+        
+        function isValid(str){
+            return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+        }
 
         function CloseModal() {
             document.getElementById("postName").value = "";
