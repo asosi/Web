@@ -212,6 +212,7 @@
 +    </filter>
 +    <filter-mapping>
 +        <filter-name>FilterFiles</filter-name>
+            <url-pattern>/files</url-pattern>
 +        <url-pattern>/files/*</url-pattern>
 +    </filter-mapping>
       

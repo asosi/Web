@@ -35,7 +35,14 @@ public class FilterFiles implements Filter{
 
         //prendo il numero del gruppo dall'URI
         String requestURI = req.getRequestURI();
-        String[] splitta = requestURI.split("/");      
+        String[] splitta = requestURI.split("/");
+        
+        if(splitta.length == 3){
+            res.sendRedirect("index.jsp");
+        }else  if(splitta.length == 4){
+            res.sendRedirect("../index.jsp");
+        }
+        
         String idGruppo = splitta[3];
         
         if(session != null && session.getAttribute("idUser")!= null){
@@ -93,7 +100,7 @@ public class FilterFiles implements Filter{
             }
             
         } else {
-            res.sendRedirect("index.jsp");
+            res.sendRedirect("../../index.jsp");
         }
         
       }catch (Exception e){
