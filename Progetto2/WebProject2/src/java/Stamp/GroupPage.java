@@ -258,9 +258,8 @@ public class GroupPage extends Stamp{
             //non toccare
             if(inizio+2<=fine)
             {
-                System.out.println(testo.substring(inizio, fine));
-                if(inizio+2-2 >inizio1)
-                    testofinale += testo.substring(inizio1,inizio+2-2);
+                if(inizio-2 >inizio1)
+                    testofinale += testo.substring(inizio1,inizio-2);
                 if(testo.substring(inizio+2,fine).length() != 0){
                     testofinale += "<table><tr><td>";
                     testofinale += GeneraQR(testo.substring(inizio+2,fine), idG);     
@@ -340,8 +339,11 @@ public class GroupPage extends Stamp{
     }
     
     private boolean controlloLinkFile(String idG, String nomeFile){
-        File f = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+ idG +"/"+nomeFile);
-        boolean exist = f.exists();
+        boolean exist = false;
+        if(nomeFile.length() != 0){
+            File f = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+ idG +"/"+nomeFile);
+            exist = f.exists();
+        }
         return exist;
     }
     
