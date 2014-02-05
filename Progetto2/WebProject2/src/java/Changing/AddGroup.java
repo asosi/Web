@@ -70,6 +70,9 @@ public class AddGroup extends HttpServlet {
             File dir = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+idG);//campi
             boolean a = dir.mkdirs();
             
+            File dirQR = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+idG+"/QR");//campi
+            boolean b = dirQR.mkdirs();
+            
             
             response.sendRedirect("GroupPage.jsp?numero="+idG);
               
