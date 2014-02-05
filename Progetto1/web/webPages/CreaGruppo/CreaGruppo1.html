@@ -44,7 +44,7 @@
 
             var name = document.getElementById("GroupName").value;
 
-            if (name == "" || name.length > 45  || /^\s*$/.test(name) || !isValid(name))) {
+            if (name == "") {
             document.getElementById("creaG").disabled = "";
                 document.getElementById("testo").className = "form-group has-error input-group-lg";
                 document.getElementById("testoLabel").innerText = "Name: Incorrect Field";
@@ -54,20 +54,17 @@
                 document.getElementById("testo").className = "form-group  input-group-lg";
                 document.getElementById("testoLabel").innerText = "Name:";
 				
-                document.getElementById("group_name").value = name;
-                var x = document.getElementById("imageGroup").src;
-                document.getElementById("group_avatar").value = x;
+				document.getElementById("group_name").value = name;
+				var x = document.getElementById("imageGroup").src;
+				document.getElementById("group_avatar").value = x;
 				
 				
                 var num = countRowsTable();
                 Membri(num);
-								
-                document.Crea.submit();	
+				
+				//alert("servlet");				
+				document.Crea.submit();	
             }
-        }
-        
-        function isValid(str){
-            return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
         }
 
 

@@ -225,10 +225,11 @@ public class GroupPage extends HttpServlet {
             //non toccare
             if(inizio<=fine)
             {
+                System.out.println(testo.substring(inizio, fine));
                 if(inizio-2 >inizio1)
                     testofinale += testo.substring(inizio1,inizio-2);
                 if(controlloLinkFile(idG, testo.substring(inizio,fine))){
-                    DBConnect db= new DBConnect(null,ip);
+                    DBConnect db= new DBConnect(null, ip);
                     try{
                         String name = "files/"+idG+"/";
                         name += testo.substring(inizio, fine);
@@ -247,15 +248,11 @@ public class GroupPage extends HttpServlet {
                     azione = false;
                 }
                 else{
-                    if(testo.substring(inizio,fine).length() != 0){
-                        testofinale += "<a  target='_blank' href='http://";
-                        testofinale += testo.substring(inizio,fine);
-                        testofinale += "'>";
-                        testofinale += testo.substring(inizio,fine);
-                        testofinale += "</a>";
-                    }
-                    else
-                        testofinale += "$$$$";
+                    testofinale += "<a  target='_blank' href='http://";
+                    testofinale += testo.substring(inizio,fine);
+                    testofinale += "'>";
+                    testofinale += testo.substring(inizio,fine);
+                    testofinale += "</a>";
                     inizio1 = fine+2;
                     inizio = fine+2;
                     azione = false;
