@@ -37,9 +37,9 @@ public class FilterFiles implements Filter{
         String[] splitta = requestURI.split("/");
         
         if(splitta.length == 3){
-            res.sendRedirect("index.jsp");
+            res.sendRedirect("index.html");
         }else  if(splitta.length == 4){
-            res.sendRedirect("../index.jsp");
+            res.sendRedirect("../index.html");
         }
         
         String idGruppo = splitta[3];
@@ -78,27 +78,16 @@ public class FilterFiles implements Filter{
             rs2.close();
             }
             
-            // se il gruppo è pubblico(0) o supremo(2) e non sono invitato
-            if(!trovato){
-            PreparedStatement ps3 = db.conn.prepareStatement("SELECT * from groups where flag <> 1 and id = ?");
-            ps3.setString(1, idGruppo);
-            ResultSet rs3 = db.Query(ps3,null);
-            
-            trovato = rs3.next();
-            // chiudo resultset
-            rs3.close();
-            }           
-            
             // chiudo la connessione con il DB
             db.DBClose();
             if(trovato == true){
                 chain.doFilter(request, response);
             }else{
-                res.sendRedirect("../../Home.jsp");
+                res.sendRedirect("../../Home");
             }
             
         } else {
-            res.sendRedirect("../../index.jsp");
+            res.sendRedirect("../../index.html");
         }
         
       }catch (Exception e){
