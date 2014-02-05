@@ -261,15 +261,15 @@ public class GroupPage extends Stamp{
                 if(inizio-2 >inizio1)
                     testofinale += testo.substring(inizio1,inizio-2);
                 if(testo.substring(inizio+2,fine).length() != 0){
-                    testofinale += "<table><tr><td>";
+                    //testofinale += "<table><tr><td>";
                     testofinale += GeneraQR(testo.substring(inizio+2,fine), idG);     
-                    testofinale += "</td><td>";          
+                    //testofinale += "</td><td>";          
                     testofinale += "<a  target='_blank' href='http://";
                     testofinale += testo.substring(inizio+2,fine);
                     testofinale += "'>";
                     testofinale += testo.substring(inizio+2,fine);
-                    testofinale += "</a>";
-                    testofinale += "</td></tr></table><br>";
+                    //testofinale += "</a>";
+                    //testofinale += "</td></tr></table><br>";
                 }
                 else
                     testofinale += "$QR$$$";
