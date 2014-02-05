@@ -273,8 +273,11 @@ public class GroupPage extends HttpServlet {
     
     //lasciate che lo faccio io :-)
     private boolean controlloLinkFile(String idG, String nomeFile){
-        File f = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum/files/"+ idG +"/"+nomeFile);
-        boolean exist = f.exists();
+        boolean exist = false;
+        if(nomeFile.length() != 0){
+            File f = new File("/home/davide/Scaricati/apache-tomcat-7.0.47/webapps/Forum2/files/"+ idG +"/"+nomeFile);
+            exist = f.exists();
+        }
         return exist;
     }
 
