@@ -73,14 +73,20 @@ public class GroupPage extends Stamp{
                  
                  HttpSession session = ((HttpServletRequest) request).getSession();
                  
-                 String testo2 = "";
-                 if(session != null && session.getAttribute("idUser")!= null)
-                    testo2 = testo1;
-                 else
-                    testo2 = MascheraEmail(testo1);
+                 String testo3 = "";
+                 if(session != null && session.getAttribute("idUser")!= null){                     
+                     testo3 = testo1;
+                 }
+                 else{                     
+                    String[] testo2 = testo1.split(" ");
+                    
+                    for(int i = 0; i < testo2.length; i++)
+                        testo3 += MascheraEmail(testo2[i])+" ";
+                    
+                 }
                      
                  
-                 result.add("<p>"+testo2+"</p>");
+                 result.add("<p>"+testo3+"</p>");
                  //out.println("<div class=\"postLink\">\n");
                  boolean canDownload = true;
                  while(rs1.next()){
