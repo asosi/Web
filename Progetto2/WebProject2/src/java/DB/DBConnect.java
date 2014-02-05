@@ -24,8 +24,8 @@ public class DBConnect {
      
      public DBConnect(String IP){
         conn = null;
-        //String url = "jdbc:mysql://"+IP+":3306/";
-        String url = "jdbc:mysql://10.23.111.155:3306/";
+        String url = "jdbc:mysql://"+IP+":3306/";
+        //String url = "jdbc:mysql://10.23.111.155:3306/";
         
         String dbName = "new_schema2";
         String driver = "com.mysql.jdbc.Driver";
